@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<odoo>
+	<!-- Servers Tree View 
+	<record model="ir.ui.view" id="view_sgw_server_tree">
+		<field name="name">sgw.server.tree</field>
+		<field name="model">sgw.server</field>
+		<field name="arch" type="xml">
+			<tree string="Servers" colors="red:to_delete_reuse==True">
+				<field name="active" />
+				<field name="host_name" />
+				<field name="name" />
+				<field name="supplier" />
+				<field name="total_price_server" sum="Total Monthly" />
+				<field name="services_number" sum="Total Services" />
+				<field name="services_amount_monthly" sum="Total Monthly" />
+				<field name="services_amount_net_monthly" sum="Net Monthly" />
+				<field name="to_delete_reuse" />
+			</tree>
+		</field>
+	</record>
+-->
+	<!-- Servers Form View
+	<record model="ir.ui.view" id="view_sgw_server_form">
+		<field name="name">sgw.server.form</field>
+		<field name="model">sgw.server</field>
+		<field name="arch" type="xml">
+			<form string="Server">
+				<header>
+					
+				</header>
+				<sheet>
+					<group name="group_top">
+						<group name="group_left">
+							<field name="name" />
+							<field name="host_name" />
+							<field name="active" />
+							<field name="operating_system_id"></field>
+							<field name="control_panel"></field>
+							<field name="control_panel_url" widget="url"></field>
+						</group>
+						<group name="group_left">
+							<field name="product_id"></field>
+							<field name="standard_price" readonly="1"></field>
+							<field name="total_price_server" readonly="1" />
+							<field name="to_delete_reuse" />
+						</group>
+					</group>
+					<group name="group_bottom">
+						<notebook>
+							<page string="IP addresses">
+								<field name="ip_ids">
+									<tree string="IPs Lines" editable="bottom">
+										<field name="server_id" invisible="1" />
+										<field name="is_original_ip" />
+										<field name="ip_address" />
+										<field name="name" />
+										<field name="reverse_dns" />
+										<field name="product_id" />
+										<field name="type_movable" />
+										<field name="standard_price" />
+									</tree>
+								</field>
+							</page>
+							<page string="Extras">
+								<field name="extra_ids">
+									<tree string="Extras" editable="bottom">
+										<field name="server_id" invisible="1" />
+										<field name="name" />
+										<field name="product_id" />
+										<field name="standard_price" />
+									</tree>
+								</field>
+							</page>
+							<page string="Supplier data">
+								<group name="supplier_data">
+									<field name="supplier"></field>
+									<field name="api_vps"
+										attrs="{'invisible': [('api_cloud','=',True)]}"></field>
+									<field name="api_cloud"
+										attrs="{'invisible': [('api_vps','=',True)]}"></field>
+									<field name="api_servicename"
+										attrs="{'invisible': [('api_vps','=',True)]}"></field>
+									<field name="api_instanceid"
+										attrs="{'invisible': [('api_vps','=',True)]}"></field>
+									<field name="supplier_name"
+										attrs="{'invisible': [('api_cloud','=',True)]}"></field>
+								</group>
+								<group name="Api">
+									<field name="data_raw_server"></field>
+								</group>
+							</page>
+							<page string="Periodical purchases">
+								<group name="periodical_purchases">
+									<field name="date_registration"></field>
+									<field name="generate_recurrent_purchases"></field>
+									<field name="date_next_payment"></field>
+									<field name="period_id"></field>
+								</group>
+							</page>
+							<page string="Description">
+								<field name="description"></field>
+							</page>
+							<page string="Agreements">
+								<group name="services_resume">
+									<field name="services_number" />
+									<field name="services_amount_monthly" />
+								</group>
+
+							
+							</page>
+						</notebook>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+-->
+	<!-- Search Servers View <record model="ir.ui.view" id="view_sgw_server_search"> 
+		<field name="name">sgw.server.search</field> <field name="model">sgw.server</field> 
+		<field name="arch" type="xml"> <search string="Servidores"> <field name="name" 
+		string="Nombre"/> <group expand="0" string="Group By..."> <filter icon="terp-personal" 
+		string="Proveedor" help="Por proveedor" context="{'group_by':'supplier'}"/> 
+		</group> </search> </field> </record> -->
+	<!-- Search Services View <record model="ir.ui.view" id="view_sgw_service_search"> 
+		<field name="name">sgw.service.search</field> <field name="model">sale.recurring_orders.agreement.line</field> 
+		<field name="arch" type="xml"> <search string="Services"> <field name="name" 
+		string="Nombre"/> <group expand="0" string="Group By..."> <filter icon="terp-personal" 
+		string="Server" help="Por servidor" context="{'group_by':'server_id'}"/> 
+		</group> </search> </field> </record> -->
+
+	<!-- IPs Tree View -->
+	<record model="ir.ui.view" id="view_sgw_ipaddress_tree">
+		<field name="name">sgw.ipaddress.tree</field>
+		<field name="model">sgw.ipaddress</field>
+		<field name="arch" type="xml">
+			<tree string="IP addresses"
+				colors="blue:is_original_ip==True;red:to_delete_reuse==True">
+				<field name="server_id" />
+				<field name="active" />
+				<field name="operating_system" />
+				<field name="ip_address" />
+				<field name="is_original_ip" />
+				<field name="type_movable" />
+				<field name="supplier_name"></field>
+				<field name="name" />
+				<field name="reverse_dns" />
+				<field name="to_delete_reuse" />
+			</tree>
+		</field>
+	</record>
+
+	<!-- Services Tree View -->
+	<!-- <record model="ir.ui.view" id="view_sgw_service_tree">
+		<field name="name">sgw.service.tree</field>
+		<field name="model">sgw.service.line</field>
+		<field name="arch" type="xml">
+			<tree string="Services">
+				<field name="service_id" />
+				<field name="server_id" />
+				<field name="product_id" />
+				<field name="additional_description" />
+				<field name="ordering_interval" />
+				<field name="ordering_unit" />
+				<field name="discount" />
+			</tree>
+		</field>
+	</record>
+ -->
+
+	<!-- Search IPs View <record model="ir.ui.view" id="view_sgw_ipaddress_search"> 
+		<field name="name">sgw.ipaddress.search</field> <field name="model">sgw.ipaddress</field> 
+		<field name="arch" type="xml"> <search string="Direcciones IP"> <field name="ip_address" 
+		string="IP"/> <group expand="0" string="Group By..."> <filter icon="terp-personal" 
+		string="Servidor" help="Por servidor" context="{'group_by':'server_id'}"/> 
+		</group> </search> </field> </record> -->
+	<!-- Extras Tree View -->
+	<record model="ir.ui.view" id="view_sgw_extra_tree">
+		<field name="name">sgw.extra.tree</field>
+		<field name="model">sgw.extra</field>
+		<field name="arch" type="xml">
+			<tree string="Extras">
+				<field name="server_id" />
+				<field name="active" />
+				<field name="product_id" />
+				<field name="standard_price" />
+			</tree>
+		</field>
+	</record>
+
+	<!-- Search Extras View <record model="ir.ui.view" id="view_sgw_extra_search"> 
+		<field name="name">sgw.extra.search</field> <field name="model">sgw.extra</field> 
+		<field name="arch" type="xml"> <search string="Extras"> <field name="name" 
+		string="name"/> <group expand="0" string="Group By..."> <filter icon="terp-personal" 
+		string="Servidor" help="Por servidor" context="{'group_by':'server_id'}"/> 
+		</group> </search> </field> </record> -->
+	<!-- Logs Whois Tree View -->
+	<record model="ir.ui.view" id="view_sgw_whois_query_tree">
+		<field name="name">sgw.whoisquery.tree</field>
+		<field name="model">sgw.whoisquery</field>
+		<field name="arch" type="xml">
+			<tree string="sgw_whoisquery">
+				<field name="date_query" />
+				<field name="sld" />
+				<field name="tld" />
+				<field name="free" />
+			</tree>
+		</field>
+	</record>
+
+
+</odoo>

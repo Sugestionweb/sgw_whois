@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<!-- Modify product backoffice Form to add two new fields -->
+	<record model="ir.ui.view"
+		id="sgw_hosting_product_template_form_view">
+		<field name="name">sgw_product_template_modifications</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id"
+			ref="product.product_template_form_view" />
+		<field name="arch" type="xml">
+			<field name="list_price" position="after">
+				<field name="is_tld"></field>
+				<field name="list_tlds"></field>
+			</field>
+		</field>
+	</record>
+
+	<template id="sgw_website_sale_product"
+		name="Product modification" inherit_id="website_sale.product">
+		<xpath expr="//div/section/div[2]/div[2]/h1" position="after">
+			<h4>
+				<t t-esc="domain" />
+			</h4>
+		</xpath>
+		<xpath expr="//div/section/div[2]/div[2]/form" position="inside">
+			<input type="hidden" class="domain" name="domain"
+				t-att-value="domain if domain else ''" />
+		</xpath>
+		<xpath expr="//div/section/div[2]/div[2]/hr" position="replace">
+			<hr class="m-t" t-if="product.description_sale" />
+		</xpath>
+		<xpath expr="//a[@id='add_to_cart']" position="replace">
+			<a id="add_to_cart"
+				class="btn btn-success btn-sm mt8 js_check_product a-submit"
+				href="#">Agregar al pedido</a>
+		</xpath>
+		<xpath
+			expr="//div[@id='product_details']/p[@class='text-muted']"
+			position="replace">
+				   <![CDATA[&nbsp;]]>
+		</xpath>
+		<xpath expr="/t[1]/t[4]/div[1]/section[1]/div[2]/div[2]/p[1]"
+			position="replace">
+				   <![CDATA[&nbsp;]]>
+		</xpath>
+		<xpath expr="//div/section" position="attributes">
+			<attribute name="t-attf-class">container m-t oe_website_sale
+				#{(compute_currency(product.lst_price) - product.price) &gt; 0.1 and
+				'discount'}" id="product_detail</attribute>
+		</xpath>
+	</template>
+
+	<template id="sgw_product_addtocart"
+		inherit_id="website_sale.product">
+		<xpath expr="//a[@id='add_to_cart']" position="replace">
+			<t t-if="product.is_tld and domain">
+				<a id="add_to_cart"
+					class="btn btn-success btn-lg mt8 js_check_product a-submit"
+					href="#">Añadir al pedido</a>
+			</t>
+			<t t-if="not product.is_tld">
+				<a id="add_to_cart"
+					class="btn btn-success btn-lg mt8 js_check_product a-submit"
+					href="#">Añadir al pedido</a>
+			</t>
+			<t t-if="product.is_tld and not domain">
+				<a id="gowhois" class="btn btn-warning btn-lg mt8" href="/whois">Buscar
+					dominio</a>
+			</t>
+		</xpath>
+	</template>
+
+	<template id="sgw_products_item" inherit_id="website_sale.cart_summary">
+		<xpath expr="//td[@class='td-product_name']" position="replace">
+			<td class='td-product_name' t-if="line.product_id.product_tmpl_id">
+				<div>
+					<strong t-field="line.name"/>
+				</div>
+			</td>
+		</xpath>
+	</template>
+</odoo>

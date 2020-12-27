@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="view_control_panel_form" model="ir.ui.view">
+		<field name="name">sgw.controlpanel.form</field>
+		<field name="model">sgw.controlpanel</field>
+		<field name="arch" type="xml">
+			<form string="Destacado">
+				<sheet>
+					<field name="image" class="oe_left oe_avatar" widget="image" />
+					<div class="oe_title">
+						<h3>
+							<field name="name" />
+						</h3>
+					</div>
+					<group>
+					</group>
+				</sheet>
+			</form>
+
+		</field>
+	</record>
+
+</odoo>
