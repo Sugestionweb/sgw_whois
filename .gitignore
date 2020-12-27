@@ -1,0 +1,8 @@
+.*
+!.gitignore
+*.py[co]
+*~
+/env/
+/src/
+/filestore/
+/logs/
