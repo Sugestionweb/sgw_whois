@@ -11,7 +11,7 @@
     'website': 'https://www.sugestionweb.com',
     'license': 'AGPL-3',
     'sequence': 2,
-    'summary': """    
+    'summary': """
     Query Whois Servers from website
     """,
     'description': """
@@ -23,7 +23,7 @@
         'website_sale',
     ],
     'data': [
-             'data/sgw_hosting_actions.xml',             
+             'data/sgw_hosting_actions.xml',
              'data/sgw_hosting_menu.xml',
              'data/sgw_hosting_menu.xml',
              'security/ir.model.access.csv',
