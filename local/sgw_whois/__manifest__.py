@@ -22,14 +22,15 @@
         'website_sale',
     ],
     'data': [
-             'data/sgw_hosting_actions.xml',
-             'data/sgw_hosting_menu.xml',
-             'security/ir.model.access.csv',
-             'views/sgw_hosting_views.xml',
-             'views/product.xml',
-             'views/assets.xml',
-             'views/sgw_portal_templates.xml'
-             ],
+            'data/sgw_hosting_actions.xml',
+            'data/sgw_hosting_menu.xml',
+            'security/ir.model.access.csv',
+            'security/sgw_groups_whois.xml',
+            'views/sgw_hosting_views.xml',
+            'views/product.xml',
+            'views/assets.xml',
+            'views/sgw_portal_templates.xml'
+            ],
     'qweb': [
 
     ],

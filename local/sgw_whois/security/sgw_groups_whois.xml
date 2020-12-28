@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_admin_whois" model="res.groups">
+        <field name="name">SGW Whois: Administrators</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="comment">El usuario podrá acceder a la configuración del módulo Whois.
+        </field>
+    </record>
+</odoo>
