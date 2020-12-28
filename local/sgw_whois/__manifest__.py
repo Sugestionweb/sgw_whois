@@ -18,9 +18,7 @@
 
     """,
     'images': ['static/description/banner.gif'],
-    'depends': [
-        'website_sale',
-    ],
+    'depends': ['sale', 'website_sale'],
     'data': [
             'data/sgw_hosting_actions.xml',
             'data/sgw_hosting_menu.xml',
@@ -28,8 +26,8 @@
             'security/sgw_groups_whois.xml',
             'views/sgw_hosting_views.xml',
             'views/product.xml',
-            'views/assets.xml',
-            'views/sgw_portal_templates.xml'
+            # 'views/assets.xml',
+            # 'views/sgw_portal_templates.xml'
             ],
     'qweb': [
 
