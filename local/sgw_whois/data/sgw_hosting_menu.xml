@@ -1,49 +1,9 @@
 <?xml version="1.0"?>
 <odoo>
 	<!-- Menu system -->
-	<menuitem id="menu_sgw_hosting" name="SGW Hosting"
-		parent="sale.sale_menu_root" groups="base.group_user" />
-
-	<menuitem id="menu_sgw_hosting_server"
-		parent="sgw_hosting.menu_sgw_hosting" sequence="5"
-		action="action_sgw_server" groups="base.group_user" />
-
-	<menuitem id="menu_sgw_hosting_service"
-		parent="sgw_hosting.menu_sgw_hosting" sequence="6"
-		action="action_sgw_service" groups="base.group_user" />
-
-	<menuitem id="menu_sgw_hosting_ipaddress"
-		parent="sgw_hosting.menu_sgw_hosting" sequence="7"
-		action="action_sgw_ipaddress" groups="base.group_user" />
-
-	<menuitem id="menu_sgw_hosting_service"
-		parent="sgw_hosting.menu_sgw_hosting" sequence="8"
-		action="action_sgw_service" groups="base.group_user" />
-
-	<menuitem id="menu_sgw_hosting_service_line"
-		parent="sgw_hosting.menu_sgw_hosting" sequence="8"
-		action="action_sgw_service_line" groups="base.group_user" />
-
-	<menuitem id="menu_sgw_hosting_operatingsystem"
-		parent="sgw_hosting.menu_sgw_hosting" sequence="9"
-		action="action_sgw_operatingsystem" groups="base.group_user" />
-
-	<menuitem id="menu_sgw_hosting_period"
-		parent="sgw_hosting.menu_sgw_hosting" sequence="10"
-		action="action_sgw_period" groups="base.group_user" />
-
-	<menuitem id="menu_sgw_hosting_controlpanel"
-		parent="sgw_hosting.menu_sgw_hosting" sequence="11"
-		action="action_sgw_controlpanel" groups="base.group_user" />
-
-	<menuitem id="menu_sgw_hosting_extra"
-		parent="sgw_hosting.menu_sgw_hosting" sequence="12"
-		action="action_sgw_extra" groups="base.group_user" />
-
+	<menuitem id="menu_sgw_whois" name="SGW Whois"
+		parent="website.main_menu" groups="base.group_user" />
 	<menuitem id="menu_sgw_hosting_whoisquery"
-		parent="sgw_hosting.menu_sgw_hosting" sequence="13"
+		parent="sgw_whois.menu_sgw_whois" sequence="13"
 		action="action_sgw_whoisquery" groups="base.group_user" />
-
-
-
 </odoo>

@@ -19,19 +19,13 @@
     """,
     'images': ['static/description/banner.gif'],
     'depends': [
-        'website',
         'website_sale',
     ],
     'data': [
              'data/sgw_hosting_actions.xml',
              'data/sgw_hosting_menu.xml',
-             'data/sgw_hosting_menu.xml',
              'security/ir.model.access.csv',
              'views/sgw_hosting_views.xml',
-             'views/sgw_hosting_server.xml',
-             'views/sgw_hosting_service.xml',
-             'views/sgw_hosting_partner.xml',
-             'views/sgw_control_panel.xml',
              'views/product.xml',
              'views/assets.xml',
              'views/sgw_portal_templates.xml'

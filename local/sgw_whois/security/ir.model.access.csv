@@ -1,2 +1,1 @@
-
-access_sgw_whoisquery,sgw.whoisquery,model_sgw_whoisquery,base.group_user,1,1,1,1
+access_sgw_whoisquery,access_sgw_whoisquery,model_sgw_whoisquery,base.group_user,1,0,0,0
