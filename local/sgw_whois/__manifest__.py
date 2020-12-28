@@ -25,9 +25,11 @@
             'security/ir.model.access.csv',
             'security/sgw_groups_whois.xml',
             'views/sgw_hosting_views.xml',
+            'views/sgw_hosting_whois_web.xml',
             'views/product.xml',
-            # 'views/assets.xml',
-            # 'views/sgw_portal_templates.xml'
+            'views/assets.xml',
+            'views/snippets.xml',
+            'views/sgw_portal_templates.xml'
             ],
     'qweb': [
 

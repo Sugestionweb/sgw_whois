@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-	<!-- Modify product backoffice Form to add two new fields 
+	<!-- Modify product backoffice Form to add two new fields -->
 	<record model="ir.ui.view"
 		id="sgw_hosting_product_template_form_view">
 		<field name="name">sgw_product_template_modifications</field>
@@ -13,7 +13,7 @@
 				<field name="list_tlds"></field>
 			</field>
 		</field>
-	</record> -->
+	</record> 
 
 	<template id="sgw_website_sale_product"
 		name="Product modification" inherit_id="website_sale.product">

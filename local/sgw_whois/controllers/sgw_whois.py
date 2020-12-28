@@ -126,18 +126,18 @@ class WhoisController(Website):
         # el resultado
         #
         
-        result = '<img style="float:left;" src="/sgw_theme/static/images/whois/delete.png" /> <span style ="margin-left:10px;" class="text-warning">No disponible</span>'
+        result = '<img style="float:left;" src="/sgw_whois/static/images/whois/delete.png" /> <span style ="margin-left:10px;" class="text-warning">No disponible</span>'
         status = self.chk_domain_name(domain, tld)
         if status == "Free":
-            result = '<img style="float:left;" src="/sgw_theme/static/images/whois/accept.png" /><span style ="margin-left:10px;" class="text-success">Disponible</span> '
+            result = '<img style="float:left;" src="/sgw_whois/static/images/whois/accept.png" /><span style ="margin-left:10px;" class="text-success">Disponible</span> '
         if status == "Error":
-            result = '<img style="float:left;" src="/sgw_theme/static/images/whois/delete.png" /><span style ="margin-left:10px;" class="text-warning">Error</span> '
+            result = '<img style="float:left;" src="/sgw_whois/static/images/whois/delete.png" /><span style ="margin-left:10px;" class="text-warning">Error</span> '
 
 #         else:
 #             txt_alt = status[1][0].replace("'","")
 #             txt_alt = status[1][0].replace('"',"")
 #             
-#             result = "<img alt='" + txt_alt + "'" + ' style="float:left;" src="/sgw_theme/static/images/whois/delete.png" >'
+#             result = "<img alt='" + txt_alt + "'" + ' style="float:left;" src="/sgw_whois/static/images/whois/delete.png" >'
                 
         return Response(result,content_type='text/html;charset=utf-8')
     
@@ -174,7 +174,7 @@ class WhoisController(Website):
             'results':results,
             }        
                        
-        return http.request.render('sgw_theme.whois_check',values)
+        return http.request.render('sgw_whois.whois_check',values)
     
    
     def check_domain(self, domain=None, tld=None,p=None):

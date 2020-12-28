@@ -2,7 +2,12 @@
     <data>
         <template id="myjs" name="myjs" inherit_id="website.assets_frontend">
             <xpath expr="script[last()]" position="after">
-            	<script type="text/javascript" src="/sgw_whois/static/src/javascripts/scripts_whois.js"></script>
+                <script type="text/javascript" src="/sgw_whois/static/src/javascripts/scripts_whois.js"></script>
+            </xpath>
+        </template>
+        <template id="mystyle" name="My style" inherit_id="website.assets_frontend">
+            <xpath expr="link[last()]" position="after">
+                <link rel="stylesheet" href="/sgw_whois/static/src/scss/app.css"/> 
             </xpath>
         </template>
     </data>
