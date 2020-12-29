@@ -1,3 +1,8 @@
+function setcsrf() {
+  console.log(odoo.csrf_token);
+  document.getElementById("csrf_token").value = odoo.csrf_token;
+}
+
 function escapeRegExp(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
@@ -128,7 +133,7 @@ function get_whois_modal(domain) {
     global: false,
     dataType: "html",
     url: "/get_whois_raw",
-    data: { domain: domain },
+    data: { domain: domain, csrf_token: odoo.csrf_token },
     success: function (data) {
       callback(data);
     },

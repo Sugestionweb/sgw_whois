@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<template id="snippet_referenceslinux" name="referenceslinux">
+	<template id="snippet_bigwhois" name="Big Whois">
 		<section class="s_references">
 			<div class="container">
-				<div class="row justify-content-center padding">
-					<div class="col-md-8 ftco-animate fadeInUp ftco-animated">
-						<form role="form" id="form_whois" name="form_whois"	t-attf-action="/whois{{ '?debug=assets' if debug else '' }}"
-					method="post" onsubmit="this.action = this.action + location.hash;" class="domain-form">
+				<div class="row justify-content-center">
+					<div class="col-md-8">
+						<!-- <form role="form" id="form_whois" name="form_whois"	t-attf-action="/whois{{ '?debug=assets' if debug else '' }}"
+					method="post" onsubmit="this.action = this.action + location.hash;" class="domain-form"> -->
+							<form role="form" id="form_whois" name="form_whois"	t-attf-action="/whois" method="post">
 							<div class="form-group d-md-flex"> 
 								<input type="text" name="domain" t-att-value="domain" id="domain" required="required" autofocus="autofocus" autocapitalize="off" class="form-control px-4" placeholder="Enter your domain name..."/> 
-								<input type="submit" class="search-domain btn btn-primary px-5" value="Search Domain"/> 
+								<input onclick="setcsrf();" type="submit" class="btn btn-primary ml-1" value="Search Domain"/> 
 							</div>
-							<input type="hidden" name="csrf_token"
-							t-att-value="request.csrf_token()" />
+							<input type="hidden" id="csrf_token" name="csrf_token" value="welcome" />
 						</form>
-						<p class="domain-price text-center"><span><small>.com</small>10.75</span> <span><small>.net</small>19.90</span> <span><small>.biz</small>$5.95</span> <span><small>.gov</small>$3.95</span></p>
 					</div>
 				</div>
 			</div>
@@ -25,7 +24,7 @@
 		<xpath
 			expr="//div[@id='snippet_content']/div[@class='o_panel_body']"
 			position="inside">
-			<t t-snippet="sgw_whois.snippet_referenceslinux"
+			<t t-snippet="sgw_whois.snippet_bigwhois"
 				t-thumbnail="/sgw_whois/static/images/snippets_thumbs/caraclist1box.jpg" />
 		</xpath>
 	</template>

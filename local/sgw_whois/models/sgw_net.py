@@ -14,6 +14,7 @@ def get_cc_tld_path():
     directory_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     return os.path.join(directory_path, 'cc_tld.txt')
 
+
 def get_tld_level_whois_path():
     directory_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     return os.path.join(directory_path, 'tld_level_whois.txt')

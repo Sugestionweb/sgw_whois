@@ -22,10 +22,6 @@ body {
   padding: 20px
 }
 
-.domain-form .form-group input {
-  height: 70px !important;
-  border: transparent
-}
 
 .form-control {
   height: 52px !important;
@@ -42,8 +38,8 @@ body {
 }
 
 .domain-form .form-group .search-domain {
-  background: #22d47b;
-  border: 2px solid #22d47b;
+  /* background: #22d47b; */
+  /* border: 2px solid #22d47b; */
   color: #fff;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -51,11 +47,15 @@ body {
   border-radius: 0
 }
 
-.domain-price span {
-  color: #3a4348;
-  margin: 0 10px
+.searchbar {
+	background: #4f4f4f;
+	padding: .55em;
+	height: auto;
+	margin: 15px auto;
 }
 
-.domain-price span small {
-  color: #24bdc9
+#search-start, .searchbox-start {
+	font-size: 18px;
+	width: 120px;
+	margin: 0 0 0 -23px;
 }

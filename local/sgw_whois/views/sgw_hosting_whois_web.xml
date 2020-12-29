@@ -1,73 +1,74 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-	<template id="whois_check" name="Results of whois a domain">
+	<template id="whois_check" name="Whois Results">
 		<t t-call="website.layout">
-			<div class="searchbar borderradius bgdarkgray">
-				<form class="form-inline" role="form" id="form_whois"
-					name="form_whois"
-					t-attf-action="/whois{{ '?debug=assets' if debug else '' }}"
-					method="post" onsubmit="this.action = this.action + location.hash;">
-					<div class="col-lg-9 col-xs-9">
-						<input style="width:100%;" type="text" name="domain"
-							t-att-value="domain" id="domain"
-							placeholder="Encuentra tu dominio" class="form-control input-lg"
-							required="required" autofocus="autofocus" autocapitalize="off" />
+			<div class="oe_structure oe_empty" />
+			<section>
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-md-8">
+							<form role="form" id="form_whois" name="form_whois"	t-attf-action="/whois" method="post">
+								<div class="form-group d-md-flex"> 
+									<input type="text" name="domain" t-att-value="domain" id="domain" required="required" autofocus="autofocus" autocapitalize="off" class="form-control px-4" placeholder="Enter your domain name..."/> 
+									<input onclick="setcsrf();" type="submit" class="btn btn-primary ml-1" value="Search Domain"/> 
+								</div>
+								<input type="hidden" id="csrf_token" name="csrf_token" value="welcome" />
+							</form>
+						</div>
 					</div>
-					<div class="col-lg-2 col-xs-2">
-						<button id="search-start" type="submit"
-							class="btn-sm btn-success">Consultar</button>
+				</div>
+			</section>
+			<img class="center-block" style="visibility:hidden;" id='loading_table' src="/sgw_whois/static/src/img/ajax-loader.gif" />
+			<section>
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-md-8">
+							<table id="tabla_result" style="visibility:hidden;"	class="table table-hover ">
+								<thead>
+									<tr>
+										<th>Domain name</th>
+										<th>Status</th>
+										<th>Price</th>
+										<th>Register</th>
+									</tr>
+								</thead>
+								<tbody>
+									<t t-foreach="results" t-as="result">
+										<tr>
+											<t t-set="full_domain" t-value='domain + "." + result '></t>
+											<t t-set="product" t-value='results.get(result)[0]'></t>
+											<td>
+												<t t-esc="full_domain" />
+											</td>
+											<td t-att-id='"img_resultado_whois_" + str(result)'>
+												<img t-att-id='"loading_" + str(result)' style="float:left;"
+													src="/sgw_whois/static/src/img/ajax-loader.gif" />
+											</td>
+											<t t-set="product" t-value='results.get(result)[0]'></t>
+											<td t-att-id='"price_" + str(result)'>
+												<span t-field="product.list_price" />
+												<span itemprop="priceCurrency"
+													t-esc="user_id.partner_id.property_product_pricelist.currency_id.name"
+													class='decimal_precision'
+													t-att-data-precision="website.pricelist_id.currency_id.rounding" />
+											</td>
+											<td t-att-id='"link_buy_" + str(result)'>
+												<a
+													t-attf-href="/shop/product/#{ slug(product)}?domain=#{ full_domain}"
+													style="display: block">
+													<span t-field='product.name' style="display: block" />
+												</a>
 
-						<input type="hidden" name="csrf_token"
-							t-att-value="request.csrf_token()" />
+											</td>
+											<td t-att-id='"button_whois_" + str(result)'></td>
+										</tr>
+									</t>
+								</tbody>
+							</table>
+						</div>
 					</div>
-				</form>
-			</div>
-			<img class="center-block" style="visibility:hidden;"
-				id='loading_table' src="/sgw_whois/static/images/ajax-loader.gif" />
-			<table id="tabla_result"
-				style="visibility:hidden;margin-left:40px;"
-				class="table table-striped table-hover ">
-				<thead>
-					<tr>
-						<th>Domain name</th>
-						<th>Status</th>
-						<th>Price</th>
-						<th>Register</th>
-					</tr>
-				</thead>
-				<tbody>
-					<t t-foreach="results" t-as="result">
-						<tr>
-							<t t-set="full_domain" t-value='domain + "." + result '></t>
-							<t t-set="product" t-value='results.get(result)[0]'></t>
-							<td>
-								<t t-esc="full_domain" />
-							</td>
-							<td t-att-id='"img_resultado_whois_" + str(result)'>
-								<img t-att-id='"loading_" + str(result)' style="float:left;"
-									src="/sgw_whois/static/images/ajax-loader.gif" />
-							</td>
-							<t t-set="product" t-value='results.get(result)[0]'></t>
-							<td t-att-id='"price_" + str(result)'>
-								<span t-field="product.list_price" />
-								<span itemprop="priceCurrency"
-									t-esc="user_id.partner_id.property_product_pricelist.currency_id.name"
-									class='decimal_precision'
-									t-att-data-precision="website.pricelist_id.currency_id.rounding" />
-							</td>
-							<td t-att-id='"link_buy_" + str(result)'>
-								<a
-									t-attf-href="/shop/product/#{ slug(product)}?domain=#{ full_domain}"
-									style="display: block">
-									<span t-field='product.name' style="display: block" />
-								</a>
-
-							</td>
-							<td t-att-id='"button_whois_" + str(result)'></td>
-						</tr>
-					</t>
-				</tbody>
-			</table>
+				</div>
+			</section>
 			<div style="margin-left:40px;" class="oe_structure oe_empty" />
 			<script type="text/javascript">
 				window.onload = function () {
