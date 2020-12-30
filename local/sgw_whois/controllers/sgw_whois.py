@@ -1,10 +1,8 @@
 import json
-import pywhois
-from odoo import http
+from odoo import _, http
+from odoo.http import request, Response
 from odoo.addons.website.controllers.main import Website
-from odoo.http import Response, request
-from zeep import Client
-
+import odoo.addons.sgw_whois
 
 class WhoisController(Website):
 
@@ -33,7 +31,7 @@ class WhoisController(Website):
             if tld != 'es':
                 try:
                     name = domain + "." + tld
-                    w = pywhois.whois(name)
+                    w = self.whois(name)
                     whois_txt = w.get("raw")[0]
                     if "status" in w:
                         if 'available' in w.get('status')[0].lower():
@@ -44,13 +42,14 @@ class WhoisController(Website):
                         # Puede ser un dominio -eu el cual no tiene status
                         if tld == 'eu':
                             if "raw" in w:
-                                if w.get('raw')[0].lower().__contains__('status: available'):
+                                if w.get('raw')[0].lower().__contains__(
+                                        'status: available'):
                                     result = "Free"
                                 else:
                                     result = "Taken"
                         else:
                             result = 'Free'
-                except:
+                except Exception:
                     result = 'Error'
             # los dominios .es se consultan en Arsys por SOAP
             # elif tld == 'es':
@@ -110,7 +109,8 @@ class WhoisController(Website):
                 tlds_exts = p.list_tlds.split(",")
                 for i in tlds_exts:
                     results.update({i: [p, 'placeholder1', 'placeholder2']})
-            valid = ('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_')
+            valid = (
+                'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_')
             validated_domain = domain
             for c in list(domain):
                 if c not in valid:
@@ -118,7 +118,7 @@ class WhoisController(Website):
         values = {
             'domain': validated_domain,
             'results': results,
-            }
+        }
         return http.request.render('sgw_whois.whois_check', values)
 
     def check_domain(self, domain=None, tld=None, p=None):
@@ -127,10 +127,10 @@ class WhoisController(Website):
         if domain is not None and tld is not None and p is not None:
             try:
                 name = domain + "." + tld
-                w = whois.whois(name, True)
+                w = self.whois(name, True)
                 whois_txt = w.text
                 result = 'Taken'
-            except:
+            except Exception:
                 result = 'Free'
         return result, whois_txt, p
 
@@ -139,8 +139,17 @@ class WhoisController(Website):
         result = ""
         try:
             name = domain
-            w = pywhois.whois(name)
+            w = self.whois(name)
             result = w.get("raw")[0].replace("\n", "<br/>")
-        except:
+        except Exception:
             result = 'Error'
         return Response(result, content_type='text/html;charset=utf-8')
+
+    def _whois(domain, normalized=[]):
+        raw_data, server_list = sgw_net.get_whois_raw(
+            domain, with_server_list=True)
+        return sgw_parse.parse_raw_whois(
+            raw_data,
+            normalized=normalized,
+            never_query_handles=False,
+            handle_server=server_list[-1])

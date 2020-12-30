@@ -3,6 +3,7 @@ from odoo import models, fields,api,_
 from odoo.exceptions import UserError
 from odoo.http import request
 
+
 class SgwSaleOrder(models.Model):
 
     _inherit = "sale.order"

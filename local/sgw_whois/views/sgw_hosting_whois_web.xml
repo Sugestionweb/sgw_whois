@@ -7,10 +7,10 @@
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-md-8">
-							<form role="form" id="form_whois" name="form_whois"	t-attf-action="/whois" method="post">
-								<div class="form-group d-md-flex"> 
-									<input type="text" name="domain" t-att-value="domain" id="domain" required="required" autofocus="autofocus" autocapitalize="off" class="form-control px-4" placeholder="Enter your domain name..."/> 
-									<input onclick="setcsrf();" type="submit" class="btn btn-primary ml-1" value="Search Domain"/> 
+							<form role="form" id="form_whois" name="form_whois" t-attf-action="/whois" method="post">
+								<div class="form-group d-md-flex">
+									<input type="text" name="domain" t-att-value="domain" id="domain" required="required" autofocus="autofocus" autocapitalize="off" class="form-control px-4" placeholder="Enter your domain name..."/>
+									<input onclick="setcsrf();" type="submit" class="btn btn-primary ml-1" value="Search Domain"/>
 								</div>
 								<input type="hidden" id="csrf_token" name="csrf_token" value="welcome" />
 							</form>
@@ -22,8 +22,8 @@
 			<section>
 				<div class="container">
 					<div class="row justify-content-center">
-						<div class="col-md-8">
-							<table id="tabla_result" style="visibility:hidden;"	class="table table-hover ">
+						<div class="col-md-10">
+							<table id="tabla_result" style="visibility:hidden;" class="table table-hover ">
 								<thead>
 									<tr>
 										<th>Domain name</th>
@@ -36,26 +36,20 @@
 									<t t-foreach="results" t-as="result">
 										<tr>
 											<t t-set="full_domain" t-value='domain + "." + result '></t>
-											<t t-set="product" t-value='results.get(result)[0]'></t>
+											<t t-set="product" t-value="results.get(result)[0]"></t>
 											<td>
 												<t t-esc="full_domain" />
 											</td>
 											<td t-att-id='"img_resultado_whois_" + str(result)'>
-												<img t-att-id='"loading_" + str(result)' style="float:left;"
-													src="/sgw_whois/static/src/img/ajax-loader.gif" />
+												<img t-att-id='"loading_" + str(result)' style="float:left;" src="/sgw_whois/static/src/img/ajax-loader.gif" />
 											</td>
 											<t t-set="product" t-value='results.get(result)[0]'></t>
 											<td t-att-id='"price_" + str(result)'>
 												<span t-field="product.list_price" />
-												<span itemprop="priceCurrency"
-													t-esc="user_id.partner_id.property_product_pricelist.currency_id.name"
-													class='decimal_precision'
-													t-att-data-precision="website.pricelist_id.currency_id.rounding" />
+												<span itemprop="priceCurrency" t-esc="user_id.partner_id.property_product_pricelist.currency_id.name" class='decimal_precision' t-att-data-precision="website.pricelist_id.currency_id.rounding" />
 											</td>
 											<td t-att-id='"link_buy_" + str(result)'>
-												<a
-													t-attf-href="/shop/product/#{ slug(product)}?domain=#{ full_domain}"
-													style="display: block">
+												<a t-attf-href="/shop/product/#{ slug(product)}?domain=#{ full_domain}" style="display: block">
 													<span t-field='product.name' style="display: block" />
 												</a>
 
@@ -72,31 +66,27 @@
 			<div style="margin-left:40px;" class="oe_structure oe_empty" />
 			<script type="text/javascript">
 				window.onload = function () {
-				domain_input =
-				document.getElementById("domain"),
-				value = domain_input.value;
-				if
-				(value != "") {
-				getStatus2(value);
-				};
+					domain_input = document.getElementById("domain"), value = domain_input.value;
+					if(value != ""){
+						getStatus2(value);
+					};
 				};
 			</script>
-
 			<!-- Modal -->
 			<div id="myModal" tabindex="-1" class="modal fade" role="dialog">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close"></button>
-							<h4 id="modal_domain_title" class="modal-title">Modal Header</h4>
+							<h5 id="modal_domain_title" class="modal-title">Domain name</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span><![CDATA[&times;]]></span>
+							</button>
 						</div>
 						<div class="modal-body">
-							<p id="whois_raw">...Consultando...</p>
+							<p id="whois_raw">...Asking the whois servers...</p>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 				</div>

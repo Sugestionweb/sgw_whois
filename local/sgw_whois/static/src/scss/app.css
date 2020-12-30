@@ -59,3 +59,21 @@ body {
 	width: 120px;
 	margin: 0 0 0 -23px;
 }
+
+/* modal-dialog */
+.modal-dialog{
+  overflow-y: initial !important
+}
+.modal-body{
+  height: 80vh;
+  overflow-y: auto;
+}
+
+button.close {
+  color: #000;
+  float: right;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 1;
+}
