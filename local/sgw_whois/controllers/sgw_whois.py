@@ -1,8 +1,16 @@
 import json
-from odoo import _, http
+from odoo import http
 from odoo.http import request, Response
 from odoo.addons.website.controllers.main import Website
-import odoo.addons.sgw_whois
+from odoo import conf
+import imp
+
+fp, pathname, description = imp.find_module(
+    'sgw_whois', conf.addons_paths)
+
+sgw_whois = imp.load_module(
+    'sgw_whois', fp, pathname, description)
+
 
 class WhoisController(Website):
 
@@ -31,7 +39,8 @@ class WhoisController(Website):
             if tld != 'es':
                 try:
                     name = domain + "." + tld
-                    w = self.whois(name)
+                    w = sgw_whois.tools.whois(name)
+                    
                     whois_txt = w.get("raw")[0]
                     if "status" in w:
                         if 'available' in w.get('status')[0].lower():
@@ -139,17 +148,8 @@ class WhoisController(Website):
         result = ""
         try:
             name = domain
-            w = self.whois(name)
+            w = self.sgw_whois.tools.whois(name)
             result = w.get("raw")[0].replace("\n", "<br/>")
         except Exception:
             result = 'Error'
         return Response(result, content_type='text/html;charset=utf-8')
-
-    def _whois(domain, normalized=[]):
-        raw_data, server_list = sgw_net.get_whois_raw(
-            domain, with_server_list=True)
-        return sgw_parse.parse_raw_whois(
-            raw_data,
-            normalized=normalized,
-            never_query_handles=False,
-            handle_server=server_list[-1])
