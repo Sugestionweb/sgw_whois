@@ -10,18 +10,17 @@
 /*# sourceMappingURL=app.css.map */
 
 .padding {
-  padding: 10rem !important
+  padding: 10rem !important;
 }
 
 body {
-  background-color: #f8fafe
+  background-color: #f8fafe;
 }
 
 .domain-form .form-group {
   border: 1px solid #9ff0c8;
-  padding: 20px
+  padding: 20px;
 }
-
 
 .form-control {
   height: 52px !important;
@@ -30,11 +29,11 @@ body {
   font-size: 18px;
   border-radius: 0px;
   -webkit-box-shadow: none !important;
-  box-shadow: none !important
+  box-shadow: none !important;
 }
 
 .px-4 {
-  padding-left: 1.5rem !important
+  padding-left: 1.5rem !important;
 }
 
 .domain-form .form-group .search-domain {
@@ -44,27 +43,28 @@ body {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
-  border-radius: 0
+  border-radius: 0;
 }
 
 .searchbar {
-	background: #4f4f4f;
-	padding: .55em;
-	height: auto;
-	margin: 15px auto;
+  background: #4f4f4f;
+  padding: 0.55em;
+  height: auto;
+  margin: 15px auto;
 }
 
-#search-start, .searchbox-start {
-	font-size: 18px;
-	width: 120px;
-	margin: 0 0 0 -23px;
+#search-start,
+.searchbox-start {
+  font-size: 18px;
+  width: 120px;
+  margin: 0 0 0 -23px;
 }
 
 /* modal-dialog */
-.modal-dialog{
-  overflow-y: initial !important
+.modal-dialog {
+  overflow-y: initial !important;
 }
-.modal-body{
+.modal-body {
   height: 80vh;
   overflow-y: auto;
 }

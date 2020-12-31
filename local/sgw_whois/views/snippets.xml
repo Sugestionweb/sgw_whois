@@ -1,31 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-	<template id="snippet_bigwhois" name="Big Whois">
-		<section class="s_references">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-md-8">
-						<!-- <form role="form" id="form_whois" name="form_whois"	t-attf-action="/whois{{ '?debug=assets' if debug else '' }}"
+  <template id="snippet_bigwhois" name="Big Whois">
+    <section class="s_references">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <!-- <form role="form" id="form_whois" name="form_whois"	t-attf-action="/whois{{ '?debug=assets' if debug else '' }}"
 					method="post" onsubmit="this.action = this.action + location.hash;" class="domain-form"> -->
-							<form role="form" id="form_whois" name="form_whois"	t-attf-action="/whois" method="post">
-							<div class="form-group d-md-flex"> 
-								<input type="text" name="domain" t-att-value="domain" id="domain" required="required" autofocus="autofocus" autocapitalize="off" class="form-control px-4" placeholder="Enter your domain name..."/> 
-								<input onclick="setcsrf();" type="submit" class="btn btn-primary ml-1" value="Search Domain"/> 
-							</div>
-							<input type="hidden" id="csrf_token" name="csrf_token" value="welcome" />
-						</form>
-					</div>
-				</div>
-			</div>
-		</section>
-	</template>
-	<template id="place_into_bar" inherit_id="website.snippets"
-		name="Place into bar">
-		<xpath
-			expr="//div[@id='snippet_content']/div[@class='o_panel_body']"
-			position="inside">
-			<t t-snippet="sgw_whois.snippet_bigwhois"
-				t-thumbnail="/sgw_whois/static/images/snippets_thumbs/caraclist1box.jpg" />
-		</xpath>
-	</template>
+            <form
+              role="form"
+              id="form_whois"
+              name="form_whois"
+              t-attf-action="/whois"
+              method="post"
+            >
+              <div class="form-group d-md-flex">
+                <input
+                  type="text"
+                  name="domain"
+                  t-att-value="domain"
+                  id="domain"
+                  required="required"
+                  autofocus="autofocus"
+                  autocapitalize="off"
+                  class="form-control px-4"
+                  placeholder="Enter your domain name..."
+                />
+                <input
+                  onclick="setcsrf();"
+                  type="submit"
+                  class="btn btn-primary ml-1"
+                  value="Search Domain"
+                />
+              </div>
+              <input type="hidden" id="csrf_token" name="csrf_token" value="welcome" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+  <template id="place_into_bar" inherit_id="website.snippets" name="Place into bar">
+    <xpath
+      expr="//div[@id='snippet_content']/div[@class='o_panel_body']"
+      position="inside"
+    >
+      <t
+        t-snippet="sgw_whois.snippet_bigwhois"
+        t-thumbnail="/sgw_whois/static/images/snippets_thumbs/caraclist1box.jpg"
+      />
+    </xpath>
+  </template>
 </odoo>

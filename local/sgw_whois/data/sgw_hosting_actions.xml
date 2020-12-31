@@ -1,18 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-<!-- Windows actions -->
-	<!-- whois_query action -->
-	<record model="ir.actions.act_window" id="action_sgw_whoisquery">
-		<field name="name">Logs Whois</field>
-		<field name="res_model">sgw.whoisquery</field>
-		<field name="view_type">form</field>
-		<field name="view_mode">tree,form</field>
-		<field name="help" type="html">
-			<p class="oe_view_nocontent_create">
+  <!-- Windows actions -->
+  <!-- whois_query action -->
+  <record model="ir.actions.act_window" id="action_sgw_whoisquery">
+    <field name="name">Logs Whois</field>
+    <field name="res_model">sgw.whoisquery</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
 			Click to set a new entry.
-			</p><p>
+      </p>
+      <p>
 			Logs are created automatically
-			</p>
-		</field>
-	</record>
+      </p>
+    </field>
+  </record>
 </odoo>

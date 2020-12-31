@@ -1,16 +1,16 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <odoo>
-	<!-- Logs Whois Tree View -->
-	<record model="ir.ui.view" id="view_sgw_whois_query_tree">
-		<field name="name">sgw.whoisquery.tree</field>
-		<field name="model">sgw.whoisquery</field>
-		<field name="arch" type="xml">
-			<tree string="sgw_whoisquery">
-				<field name="date_query" />
-				<field name="sld" />
-				<field name="tld" />
-				<field name="free" />
-			</tree>
-		</field>
-	</record>
+  <!-- Logs Whois Tree View -->
+  <record model="ir.ui.view" id="view_sgw_whois_query_tree">
+    <field name="name">sgw.whoisquery.tree</field>
+    <field name="model">sgw.whoisquery</field>
+    <field name="arch" type="xml">
+      <tree string="sgw_whoisquery">
+        <field name="date_query" />
+        <field name="sld" />
+        <field name="tld" />
+        <field name="free" />
+      </tree>
+    </field>
+  </record>
 </odoo>

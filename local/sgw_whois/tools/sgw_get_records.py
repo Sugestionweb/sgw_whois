@@ -15,45 +15,44 @@ def get_records(domain, debug=False):
 
     if not debug:
 
-        out = domain + ','
+        out = domain + ","
 
         try:
-            out += record['creation_date'][0].strftime("%Y") + ','
+            out += record["creation_date"][0].strftime("%Y") + ","
         except (KeyError, TypeError, IndexError):
-            out += 'NA' + ','
+            out += "NA" + ","
         try:
-            out += record['expiration_date'][0].strftime("%Y") + ','
+            out += record["expiration_date"][0].strftime("%Y") + ","
         except (KeyError, TypeError, IndexError):
-            out += 'NA' + ','
+            out += "NA" + ","
         try:
-            out += record['nameservers'][0] + ','
+            out += record["nameservers"][0] + ","
         except (KeyError, TypeError, IndexError):
-            out += 'NA' + ','
+            out += "NA" + ","
         try:
-            out += record['nameservers'][1] + ','
+            out += record["nameservers"][1] + ","
         except (KeyError, TypeError, IndexError):
-            out += 'NA' + ','
+            out += "NA" + ","
         try:
-            out += '"' + record['registrar'][0] + '"' + ','
+            out += '"' + record["registrar"][0] + '"' + ","
         except (KeyError, TypeError, IndexError):
-            out += 'NA' + ','
+            out += "NA" + ","
         try:
-            out += '"' + record['contacts']['registrant']['organization'] \
-                + '"' + ','
+            out += '"' + record["contacts"]["registrant"]["organization"] + '"' + ","
         except (KeyError, TypeError, IndexError):
-            out += 'NA' + ','
+            out += "NA" + ","
         try:
-            out += '"' + record['contacts']['registrant']['name'] + '"' + ','
+            out += '"' + record["contacts"]["registrant"]["name"] + '"' + ","
         except (KeyError, TypeError, IndexError):
-            out += 'NA' + ','
+            out += "NA" + ","
         try:
-            out += record['contacts']['registrant']['email'] + ','
+            out += record["contacts"]["registrant"]["email"] + ","
         except (KeyError, TypeError, IndexError):
-            out += 'NA' + ','
+            out += "NA" + ","
         try:
-            out += record['contacts']['registrant']['country']
+            out += record["contacts"]["registrant"]["country"]
         except (KeyError, TypeError, IndexError):
-            out += 'NA'
+            out += "NA"
 
         return out.lower()
 
