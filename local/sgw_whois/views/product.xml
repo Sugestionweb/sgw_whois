@@ -44,11 +44,11 @@
       expr="//div[@id='product_details']/p[@class='text-muted']"
       position="replace"
     >
-				   <![CDATA[&nbsp;]]>
-		</xpath>
+      <![CDATA[&nbsp;]]>
+    </xpath>
     <xpath expr="/t[1]/t[4]/div[1]/section[1]/div[2]/div[2]/p[1]" position="replace">
-				   <![CDATA[&nbsp;]]>
-		</xpath>
+      <![CDATA[&nbsp;]]>
+    </xpath>
     <xpath expr="//div/section" position="attributes">
       <attribute name="t-attf-class">container m-t oe_website_sale
 				#{(compute_currency(product.lst_price) - product.price) &gt; 0.1 and
@@ -62,18 +62,21 @@
           id="add_to_cart"
           class="btn btn-success btn-lg mt8 js_check_product a-submit"
           href="#"
-        >Añadir al pedido</a>
+        >Add to cart</a>
       </t>
       <t t-if="not product.is_tld">
         <a
           id="add_to_cart"
           class="btn btn-success btn-lg mt8 js_check_product a-submit"
           href="#"
-        >Añadir al pedido</a>
+        >Add to cart</a>
       </t>
       <t t-if="product.is_tld and not domain">
-        <a id="gowhois" class="btn btn-warning btn-lg mt8" href="/whois">Buscar
-					dominio</a>
+        <a
+          id="gowhois"
+          class="btn btn-warning btn-lg mt8"
+          href="/whois"
+        >Search domain</a>
       </t>
     </xpath>
   </template>

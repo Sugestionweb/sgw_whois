@@ -11,7 +11,7 @@
                 role="form"
                 id="form_whois"
                 name="form_whois"
-                t-attf-action="/whois"
+                t-attf-action="/whois?debug=assets"
                 method="post"
               >
                 <div class="form-group d-md-flex">
@@ -27,7 +27,6 @@
                     placeholder="Enter your domain name..."
                   />
                   <input
-                    onclick="setcsrf();"
                     type="submit"
                     class="btn btn-primary ml-1"
                     value="Search Domain"
@@ -37,7 +36,7 @@
                   type="hidden"
                   id="csrf_token"
                   name="csrf_token"
-                  value="welcome"
+                  value="request.csrf_token()"
                 />
               </form>
             </div>
@@ -61,10 +60,10 @@
               >
                 <thead>
                   <tr>
-                    <th>Domain name</th>
+                    <th>Name</th>
                     <th>Status</th>
                     <th>Price</th>
-                    <th>Register</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -110,14 +109,6 @@
         </div>
       </section>
       <div style="margin-left:40px;" class="oe_structure oe_empty" />
-      <script type="text/javascript">
-				window.onload = function () {
-					domain_input = document.getElementById("domain"), value = domain_input.value;
-					if(value != ""){
-						getStatus2(value);
-					};
-				};
-            </script>
       <!-- Modal -->
       <div id="myModal" tabindex="-1" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">

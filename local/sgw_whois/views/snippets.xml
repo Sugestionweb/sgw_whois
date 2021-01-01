@@ -27,13 +27,17 @@
                   placeholder="Enter your domain name..."
                 />
                 <input
-                  onclick="setcsrf();"
                   type="submit"
                   class="btn btn-primary ml-1"
                   value="Search Domain"
                 />
               </div>
-              <input type="hidden" id="csrf_token" name="csrf_token" value="welcome" />
+              <input
+                type="hidden"
+                id="csrf_token"
+                name="csrf_token"
+                value="request.csrf_token()"
+              />
             </form>
           </div>
         </div>
