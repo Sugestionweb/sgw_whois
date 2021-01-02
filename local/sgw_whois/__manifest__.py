@@ -14,14 +14,11 @@
     "summary": """
     Query Whois Servers from website
     """,
-    "description": """
-
-    """,
     "images": ["static/description/banner.gif"],
     "depends": ["sale", "website_sale"],
     "data": [
-        "data/sgw_hosting_actions.xml",
-        "data/sgw_hosting_menu.xml",
+        "data/sgw_whois_actions.xml",
+        "data/sgw_whois_menu.xml",
         "security/ir.model.access.csv",
         "security/sgw_groups_whois.xml",
         "views/sgw_hosting_views.xml",

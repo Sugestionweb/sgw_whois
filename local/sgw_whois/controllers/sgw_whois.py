@@ -1,6 +1,5 @@
 import imp
 import json
-from operator import itemgetter
 
 from odoo import conf, http
 from odoo.http import Response, request
