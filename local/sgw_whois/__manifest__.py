@@ -26,7 +26,6 @@
         "views/product.xml",
         "views/assets.xml",
         "views/snippets.xml",
-        "views/sgw_portal_templates.xml",
     ],
     "qweb": [],
     "demo": [],

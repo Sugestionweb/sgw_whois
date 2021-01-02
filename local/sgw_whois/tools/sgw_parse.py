@@ -2,11 +2,14 @@ from __future__ import print_function
 
 import csv
 import datetime
+import logging
 import pkgutil
 import re
 import sys
 
 from . import sgw_net, sgw_shared
+
+_logger = logging.getLogger(__name__)
 
 try:
     from io import StringIO
@@ -947,9 +950,7 @@ def parse_dates(dates):
                     hour = 0
                     minute = 0
                     second = 0
-                    print(
-                        e.message
-                    )  # FIXME: This should have proper logging of some sort...?
+                    _logger.error(e.message)
         try:
             if year > 0:
                 try:

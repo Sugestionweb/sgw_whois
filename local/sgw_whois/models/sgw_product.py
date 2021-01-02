@@ -1,7 +1,7 @@
 from odoo import fields, models
 
 
-class sgw_products(models.Model):
+class SgwProducts(models.Model):
     _inherit = "product.template"
 
     is_tld = fields.Boolean(

@@ -1,6 +1,10 @@
-from odoo import _, api, fields, models
+import logging
+from odoo import _, api, models
 from odoo.exceptions import UserError
 from odoo.http import request
+
+
+_logger = logging.getLogger(__name__)
 
 
 class SgwSaleOrder(models.Model):

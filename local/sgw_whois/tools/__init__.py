@@ -1,7 +1,7 @@
 from . import sgw_net, sgw_parse
 
 
-def whois(domain, normalized=[]):
+def whois(domain, normalized=None):
     raw_data, server_list = sgw_net.get_whois_raw(domain, with_server_list=True)
     return sgw_parse.parse_raw_whois(
         raw_data,

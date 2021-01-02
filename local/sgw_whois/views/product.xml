@@ -51,8 +51,8 @@
     </xpath>
     <xpath expr="//div/section" position="attributes">
       <attribute name="t-attf-class">container m-t oe_website_sale
-				#{(compute_currency(product.lst_price) - product.price) &gt; 0.1 and
-				'discount'}" id="product_detail</attribute>
+        #{(compute_currency(product.lst_price) - product.price) &gt; 0.1 and
+        'discount'}" id="product_detail</attribute>
     </xpath>
   </template>
   <template id="sgw_product_addtocart" inherit_id="website_sale.product">

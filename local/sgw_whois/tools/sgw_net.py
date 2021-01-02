@@ -10,6 +10,7 @@ import requests
 from . import sgw_shared
 from .sgw_parse import parse_raw_whois
 
+# TODO: Read this from odoo models and data
 
 def get_cc_tld_path():
     directory_path = os.path.dirname(
