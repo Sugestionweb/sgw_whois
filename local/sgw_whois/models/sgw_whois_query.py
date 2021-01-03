@@ -4,12 +4,12 @@ from odoo import fields, models
 class SgwWhoisQuery(models.Model):
     _name = "sgw.whoisquery"
     _order = "date_query desc"
+    _description = "Model to save the queries made using the whois module"
 
     date_query = fields.Datetime(
         "Date Whois Query",
         required=False,
         readonly=False,
-        select=True,
         default=lambda self: fields.datetime.now(),
     )
     sld = fields.Char("Name of domain", required=True)

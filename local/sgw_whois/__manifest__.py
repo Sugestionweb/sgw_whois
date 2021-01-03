@@ -15,7 +15,7 @@
     Query Whois Servers from website
     """,
     "images": ["static/description/banner.gif"],
-    "depends": ["sale", "website_sale"],
+    "depends": ["website_sale"],
     "data": [
         "data/sgw_whois_actions.xml",
         "data/sgw_whois_menu.xml",

@@ -9,7 +9,7 @@
         <field name="date_query" />
         <field name="sld" />
         <field name="tld" />
-        <field name="free" />
+        <field name="is_taken" />
       </tree>
     </field>
   </record>
