@@ -659,17 +659,24 @@ def parse_raw_whois(
 def set_flag_is_taken(data, name_domain):
     data['is_taken'] = True
 
-    if name_domain == "google.at":
-         a = 1
+    if name_domain == "sugestionweb.cl":
+        a = 1
 
-    list_free_domain = ['free','available','not found','no match']
+    list_free_domain = [
+        'free',
+        'available',
+        'not found',
+        'no match',
+        'no object found'
+    ]
 
     if "status" in data:
         data['is_taken'] = not data['status'][0].lower() in list_free_domain
     else:
         stop = False
         list_stop = [
-            r"The registration of this domain is restricted"
+            r"The registration of this domain is restricted",
+            r"This name is not available for registration"
         ]
 
         for regex in list_stop:
@@ -677,21 +684,25 @@ def set_flag_is_taken(data, name_domain):
                 stop = True
                 break
         
+        
+
+
         if not stop:
             list_ex = [
                 r"%ERROR:101: no entries found",
                 r"No Data Found",
                 r"NOT FOUND",
-                r"AF",
                 r"Available",
-                r"NA",
                 r"The queried object does not exist",
                 r"This query returned 0 objects.",
                 r"No match",
                 r"is free",
-                r"No Object Found"
-                r"Object does not exist"
-                r"no entries found"
+                r"No Object Found",
+                r"Object does not exist", 
+                r"no entries found",
+                r"nothing found",
+                r"This domain name has not been registered.",
+
             ]
             for regex in list_ex:
                 if re.search(regex,data['raw'][0],re.IGNORECASE) is not None:
