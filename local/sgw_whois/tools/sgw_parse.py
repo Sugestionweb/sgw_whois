@@ -30,6 +30,7 @@ grammar = {
         "status": [
             r"\[Status\]\s*(?P<val>.+)",
             r"Status\s*:\s?(?P<val>.+)",
+            r"Status:\s?(?P<val>.+)",
             r"\[State\]\s*(?P<val>.+)",
             r"^state:\s*(?P<val>.+)",
         ],
@@ -447,7 +448,7 @@ else:
 
 
 def parse_raw_whois(
-    raw_data, normalized=None, never_query_handles=True, handle_server=""
+    raw_data, normalized=None, never_query_handles=True, handle_server="", name_domain=""
 ):
     normalized = normalized or []
     data = {}
@@ -651,27 +652,52 @@ def parse_raw_whois(
         data = normalize_data(data, normalized)
 
     # Set a bool value that indicates whether the domain is already registered. 
-    data['is_taken'] = True
-    set_flag_is_taken(data)
+    set_flag_is_taken(data,name_domain)
     
     return data
 
-def set_flag_is_taken(data):
+def set_flag_is_taken(data, name_domain):
+    data['is_taken'] = True
+
+    if name_domain == "google.at":
+         a = 1
+
     list_free_domain = ['free','available','not found','no match']
 
     if "status" in data:
-        data['is_taken'] = not data['status'][0] in list_free_domain
+        data['is_taken'] = not data['status'][0].lower() in list_free_domain
     else:
-        str_donuts = "The registration of this domain is restricted"
-        if not re.search(str_donuts,data['raw'][0],re.IGNORECASE):
-            for lt in list_free_domain:
-                if re.search(lt,data['raw'][0],re.IGNORECASE):
+        stop = False
+        list_stop = [
+            r"The registration of this domain is restricted"
+        ]
+
+        for regex in list_stop:
+            if re.search(regex,data['raw'][0],re.IGNORECASE) is not None:
+                stop = True
+                break
+        
+        if not stop:
+            list_ex = [
+                r"%ERROR:101: no entries found",
+                r"No Data Found",
+                r"NOT FOUND",
+                r"AF",
+                r"Available",
+                r"NA",
+                r"The queried object does not exist",
+                r"This query returned 0 objects.",
+                r"No match",
+                r"is free",
+                r"No Object Found"
+                r"Object does not exist"
+                r"no entries found"
+            ]
+            for regex in list_ex:
+                if re.search(regex,data['raw'][0],re.IGNORECASE) is not None:
                     data['is_taken'] = False
                     break;
     return
-
-
-
 
 def normalize_data(data, normalized):
     for key in ("nameservers", "emails", "whois_server"):

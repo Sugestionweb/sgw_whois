@@ -10,4 +10,5 @@ def whois(domain, normalized=None):
         normalized=normalized,
         never_query_handles=False,
         handle_server=server_list[-1],
+        name_domain=domain
     )
