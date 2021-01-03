@@ -2,10 +2,13 @@ from __future__ import print_function
 
 import csv
 import datetime
+import inspect
 import logging
+import os
 import pkgutil
 import re
 import sys
+
 
 from . import sgw_net, sgw_shared
 
@@ -15,50 +18,6 @@ try:
     from io import StringIO
 except ImportError:
     from cStringIO import StringIO
-
-
-def pkgdata(name):
-    data = pkgutil.get_data("pywhois", name)
-    if sys.version_info < (3, 0):
-        return data
-    else:
-        return data.decode("utf-8")
-
-
-def read_dataset(filename, destination, abbrev_key, name_key, is_dict=False):
-    try:
-        if is_dict:
-            reader = csv.DictReader(pkgdata(filename).splitlines())
-        else:
-            reader = csv.reader(pkgdata(filename).splitlines())
-
-        for line in reader:
-            destination[line[abbrev_key]] = line[name_key]
-    except IOError as e:
-        pass
-
-
-airports = {}
-countries = {}
-states_au = {}
-states_us = {}
-states_ca = {}
-
-try:
-    reader = csv.reader(pkgdata("airports.dat").splitlines())
-
-    for line in reader:
-        airports[line[4]] = line[2]
-        airports[line[5]] = line[2]
-except IOError as e:
-    # The distributor likely removed airports.dat for licensing reasons. We'll just leave an empty dict.
-    pass
-
-read_dataset("countries.dat", countries, "iso", "name", is_dict=True)
-read_dataset("countries3.dat", countries, "iso3", "name", is_dict=True)
-read_dataset("states_au.dat", states_au, 0, 1)
-read_dataset("states_us.dat", states_us, "abbreviation", "name", is_dict=True)
-read_dataset("states_ca.dat", states_ca, "abbreviation", "name", is_dict=True)
 
 
 def precompile_regexes(source, flags=0):
@@ -503,7 +462,6 @@ def parse_raw_whois(
                 for line in segment.splitlines():
                     for regex in rule_regexes:
                         result = re.search(regex, line)
-
                         if result is not None:
                             val = result.group("val").strip()
                             if val != "":
@@ -692,7 +650,27 @@ def parse_raw_whois(
     if normalized != []:
         data = normalize_data(data, normalized)
 
+    # Set a bool value that indicates whether the domain is already registered. 
+    data['is_taken'] = True
+    set_flag_is_taken(data)
+    
     return data
+
+def set_flag_is_taken(data):
+    list_free_domain = ['free','available','not found','no match']
+
+    if "status" in data:
+        data['is_taken'] = not data['status'][0] in list_free_domain
+    else:
+        str_donuts = "The registration of this domain is restricted"
+        if not re.search(str_donuts,data['raw'][0],re.IGNORECASE):
+            for lt in list_free_domain:
+                if re.search(lt,data['raw'][0],re.IGNORECASE):
+                    data['is_taken'] = False
+                    break;
+    return
+
+
 
 
 def normalize_data(data, normalized):

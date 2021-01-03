@@ -31,60 +31,28 @@ class WhoisController(Website):
         return json.dumps(results)
 
     def chk_domain_name(self, domain=None, tld=None):
-        result = ""
-        whois_txt = ""
+        result = "Taken"
         if domain is not None and tld is not None:
-            if tld != "es":
-                try:
-                    name = domain + "." + tld
-                    w = sgw_whois.tools.whois(name)
-                    whois_txt = w.get("raw")[0]
-                    if "status" in w:
-                        if "available" in w.get("status")[0].lower():
-                            result = "Free"
-                        else:
-                            result = "Taken"
-                    else:
-                        # Puede ser un dominio -eu el cual no tiene status
-                        if tld == "eu":
-                            if "raw" in w:
-                                if (
-                                    w.get("raw")[0]
-                                    .lower()
-                                    .__contains__("status: available")
-                                ):
-                                    result = "Free"
-                                else:
-                                    result = "Taken"
-                        else:
-                            result = "Free"
-                except Exception:
-                    result = "Error"
-            # los dominios .es se consultan en Arsys por SOAP
-            # elif tld == 'es':
-            #     # settings = Settings(strict=False, xml_huge_tree=True)
-            #     client = Client(arsys_url)
-            #     response = client.service.checkDomain(
-            #         {'sld': domain, 'tld': tld})
-            #     whois_txt = response
-            #     if response.lower().__contains__('<es>0</es>'):
-            #         result = "Taken"
-            #     elif response.lower().__contains__('<es>1</es>'):
-            #         result = "Free"
-            #     elif response.lower().__contains__('<es>2</es>'):
-            #         result = "Taken"
-            #     elif response.lower().__contains__('<es>3</es>'):
-            #         result = "Free"
+            try:
+                name = domain + "." + tld
+                w = sgw_whois.tools.whois(name)
+                w.get("raw")[0]
+                if not w['is_taken']:
+                    result = "Free"
+
+            except Exception:
+                result = "Error"
 
             # log de la consulta
             r = False
             if result == "Free":
                 r = True
 
+            # TODO: Log whois query
             obj_log = request.env["sgw.whoisquery"].sudo()
-            obj_log.create(
-                {"sld": domain, "tld": tld, "free": r, "whois_raw": whois_txt}
-            )
+            """ obj_log.create(
+                {"sld": domain, "tld": tld, "is_taken": r, "whois_raw": whois_txt}
+            ) """
 
         return result
 
@@ -93,6 +61,7 @@ class WhoisController(Website):
 
         result = '<i class="fa fa-times-circle fa-lg text-danger"></i><span style ="margin-left:10px;" class="text-danger">Not available</span>'
         status = self.chk_domain_name(domain, tld)
+        
         if status == "Free":
             result = '<i class="fa fa-check-circle fa-lg text-success"></i><span style ="margin-left:10px;" class="text-success">Available</span> '
         if status == "Error":
@@ -127,7 +96,7 @@ class WhoisController(Website):
         }
         return http.request.render("sgw_whois.whois_check", values)
 
-    def check_domain(self, domain=None, tld=None, p=None):
+    """ def check_domain(self, domain=None, tld=None, p=None):
         result = ""
         whois_txt = ""
         if domain is not None and tld is not None and p is not None:
@@ -139,7 +108,7 @@ class WhoisController(Website):
             except Exception:
                 result = "Free"
         return result, whois_txt, p
-
+ """
     @http.route("/get_whois_raw", auth="public", type="http", website=True, csrf=True)
     def get_whois_raw(self, domain=None, **kwargs):
         result = ""
