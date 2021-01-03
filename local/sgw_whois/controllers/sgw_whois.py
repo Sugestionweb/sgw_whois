@@ -32,36 +32,29 @@ class WhoisController(Website):
 
     def chk_domain_name(self, domain=None, tld=None):
         result = "Taken"
+        r = True
+        whois_txt = ""
         if domain is not None and tld is not None:
             try:
                 name = domain + "." + tld
                 w = sgw_whois.tools.whois(name)
-                w.get("raw")[0]
+                whois_txt = w.get("raw")[0]
                 if not w['is_taken']:
                     result = "Free"
-
+                    r = False
             except Exception:
                 result = "Error"
-
-            # log de la consulta
-            r = False
-            if result == "Free":
                 r = True
-
-            # TODO: Log whois query
             obj_log = request.env["sgw.whoisquery"].sudo()
-            """ obj_log.create(
+            obj_log.create(
                 {"sld": domain, "tld": tld, "is_taken": r, "whois_raw": whois_txt}
-            ) """
-
+            )
         return result
 
     @http.route(["/get_status"], auth="public", type="http", website=True, csrf=True)
     def get_status(self, domain, tld):
-
         result = '<i class="fa fa-times-circle fa-lg text-danger"></i><span style ="margin-left:10px;" class="text-danger">Not available</span>'
         status = self.chk_domain_name(domain, tld)
-        
         if status == "Free":
             result = '<i class="fa fa-check-circle fa-lg text-success"></i><span style ="margin-left:10px;" class="text-success">Available</span> '
         if status == "Error":

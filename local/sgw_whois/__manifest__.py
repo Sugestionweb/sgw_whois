@@ -12,7 +12,7 @@
     "license": "AGPL-3",
     "sequence": 2,
     "summary": """
-    Query Whois Servers from website
+    With this module you can make domain name queries to Whois databases.
     """,
     "images": ["static/description/banner.gif"],
     "depends": ["website_sale"],

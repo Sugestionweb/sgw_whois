@@ -5,7 +5,8 @@ odoo.define("sgw_whois.tools", function(require) {
   //  var core = require("web.core");
   //  var _t = core._t;
   // Var core = require("web.core");
-  const ByID = function(elementId) { 
+
+  let ByID = function(elementId) { 
     return document.getElementById(elementId); 
   }; 
   
@@ -15,17 +16,17 @@ odoo.define("sgw_whois.tools", function(require) {
 
   
   function render(datos, tld, domain_name) {
-    const domain = domain_name + "." + tld;
+    let domain = domain_name + "." + tld;
     ByID("tabla_result").style.visibility = "visible";
     ByID("loading_table").style.visibility = "hidden";
     ByID("img_resultado_whois_" + tld).innerHTML = datos;
     if (datos.indexOf("text-danger") !== -1) {
       ByID("link_buy_" + tld).innerHTML = "Not available";
-      const to_stroke = document.getElementById("price_" + tld).innerHTML;
-      const stroked = "<s>" + to_stroke + "</s>";
+      let to_stroke = document.getElementById("price_" + tld).innerHTML;
+      let stroked = "<s>" + to_stroke + "</s>";
       ByID("price_" + tld).innerHTML = stroked;
 
-      const Button_Whois = document.createElement("button");
+      let Button_Whois = document.createElement("button");
       Button_Whois.type = "button";
       Button_Whois.className = "btn btn-info btn-sm";
       Button_Whois.setAttribute("data-toggle", "modal");
@@ -71,7 +72,7 @@ odoo.define("sgw_whois.tools", function(require) {
   function getStatus2(domain_name) {
     ByID("loading_table").style.visibility = "visible";
     function callback(response) {
-      const obj = JSON.parse(response);
+      let obj = JSON.parse(response);
       for (var k in obj) {
         whois(domain_name, obj[k]);
       }
@@ -89,7 +90,7 @@ odoo.define("sgw_whois.tools", function(require) {
   }
 
   if (window.location.pathname === "/whois") {
-    const value_domain = ByID("domain").value;
+    let value_domain = ByID("domain").value;
     if (value_domain !== "") {
       getStatus2(value_domain);
     }
