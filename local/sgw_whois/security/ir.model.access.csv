@@ -2,3 +2,5 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_sgw_whoisquery,access_sgw_whoisquery_system,model_sgw_whoisquery,base.group_system,1,1,1,1
 access_sgw_whoisquery_sale_manager,access_sgw_whoisquerymanager,model_sgw_whoisquery,sales_team.group_sale_manager,1,1,1,1
 access_sgw_whoisquery_user,access_sgw_whoisqueryuser,model_sgw_whoisquery,base.group_user,1,0,0,0
+access_sgw_cc_tld_user,access_sgw_whoisqueryuser,model_sgw_whoiscc_tld,base.group_user,1,0,0,0
+access_sgw_cc_tld_sale_manager,access_sgw_whoisqueryuser,model_sgw_whoiscc_tld,sales_team.group_sale_manager,1,1,1,1

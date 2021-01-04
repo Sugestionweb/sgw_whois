@@ -54,8 +54,6 @@ class WhoisController(Website):
 
     @http.route(["/get_status"], auth="public", type="http", website=True, csrf=True)
     def get_status(self, domain, tld):
-        if domain == "sugestionweb" and tld == "cz":
-            a = 1
         result = '<i class="fa fa-times-circle fa-lg text-danger"></i><span style ="margin-left:10px;" class="text-danger">Not available</span>'
         status = self.chk_domain_free(domain, tld)
         if status == "Free":
