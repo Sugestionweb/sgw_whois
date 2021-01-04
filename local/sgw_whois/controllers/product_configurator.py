@@ -38,7 +38,7 @@ class WebSiteSale(ProductConfiguratorController):
             if form["domain"] != "":
                 context.update(domain=form["domain"])
 
-        """This route is called when adding a product to cart (no options)."""
+        # This route is called when adding a product to cart (no options).
         sale_order = request.website.sale_get_order(force_create=True)
         if sale_order.state != "draft":
             request.session["sale_order_id"] = None

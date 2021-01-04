@@ -5,15 +5,14 @@ odoo.define("sgw_whois.tools", function(require) {
   //  var core = require("web.core");
   //  var _t = core._t;
   // Var core = require("web.core");
-  const ByID = function(elementId) { 
-    return document.getElementById(elementId); 
-  }; 
-  
+  const ByID = function(elementId) {
+    return document.getElementById(elementId);
+  };
+
   ByID("csrf_token").value = odoo.csrf_token;
 
-  // document.getElementById("csrf_token").value = odoo.csrf_token;
+  // Document.getElementById("csrf_token").value = odoo.csrf_token;
 
-  
   function render(datos, tld, domain_name) {
     const domain = domain_name + "." + tld;
     ByID("tabla_result").style.visibility = "visible";
@@ -51,8 +50,6 @@ odoo.define("sgw_whois.tools", function(require) {
       });
     });
     ByID("button_whois_" + tld).appendChild(Button_Whois);
-
-
   }
   function whois(domain_name, tld) {
     $.ajax({

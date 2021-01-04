@@ -9,7 +9,6 @@ import pkgutil
 import re
 import sys
 
-
 from . import sgw_net, sgw_shared
 
 _logger = logging.getLogger(__name__)
@@ -448,7 +447,11 @@ else:
 
 
 def parse_raw_whois(
-    raw_data, normalized=None, never_query_handles=True, handle_server="", name_domain=""
+    raw_data,
+    normalized=None,
+    never_query_handles=True,
+    handle_server="",
+    name_domain="",
 ):
     normalized = normalized or []
     data = {}
@@ -651,41 +654,33 @@ def parse_raw_whois(
     if normalized != []:
         data = normalize_data(data, normalized)
 
-    # Set a bool value that indicates whether the domain is already registered. 
-    set_flag_is_taken(data,name_domain)
-    
+    # Set a bool value that indicates whether the domain is already registered.
+    set_flag_is_taken(data, name_domain)
+
     return data
 
-def set_flag_is_taken(data, name_domain):
-    data['is_taken'] = True
 
-    if name_domain == "sugestionweb.cl":
+def set_flag_is_taken(data, name_domain):
+    data["is_taken"] = True
+
+    if name_domain == "google.cr":
         a = 1
 
-    list_free_domain = [
-        'free',
-        'available',
-        'not found',
-        'no match',
-        'no object found'
-    ]
+    list_free_domain = ["free", "available", "not found", "no match", "no object found"]
 
     if "status" in data:
-        data['is_taken'] = not data['status'][0].lower() in list_free_domain
+        data["is_taken"] = not data["status"][0].lower() in list_free_domain
     else:
         stop = False
         list_stop = [
             r"The registration of this domain is restricted",
-            r"This name is not available for registration"
+            r"This name is not available for registration",
         ]
 
         for regex in list_stop:
-            if re.search(regex,data['raw'][0],re.IGNORECASE) is not None:
+            if re.search(regex, data["raw"][0], re.IGNORECASE) is not None:
                 stop = True
                 break
-        
-        
-
 
         if not stop:
             list_ex = [
@@ -698,17 +693,22 @@ def set_flag_is_taken(data, name_domain):
                 r"No match",
                 r"is free",
                 r"No Object Found",
-                r"Object does not exist", 
+                r"Object does not exist",
                 r"no entries found",
                 r"nothing found",
                 r"This domain name has not been registered.",
-
             ]
             for regex in list_ex:
-                if re.search(regex,data['raw'][0],re.IGNORECASE) is not None:
-                    data['is_taken'] = False
-                    break;
+                if re.search(regex, data["raw"][0], re.IGNORECASE) is not None:
+                    data["is_taken"] = False
+                    break
+
+            # Domains .bo not indicate nothing in whois if domain is free and this can lead to error
+            if name_domain.endswith(".bo") & data["is_taken"]:
+                if re.search("TITULAR:", data["raw"][0], re.IGNORECASE) is None:
+                    data["is_taken"] = False
     return
+
 
 def normalize_data(data, normalized):
     for key in ("nameservers", "emails", "whois_server"):

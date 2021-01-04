@@ -1,8 +1,8 @@
 import logging
-from odoo import _, api, models
-from odoo.exceptions import UserError
-from odoo.http import request
 
+from odoo import _, api, models
+from odoo.exceptions import ValidationError, UserError
+from odoo.http import request
 
 _logger = logging.getLogger(__name__)
 
@@ -103,7 +103,8 @@ class SgwSaleOrder(models.Model):
             request.session["sale_order_id"] = None
             raise UserError(
                 _(
-                    "It is forbidden to modify a sales order which is not in draft status."
+                    "It is forbidden to modify a sales order which \
+                        is not in draft status."
                 )
             )
         if line_id is not False:
@@ -121,7 +122,8 @@ class SgwSaleOrder(models.Model):
             if not product:
                 raise UserError(
                     _(
-                        "The given product does not exist therefore it cannot be added to cart."
+                        "The given product does not exist therefore it cannot \
+                            be added to cart."
                     )
                 )
 
@@ -148,7 +150,8 @@ class SgwSaleOrder(models.Model):
             if not product:
                 raise UserError(
                     _(
-                        "The given combination does not exist therefore it cannot be added to cart."
+                        "The given combination does not exist therefore \
+                            it cannot be added to cart."
                     )
                 )
 
@@ -227,7 +230,8 @@ class SgwSaleOrder(models.Model):
             try:
                 order_line._compute_tax_id()
             except ValidationError as e:
-                # The validation may occur in backend (eg: taxcloud) but should fail silently in frontend
+                # The validation may occur in backend (eg: taxcloud) but should
+                # fail silently in frontend
                 _logger.debug("ValidationError occurs during tax compute. %s" % (e))
             if add_qty:
                 add_qty -= 1

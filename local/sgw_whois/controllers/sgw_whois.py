@@ -39,7 +39,7 @@ class WhoisController(Website):
                 name = domain + "." + tld
                 w = sgw_whois.tools.whois(name)
                 whois_txt = w.get("raw")[0]
-                if not w['is_taken']:
+                if not w["is_taken"]:
                     result = "Free"
                     r = False
             except Exception:
@@ -53,6 +53,11 @@ class WhoisController(Website):
 
     @http.route(["/get_status"], auth="public", type="http", website=True, csrf=True)
     def get_status(self, domain, tld):
+        faicon = "fa-times-circle"
+
+        r = '<i class="fa {fa-icon} fa-lg text-danger"></i><span style ="margin-left:10px;" class="text-danger">Not available</span>'
+        r.format(faicon="fa-times-circle fa-lg text-danger")
+
         result = '<i class="fa fa-times-circle fa-lg text-danger"></i><span style ="margin-left:10px;" class="text-danger">Not available</span>'
         status = self.chk_domain_name(domain, tld)
         if status == "Free":
@@ -89,19 +94,6 @@ class WhoisController(Website):
         }
         return http.request.render("sgw_whois.whois_check", values)
 
-    """ def check_domain(self, domain=None, tld=None, p=None):
-        result = ""
-        whois_txt = ""
-        if domain is not None and tld is not None and p is not None:
-            try:
-                name = domain + "." + tld
-                w = self.whois(name, True)
-                whois_txt = w.text
-                result = "Taken"
-            except Exception:
-                result = "Free"
-        return result, whois_txt, p
- """
     @http.route("/get_whois_raw", auth="public", type="http", website=True, csrf=True)
     def get_whois_raw(self, domain=None, **kwargs):
         result = ""
