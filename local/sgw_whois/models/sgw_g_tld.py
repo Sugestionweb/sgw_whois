@@ -3,7 +3,7 @@ from odoo import fields, models
 
 class SgwWhoisg_Tld(models.Model):
     _name = "sgw.whoisg_tld"
-    _order = "gtld desc"
+    _order = "gtld"
     _description = "Country Codes TLD"
 
     gtld = fields.Char("gTLD", required=True)
