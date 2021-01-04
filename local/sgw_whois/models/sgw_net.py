@@ -94,12 +94,7 @@ def get_whois_raw(
     # Sometimes IANA simply won't give us the right root WHOIS server
 
     if rfc3490:
-        if sys.version_info < (3, 0):
-            domain = encode(
-                domain if type(domain) is unicode else decode(domain, "utf8"), "idna"
-            )
-        else:
-            domain = encode(domain, "idna").decode("ascii")
+        domain = encode(domain, "idna").decode("ascii")
 
     if server is None:
         target_server = get_root_server(domain)
