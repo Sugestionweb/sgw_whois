@@ -17,7 +17,12 @@ odoo.define("sgw_whois.tools", function(require) {
     const domain = domain_name + "." + tld;
     ByID("tabla_result").style.visibility = "visible";
     ByID("loading_table").style.visibility = "hidden";
+    
+    
     ByID("img_resultado_whois_" + tld).innerHTML = datos;
+    
+
+
     if (datos.indexOf("text-danger") !== -1) {
       ByID("link_buy_" + tld).innerHTML = "Not available";
       const to_stroke = document.getElementById("price_" + tld).innerHTML;

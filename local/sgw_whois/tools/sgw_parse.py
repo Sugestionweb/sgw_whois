@@ -663,7 +663,7 @@ def parse_raw_whois(
 def set_flag_is_taken(data, name_domain):
     data["is_taken"] = True
 
-    if name_domain == "google.cr":
+    if name_domain == "sugestionweb.cz":
         a = 1
 
     list_free_domain = ["free", "available", "not found", "no match", "no object found"]
@@ -703,7 +703,8 @@ def set_flag_is_taken(data, name_domain):
                     data["is_taken"] = False
                     break
 
-            # Domains .bo not indicate nothing in whois if domain is free and this can lead to error
+            # Domains .bo not indicate nothing in whois if domain 
+            # is free and this can lead to error
             if name_domain.endswith(".bo") & data["is_taken"]:
                 if re.search("TITULAR:", data["raw"][0], re.IGNORECASE) is None:
                     data["is_taken"] = False

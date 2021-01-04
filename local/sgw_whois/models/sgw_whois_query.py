@@ -16,3 +16,4 @@ class SgwWhoisQuery(models.Model):
     tld = fields.Char("tld", required=True)
     is_taken = fields.Boolean("is_taken")
     whois_raw = fields.Text("Whois raw of domain")
+

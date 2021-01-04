@@ -30,7 +30,8 @@ class WhoisController(Website):
         results = self._get_tlds_exts()
         return json.dumps(results)
 
-    def chk_domain_name(self, domain=None, tld=None):
+    def chk_domain_free(self, domain=None, tld=None):
+        # @returns "Taken", "Free" or "Error"
         result = "Taken"
         r = True
         whois_txt = ""
@@ -53,13 +54,10 @@ class WhoisController(Website):
 
     @http.route(["/get_status"], auth="public", type="http", website=True, csrf=True)
     def get_status(self, domain, tld):
-        faicon = "fa-times-circle"
-
-        r = '<i class="fa {fa-icon} fa-lg text-danger"></i><span style ="margin-left:10px;" class="text-danger">Not available</span>'
-        r.format(faicon="fa-times-circle fa-lg text-danger")
-
+        if domain == "sugestionweb" and tld == "cz":
+            a = 1
         result = '<i class="fa fa-times-circle fa-lg text-danger"></i><span style ="margin-left:10px;" class="text-danger">Not available</span>'
-        status = self.chk_domain_name(domain, tld)
+        status = self.chk_domain_free(domain, tld)
         if status == "Free":
             result = '<i class="fa fa-check-circle fa-lg text-success"></i><span style ="margin-left:10px;" class="text-success">Available</span> '
         if status == "Error":
