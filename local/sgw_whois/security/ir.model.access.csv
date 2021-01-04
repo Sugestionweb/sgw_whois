@@ -4,3 +4,5 @@ access_sgw_whoisquery_sale_manager,access_sgw_whoisquerymanager,model_sgw_whoisq
 access_sgw_whoisquery_user,access_sgw_whoisqueryuser,model_sgw_whoisquery,base.group_user,1,0,0,0
 access_sgw_cc_tld_user,access_sgw_whoisqueryuser,model_sgw_whoiscc_tld,base.group_user,1,0,0,0
 access_sgw_cc_tld_sale_manager,access_sgw_whoisqueryuser,model_sgw_whoiscc_tld,sales_team.group_sale_manager,1,1,1,1
+access_sgw_g_tld_user,access_sgw_whoisqueryuser,model_sgw_whoisg_tld,base.group_user,1,0,0,0
+access_sgw_g_tld_sale_manager,access_sgw_whoisqueryuser,model_sgw_whoisg_tld,sales_team.group_sale_manager,1,1,1,1

@@ -23,4 +23,16 @@
       </tree>
     </field>
   </record>
+    <record model="ir.ui.view" id="view_whoisg_tld">
+    <field name="name">sgw.whoisg_tld.tree</field>
+    <field name="model">sgw.whoisg_tld</field>
+    <field name="arch" type="xml">
+      <tree string="sgw_whoisg_tld">
+        <field name="gtld" />
+        <field name="whois_server" />
+        <field name="notes" />
+      </tree>
+    </field>
+  </record>
+
 </odoo>

@@ -30,4 +30,18 @@
       </p>
     </field>
   </record>
+  <record model="ir.actions.act_window" id="action_sgw_g_tld">
+    <field name="name">gTLDs</field>
+    <field name="res_model">sgw.whoisg_tld</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+      Click to set a new entry.
+      </p>
+      <p>
+      Generic TLD
+      </p>
+    </field>
+  </record>
 </odoo>
