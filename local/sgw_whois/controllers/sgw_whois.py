@@ -6,8 +6,10 @@ from odoo.http import Response, request
 
 from odoo.addons.website.controllers.main import Website
 
+
 fp, pathname, description = imp.find_module("sgw_whois", conf.addons_paths)
 sgw_whois = imp.load_module("sgw_whois", fp, pathname, description)
+
 
 
 class WhoisController(Website):
@@ -37,8 +39,8 @@ class WhoisController(Website):
         if domain is not None and tld is not None:
             try:
                 name = domain + "." + tld
-                w = sgw_whois.models.sgw_whois_query.SgwWhoisQuery.whois(name)
-                whois_txt = w.get("raw")[0]
+                w = http.request.env['sgw.whoisquery'].whois(name)
+                #w.get("raw")[0]
                 if not w["is_taken"]:
                     result = "Free"
                     r = False
