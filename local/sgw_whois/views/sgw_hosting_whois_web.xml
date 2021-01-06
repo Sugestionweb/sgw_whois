@@ -11,7 +11,7 @@
                 role="form"
                 id="form_whois"
                 name="form_whois"
-                t-attf-action="/whois?debug=assets"
+                t-attf-action="/whois"
                 method="post"
               >
                 <div class="form-group d-md-flex">
