@@ -4,15 +4,10 @@ from codecs import encode
 
 from odoo import fields, models
 
-
 import datetime
 import logging
 
 _logger = logging.getLogger(__name__)
-
-
-class WhoisException(Exception):
-    pass
 
 
 class SgwWhoisg_Tld(models.Model):
@@ -20,7 +15,7 @@ class SgwWhoisg_Tld(models.Model):
     _order = "gtld"
     _description = "Country Codes TLD"
 
-    #TODO: Constraint gtld unique
+    # TODO: Constraint gtld unique
 
     gtld = fields.Char("gTLD", required=True, )
     whois_server = fields.Char("Whois server", required=True)
@@ -499,7 +494,7 @@ class SgwWhoisQuery(models.Model):
                                 if val != "":
                                     try:
                                         data[rule_key].append(val)
-                                    except KeyError as e:
+                                    except KeyError:
                                         data[rule_key] = [val]
 
             # Whois.com is a bit special... Fabulous.com also seems to use this format. As do some others.
@@ -515,7 +510,7 @@ class SgwWhoisQuery(models.Model):
                         if not re.match("^[a-zA-Z]+:", match):
                             try:
                                 data["nameservers"].append(match.strip())
-                            except KeyError as e:
+                            except KeyError:
                                 data["nameservers"] = [match.strip()]
 
             # NOTE: this is to avoid some messy issues below
@@ -534,7 +529,7 @@ class SgwWhoisQuery(models.Model):
                     match = match.split()[0]
                     try:
                         data["nameservers"].append(match.strip())
-                    except KeyError as e:
+                    except KeyError:
                         data["nameservers"] = [match.strip()]
             # janet (.ac.uk) is kinda like Nominet, but also kinda not
             match = re.search("Registered By:\n\t(.+)\n", segment)
@@ -556,7 +551,7 @@ class SgwWhoisQuery(models.Model):
                     match = match.split()[0]
                     try:
                         data["nameservers"].append(match.strip())
-                    except KeyError as e:
+                    except KeyError:
                         data["nameservers"] = [match.strip()]
             # .am plays the same game
             match = re.search("   DNS servers:([\\s\\S]*?\n)\n", segment)
@@ -566,7 +561,7 @@ class SgwWhoisQuery(models.Model):
                     match = match.split()[0]
                     try:
                         data["nameservers"].append(match.strip())
-                    except KeyError as e:
+                    except KeyError:
                         data["nameservers"] = [match.strip()]
             # SIDN isn't very standard either. And EURid uses a similar format.
             match = re.search("Registrar:\n\\s+(?:Name:\\s*)?(\\S.*)", segment)
@@ -586,7 +581,7 @@ class SgwWhoisQuery(models.Model):
                     if not match.startswith("[") and not match.endswith("]"):
                         try:
                             data["nameservers"].append(match.strip())
-                        except KeyError as e:
+                        except KeyError:
                             data["nameservers"] = [match.strip()]
             # The .ie WHOIS server puts ambiguous status information in an unhelpful order
             match = re.search(r"ren-status:\s*(.+)", segment)
@@ -604,7 +599,7 @@ class SgwWhoisQuery(models.Model):
                     match = match.split()[0]
                     try:
                         data["nameservers"].append(match.strip())
-                    except KeyError as e:
+                    except KeyError:
                         data["nameservers"] = [match.strip()]
             # ... and again for TWNIC.
             match = re.search(
@@ -616,7 +611,7 @@ class SgwWhoisQuery(models.Model):
                     match = match.split()[0]
                     try:
                         data["nameservers"].append(match.strip())
-                    except KeyError as e:
+                    except KeyError:
                         data["nameservers"] = [match.strip()]
 
         data["contacts"] = SgwWhoisQuery.parse_registrants(raw_data, never_query_handles, handle_server)
@@ -625,19 +620,19 @@ class SgwWhoisQuery(models.Model):
         try:
             data["expiration_date"] = SgwWhoisQuery.remove_duplicates(data["expiration_date"])
             data["expiration_date"] = SgwWhoisQuery.parse_dates(data["expiration_date"])
-        except KeyError as e:
+        except KeyError:
             pass  # Not present
 
         try:
             data["creation_date"] = SgwWhoisQuery.remove_duplicates(data["creation_date"])
             data["creation_date"] = SgwWhoisQuery.parse_dates(data["creation_date"])
-        except KeyError as e:
+        except KeyError:
             pass  # Not present
 
         try:
             data["updated_date"] = SgwWhoisQuery.remove_duplicates(data["updated_date"])
             data["updated_date"] = SgwWhoisQuery.parse_dates(data["updated_date"])
-        except KeyError as e:
+        except KeyError:
             pass  # Not present
 
         try:
@@ -645,17 +640,17 @@ class SgwWhoisQuery(models.Model):
             data["nameservers"] = SgwWhoisQuery.remove_duplicates(
                 [ns.rstrip(".") for ns in data["nameservers"]]
             )
-        except KeyError as e:
+        except KeyError:
             pass  # Not present
 
         try:
             data["emails"] = SgwWhoisQuery.remove_duplicates(data["emails"])
-        except KeyError as e:
+        except KeyError:
             pass  # Not present
 
         try:
             data["registrar"] = SgwWhoisQuery.remove_duplicates(data["registrar"])
-        except KeyError as e:
+        except KeyError:
             pass  # Not present
 
         # Remove e-mail addresses if they are already listed for any of the contacts
@@ -664,13 +659,13 @@ class SgwWhoisQuery(models.Model):
             if data["contacts"][contact] is not None:
                 try:
                     known_emails.append(data["contacts"][contact]["email"])
-                except KeyError as e:
+                except KeyError:
                     pass  # No e-mail recorded for this contact...
         try:
             data["emails"] = [
                 email for email in data["emails"] if email not in known_emails
             ]
-        except KeyError as e:
+        except KeyError:
             pass  # Not present
 
         for key in list(data.keys()):
@@ -858,7 +853,7 @@ class SgwWhoisQuery(models.Model):
                         contact[key] = contact[key].strip(", ")
                         if contact[key] == "-" or contact[key].lower() == "n/a":
                             del contact[key]
-                    except AttributeError as e:
+                    except AttributeError:
                         pass  # Not a string
         return data
 
@@ -952,37 +947,37 @@ class SgwWhoisQuery(models.Model):
                         # This will require some more guesswork - some WHOIS servers present the name of the month
                         try:
                             month = int(result.group("month"))
-                        except ValueError as e:
+                        except ValueError:
                             # Apparently not a number. Look up the corresponding number.
                             try:
                                 month = grammar["_months"][result.group("month").lower()]
-                            except KeyError as e:
+                            except KeyError:
                                 # Unknown month name, default to 0
                                 month = 0
 
                         try:
                             hour = int(result.group("hour"))
-                        except IndexError as e:
+                        except IndexError:
                             hour = 0
-                        except TypeError as e:
+                        except TypeError:
                             hour = 0
 
                         try:
                             minute = int(result.group("minute"))
-                        except IndexError as e:
+                        except IndexError:
                             minute = 0
-                        except TypeError as e:
+                        except TypeError:
                             minute = 0
 
                         try:
                             second = int(result.group("second"))
-                        except IndexError as e:
+                        except IndexError:
                             second = 0
-                        except TypeError as e:
+                        except TypeError:
                             second = 0
 
                         break
-                    except ValueError as e:
+                    except ValueError:
                         # Something went horribly wrong, maybe there is no valid date present?
                         year = 0
                         month = 0
@@ -997,13 +992,13 @@ class SgwWhoisQuery(models.Model):
                         parsed_dates.append(
                             datetime.datetime(year, month, day, hour, minute, second)
                         )
-                    except ValueError as e:
+                    except ValueError:
                         # We might have gotten the day and month the wrong way around, let's try it the other way around
                         # If you're not using an ISO-standard date format, you're an evil registrar!
                         parsed_dates.append(
                             datetime.datetime(year, day, month, hour, minute, second)
                         )
-            except UnboundLocalError as e:
+            except UnboundLocalError:
                 pass
 
         if len(parsed_dates) > 0:
@@ -1097,7 +1092,7 @@ class SgwWhoisQuery(models.Model):
                                             data_reference["handle"], handle_server
                                         )
                                         data_reference.update(contact)
-                                    except WhoisException as e:
+                                    except WhoisException:
                                         pass  # No data found. TODO: Log error?
                                 else:
                                     pass  # TODO: Log warning?
@@ -1132,7 +1127,7 @@ class SgwWhoisQuery(models.Model):
                         try:
                             street_items.append(obj["street%d" % i])
                             del obj["street%d" % i]
-                        except KeyError as e:
+                        except KeyError:
                             break
                         i += 1
                     obj["street"] = "\n".join(street_items)
@@ -1146,7 +1141,7 @@ class SgwWhoisQuery(models.Model):
                             if obj["organization%d" % i].strip() != "":
                                 organization_items.append(obj["organization%d" % i])
                                 del obj["organization%d" % i]
-                        except KeyError as e:
+                        except KeyError:
                             break
                         i += 1
                     obj["organization"] = "\n".join(organization_items)
@@ -1350,7 +1345,6 @@ class SgwWhoisQuery(models.Model):
             return new_list
 
     def whois_request(domain, server, port=43, timeout=None):
-
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(timeout)
@@ -1363,5 +1357,5 @@ class SgwWhoisQuery(models.Model):
                     break
                 buff += data
             return buff.decode("latin-1")
-        except:
-            return "NA"
+        except Exception:
+            return "Error: (%s) " % e

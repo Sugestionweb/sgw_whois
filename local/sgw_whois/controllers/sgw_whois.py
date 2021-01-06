@@ -11,7 +11,6 @@ fp, pathname, description = imp.find_module("sgw_whois", conf.addons_paths)
 sgw_whois = imp.load_module("sgw_whois", fp, pathname, description)
 
 
-
 class WhoisController(Website):
     def _get_tlds_exts(self):
         tlds_exts = []
@@ -40,7 +39,6 @@ class WhoisController(Website):
             try:
                 name = domain + "." + tld
                 w = http.request.env['sgw.whoisquery'].whois(name)
-                #w.get("raw")[0]
                 if not w["is_taken"]:
                     result = "Free"
                     r = False
@@ -96,7 +94,7 @@ class WhoisController(Website):
         result = ""
         try:
             name = domain
-            w = sgw_whois.tools.whois(name)
+            w = http.request.env['sgw.whoisquery'].whois(name)
             result = w.get("raw")[0].replace("\n", "<br/>")
         except Exception:
             result = "Error"
