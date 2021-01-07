@@ -44,7 +44,7 @@ class WhoisController(Website):
                     r = False
             except Exception:
                 result = "Error"
-                r = True
+                r = None
             obj_log = request.env["sgw.whoisquery"].sudo()
             obj_log.create(
                 {"sld": domain, "tld": tld, "is_taken": r, "whois_raw": whois_txt}
@@ -96,6 +96,11 @@ class WhoisController(Website):
             name = domain
             w = http.request.env['sgw.whoisquery'].whois(name)
             result = w.get("raw")[0].replace("\n", "<br/>")
+            if "Errno 104" in result:
+                raise Exception
+            if "Errno -2" in result:
+                raise Exception
         except Exception:
             result = "Error"
+
         return Response(result, content_type="text/html;charset=utf-8")
