@@ -719,6 +719,7 @@ class SgwWhoisQuery(models.Model):
                     r"no entries found",
                     r"nothing found",
                     r"This domain name has not been registered.",
+                    r"%ERROR:103: Domain is not registered"
                 ]
                 for regex in list_ex:
                     if re.search(regex, data["raw"][0], re.IGNORECASE) is not None:
@@ -1357,5 +1358,5 @@ class SgwWhoisQuery(models.Model):
                     break
                 buff += data
             return buff.decode("latin-1")
-        except Exception:
+        except Exception as e:
             return "Error: (%s) " % e
