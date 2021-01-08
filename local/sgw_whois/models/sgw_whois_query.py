@@ -66,11 +66,12 @@ class SgwWhoisQuery(models.Model):
     grammar = {
         "_data": {
             "status": [
-                r"\[Status\]\s*(?P<val>.+)",
+                r"^state:\s*(?P<val>.+)",
                 r"Status\s*:\s?(?P<val>.+)",
+                r"\[Status\]\s*(?P<val>.+)",
                 r"Status:\s?(?P<val>.+)",
                 r"\[State\]\s*(?P<val>.+)",
-                r"^state:\s*(?P<val>.+)",
+
             ],
 
         }
@@ -80,23 +81,15 @@ class SgwWhoisQuery(models.Model):
         grammar["_data"]["status"], re.IGNORECASE
     )
 
-    def is_string(data):
-        """Test for string with support for python 3."""
-        return isinstance(data, str)
-
     def parse_raw_whois(
         self,
         raw_data,
-        never_query_handles=True,
-        handle_server="",
         name_domain="",
     ):
 
         data = {}
 
-        raw_data = [
-            segment.replace("\r", "") for segment in raw_data
-        ]  # Carriage returns are the devil
+        raw_data = [segment.replace("\r", "") for segment in raw_data]  
 
         for segment in raw_data:
             for rule_key, rule_regexes in grammar["_data"].items():
@@ -111,11 +104,6 @@ class SgwWhoisQuery(models.Model):
                                         data[rule_key].append(val)
                                     except KeyError:
                                         data[rule_key] = [val]
-
-            # The .ie WHOIS server puts ambiguous status information in an unhelpful order
-            match = re.search(r"ren-status:\s*(.+)", segment)
-            if match is not None:
-                data["status"].insert(0, match.group(1).strip())
 
         for key in list(data.keys()):
             if data[key] is None or len(data[key]) == 0:
@@ -186,8 +174,8 @@ class SgwWhoisQuery(models.Model):
         return SgwWhoisQuery.parse_raw_whois(
             self,
             raw_data,
-            never_query_handles=False,
-            handle_server=server_list[-1],
+            # never_query_handles=False,
+            # handle_server=server_list[-1],
             name_domain=domain,
         )
 
@@ -205,7 +193,6 @@ class SgwWhoisQuery(models.Model):
                 return match.group(1)
 
         # case where no result was found
-
         try:
             tld = domain.split(".")[-1]
             result = self.env['sgw.whoisg_tld'].search([('gtld', '=', tld)]).whois_server

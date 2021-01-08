@@ -38,7 +38,7 @@ class WhoisController(Website):
         if domain is not None and tld is not None:
             try:
                 name = domain + "." + tld
-                w = http.request.env['sgw.whoisquery'].whois(name)
+                w = http.request.env["sgw.whoisquery"].whois(name)
                 if not w["is_taken"]:
                     result = "Free"
                     r = False
@@ -94,13 +94,14 @@ class WhoisController(Website):
         result = ""
         try:
             name = domain
-            w = http.request.env['sgw.whoisquery'].whois(name)
+            w = http.request.env["sgw.whoisquery"].whois(name)
             result = w.get("raw")[0].replace("\n", "<br/>")
-            if "Errno 104" in result:
-                raise Exception
-            if "Errno -2" in result:
-                raise Exception
+            errs = ["Errno 104", "Errno -2"]
+
+            if any(error in result for error in errs):
+                raise Exception(name, w, result)
+
         except Exception:
-            result = "Error"
+            result = ("Error: %s ") % result
 
         return Response(result, content_type="text/html;charset=utf-8")
