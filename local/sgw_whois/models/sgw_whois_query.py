@@ -7,6 +7,18 @@ from odoo import fields, models
 
 _logger = logging.getLogger(__name__)
 
+grammar = {
+    "_data": {
+        "status": [
+            r"^state:\s*(?P<val>.+)",
+            r"Status\s*:\s?(?P<val>.+)",
+            r"\[Status\]\s*(?P<val>.+)",
+            r"Status:\s?(?P<val>.+)",
+            r"\[State\]\s*(?P<val>.+)",
+        ],
+    }
+}
+
 
 class SgwWhoisgTld(models.Model):
     _name = "sgw.whoisg_tld"
@@ -25,27 +37,6 @@ class SgwWhoisQuery(models.Model):
     _order = "date_query desc"
     _description = "Model to save the queries made using the whois module"
 
-    global grammar
-
-    grammar = {
-        "_data": {
-            "status": [
-                r"^state:\s*(?P<val>.+)",
-                r"Status\s*:\s?(?P<val>.+)",
-                r"\[Status\]\s*(?P<val>.+)",
-                r"Status:\s?(?P<val>.+)",
-                r"\[State\]\s*(?P<val>.+)",
-            ],
-        }
-    }
-
-    def precompile_regexes(source, flags=0):
-        return [re.compile(regex, flags) for regex in source]
-
-    grammar["_data"]["status"] = precompile_regexes(
-        grammar["_data"]["status"], re.IGNORECASE
-    )
-
     date_query = fields.Datetime(
         "Date Whois Query",
         required=False,
@@ -56,6 +47,10 @@ class SgwWhoisQuery(models.Model):
     tld = fields.Char("tld", required=True)
     is_taken = fields.Boolean("is_taken")
     whois_raw = fields.Text("Whois raw of domain")
+
+    grammar["_data"]["status"] = [
+        re.compile(regex, re.IGNORECASE) for regex in grammar["_data"]["status"]
+    ]
 
     def preprocess_regex(self, regex):
         # prevents a ridiculous amount of varying size permutations.
@@ -138,7 +133,7 @@ class SgwWhoisQuery(models.Model):
                     r"nothing found",
                     r"This domain name has not been registered.",
                     r"%ERROR:103: Domain is not registered",
-                    r"El dominio no se encuentra registrado",
+                    r"El dominio no se encuentra registrado en NIC Argentina",
                     r"Invalid query or domain name not known in Dot CF Domain Registry",
                 ]
                 for regex in list_ex:
@@ -262,7 +257,8 @@ class SgwWhoisQuery(models.Model):
 
         for line in [x.strip() for x in response.splitlines()]:
             match = re.match(
-                r"(refer|whois server|referral url|whois server|registrar whois):\s*([^\s]+\.[^\s]+)",
+                r"""(refer|whois server|referral url|whois server|
+                registrar whois):\s*([^\s]+\.[^\s]+)""",
                 line,
                 re.IGNORECASE,
             )

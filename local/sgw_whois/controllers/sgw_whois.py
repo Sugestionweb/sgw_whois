@@ -121,16 +121,22 @@ class WhoisController(Website):
         return Response(result, content_type="text/html;charset=utf-8")
 
     def _clean_name(self, name_domain):
-        name_regex = r"""\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|\s"""
+        name_regex = r"""\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|
+            \(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\
+            <|\,|\.|\>|\?|\/|\""|\;|\:|\s"""
+
+        name_domain = name_domain.lower().strip()
+
         valid_domain_name = re.compile(name_regex)
         name_domain = re.sub(valid_domain_name, "", name_domain)
         return name_domain
 
     def _validate_domain(self, domain_name):
-        domain_regex = r"(([\da-zA-Z])([_\w-]{,62})\.){,127}(([\da-zA-Z])[_\w-]{,61})?([\da-zA-Z]\.((xn\-\-[a-zA-Z\d]+)|([a-zA-Z\d]{2,})))"
+        domain_regex = r"""(([\da-zA-Z])([_\w-]{,62})
+            \.){,127}(([\da-zA-Z])[_\w-]{,61})?([\da-zA-Z]
+            \.((xn\-\-[a-zA-Z\d]+)|([a-zA-Z\d]{2,})))"""
         domain_regex = "{}$".format(domain_regex)
-        valid_domain_name_regex = re.compile(domain_regex, re.IGNORECASE)
-        # domain_name = domain_name.lower().strip().encode('ascii')
+        valid_domain_name_regex = re.compile(domain_regex, re.VERBOSE | re.IGNORECASE)
         if re.match(valid_domain_name_regex, domain_name):
             return True
         else:
@@ -167,7 +173,17 @@ class WhoisController(Website):
 
     @http.route("/get_whois_raw", auth="public", type="http", website=True, csrf=True)
     def get_whois_raw(self, domain=None, **kwargs):
+        """Obtains the raw whois text for the domain specified
+
+        Args:
+            domain ([string], optional): [full name of domain eg. google.com].
+            Defaults to None.
+
+        Returns:
+            [type]: [description]
+        """
         result = ""
+
         w = self._get_obj_whois(domain)
         if w is not None:
             result = w.get("raw")[0].replace("\n", "<br/>")
