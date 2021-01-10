@@ -131,6 +131,7 @@ class SgwWhoisQuery(models.Model):
             list_stop = [
                 r"The registration of this domain is restricted",
                 r"This name is not available for registration",
+                r"Reserved Domain Name"
             ]
 
             for regex in list_stop:
@@ -144,7 +145,6 @@ class SgwWhoisQuery(models.Model):
                     r"No Data Found",
                     r"NOT FOUND",
                     r"Available",
-                    r"The queried object does not exist",
                     r"This query returned 0 objects.",
                     r"No match",
                     r"is free",
@@ -154,6 +154,8 @@ class SgwWhoisQuery(models.Model):
                     r"nothing found",
                     r"This domain name has not been registered.",
                     r"%ERROR:103: Domain is not registered"
+                    r"El dominio no se encuentra registrado",
+                    r"Invalid query or domain name not known in Dot CF Domain Registry",
                 ]
                 for regex in list_ex:
                     if re.search(regex, data["raw"][0], re.IGNORECASE) is not None:
