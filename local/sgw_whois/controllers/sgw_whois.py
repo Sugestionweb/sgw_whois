@@ -2,12 +2,9 @@ import imp
 import json
 from logging import error
 import re
-
 from odoo import conf, http
 from odoo.http import Response, request
-
 from odoo.addons.website.controllers.main import Website
-
 
 fp, pathname, description = imp.find_module("sgw_whois", conf.addons_paths)
 sgw_whois = imp.load_module("sgw_whois", fp, pathname, description)
@@ -22,37 +19,15 @@ class WhoisController(Website):
             tlds_exts += p.list_tlds.split(",")
         return sorted(tlds_exts)
 
-    def _get_tld_id(self, tld):
-        """Returns the record of the tld passed
-
-        Args:
-            tld ([string]): [tld to search]
-
-        Returns:
-            [records]: [record of the tld]
-        """
-        app_obj = request.env["product.template"].sudo()
-        domain = [
-            "&",
-            ["is_tld", "=", True],
-            "|",
-            "|",
-            ["list_tlds", "ilike", ",com"],
-            ["list_tlds", "ilike", "com,"],
-            ["list_tlds", "=", "com"],
-        ]
-        tlds_ids = app_obj.search(domain, limit=1)
-        return tlds_ids
-
     def _get_all_tlds_ids(self):
-        """ Return a records list of all products marked as tld"""
+        """ Return a  list of records with all products marked as tld"""
         app_obj = request.env["product.template"].sudo()
         tlds_ids = app_obj.search([("is_tld", "!=", False)])
         return tlds_ids
 
-    @http.route(["/get_tlds_exts"], auth="public", type="http", website=True)
+    @http.route(["/get_tlds_exts"], auth="public", type="http", website=True, csrf=True)
     def get_tlds_exts(self):
-        """ Public method, Return all tlds"""
+        """ Public method, called from javascript. Return all tlds in json format"""
         results = self._get_tlds_exts()
         return json.dumps(results)
 
@@ -90,6 +65,14 @@ class WhoisController(Website):
 
         return None
 
+    def _get_obj_whois(self, full_name):
+
+        try:
+            w = http.request.env["sgw.whoisquery"].whois(full_name)
+        except Exception:
+            w = None
+        return w
+
     def _chk_domain_free(self, domain=None, tld=None):
         """
         This function get domain + tld and makes a query to whois servers.
@@ -103,28 +86,19 @@ class WhoisController(Website):
             Literal['Free', 'Taken', 'Error']
         """
 
-        # result = "Taken"
         r = None
         whois_txt = ""
         result = ""
-        name = self._get_full_name(domain, tld)
+        full_name = self._get_full_name(domain, tld)
+        w = self._get_obj_whois(full_name)
 
-        try:
-            w = http.request.env["sgw.whoisquery"].whois(name)
+        if w is not None:
             whois_txt = w.get("raw")[0]
             if not w["is_taken"]:
                 result = "Free"
                 r = False
-        except Exception:
-            result = "Error"
-            r = None
 
-        self._log_whois(name, tld, r, whois_txt)
-
-        # obj_log = request.env["sgw.whoisquery"].sudo()
-        # obj_log.create(
-        #     {"sld": domain, "tld": tld, "is_taken": r, "whois_raw": whois_txt}
-        # )
+            self._log_whois(full_name, tld, r, whois_txt)
 
         return result
 
@@ -137,6 +111,12 @@ class WhoisController(Website):
         if status == "Error":
             result = '<i class="fa exclamation-circle fa-lg text-warning"></i><span style ="margin-left:10px;" class="text-warning">Error</span> '
         return Response(result, content_type="text/html;charset=utf-8")
+
+    def _clean_name(self, name_domain):
+        name_regex = r"""\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|\s"""
+        valid_domain_name = re.compile(name_regex)
+        name_domain = re.sub(valid_domain_name, '', name_domain)
+        return name_domain
 
     def _validate_domain(self, domain_name):
         domain_regex = r"(([\da-zA-Z])([_\w-]{,62})\.){,127}(([\da-zA-Z])[_\w-]{,61})?([\da-zA-Z]\.((xn\-\-[a-zA-Z\d]+)|([a-zA-Z\d]{2,})))"
@@ -160,25 +140,21 @@ class WhoisController(Website):
             domain = obj_form["domain"]
 
         if domain is not None:
-            if domain.__contains__("."):
-                if self._validate_domain(domain):
-                    domain_name = domain.split(".")[0]
-                    validated_domain = domain_name
-            else:  # Caso google (viene sin .) buscamos todas
-                domain = domain + ".com"  # Temporary add ext. for validation purposes only
-                if self._validate_domain(domain):
-                    domain = domain.split(".")[0]
-                    validated_domain = domain
-            tlds_ids = self._get_all_tlds_ids()
-            for p in tlds_ids:
-                tlds_exts = p.list_tlds.split(",")
-                for i in tlds_exts:
-                    results.update({i: [p, "placeholder1", "placeholder2"]})
+            part_name_domain = domain.split(".")[0] if domain.__contains__(".") else domain
+            part_name_domain = self._clean_name(part_name_domain)
+            if self._validate_domain(part_name_domain + ".net"):
+                validated_domain = part_name_domain
+                tlds_ids = self._get_all_tlds_ids()
 
-        values = {
-            "domain": validated_domain,
-            "results": results,
-        }
+                for p in tlds_ids:
+                    tlds_exts = p.list_tlds.split(",")
+                    for i in tlds_exts:
+                        results.update({i: [p, "placeholder1", "placeholder2"]})
+
+                values = {
+                    "domain": validated_domain,
+                    "results": results,
+                }
 
         return http.request.render("sgw_whois.whois_check", values)
 
@@ -189,12 +165,8 @@ class WhoisController(Website):
             name = domain
             w = http.request.env["sgw.whoisquery"].whois(name)
             result = w.get("raw")[0].replace("\n", "<br/>")
-            errs = ["Errno 104", "Errno -2"]
 
-            if any(errors in result for errors in errs):
-                raise Exception(name, w, result)
-
-        except Exception:
-            result = ("Error: %s ") % result
+        except Exception as Excep:
+            result = ("Error: %s" % Excep)
 
         return Response(result, content_type="text/html;charset=utf-8")

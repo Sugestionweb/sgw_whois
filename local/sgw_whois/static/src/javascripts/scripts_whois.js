@@ -1,10 +1,7 @@
 odoo.define("sgw_whois.tools", function(require) {
   "use strict";
   require("web.dom_ready");
-  //  Var ajax = require("web.ajax");
-  //  var core = require("web.core");
-  //  var _t = core._t;
-  // Var core = require("web.core");
+
   const ByID = function(elementId) {
     return document.getElementById(elementId);
   };
@@ -20,8 +17,6 @@ odoo.define("sgw_whois.tools", function(require) {
     
     
     ByID("img_resultado_whois_" + tld).innerHTML = datos;
-    
-
 
     if (datos.indexOf("text-danger") !== -1) {
       ByID("link_buy_" + tld).innerHTML = "Not available";
