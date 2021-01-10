@@ -1,9 +1,10 @@
 import imp
 import json
-from logging import error
 import re
+
 from odoo import conf, http
 from odoo.http import Response, request
+
 from odoo.addons.website.controllers.main import Website
 
 fp, pathname, description = imp.find_module("sgw_whois", conf.addons_paths)
@@ -115,12 +116,12 @@ class WhoisController(Website):
     def _clean_name(self, name_domain):
         name_regex = r"""\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|\s"""
         valid_domain_name = re.compile(name_regex)
-        name_domain = re.sub(valid_domain_name, '', name_domain)
+        name_domain = re.sub(valid_domain_name, "", name_domain)
         return name_domain
 
     def _validate_domain(self, domain_name):
         domain_regex = r"(([\da-zA-Z])([_\w-]{,62})\.){,127}(([\da-zA-Z])[_\w-]{,61})?([\da-zA-Z]\.((xn\-\-[a-zA-Z\d]+)|([a-zA-Z\d]{2,})))"
-        domain_regex = "{0}$".format(domain_regex)
+        domain_regex = "{}$".format(domain_regex)
         valid_domain_name_regex = re.compile(domain_regex, re.IGNORECASE)
         # domain_name = domain_name.lower().strip().encode('ascii')
         if re.match(valid_domain_name_regex, domain_name):
@@ -140,7 +141,9 @@ class WhoisController(Website):
             domain = obj_form["domain"]
 
         if domain is not None:
-            part_name_domain = domain.split(".")[0] if domain.__contains__(".") else domain
+            part_name_domain = (
+                domain.split(".")[0] if domain.__contains__(".") else domain
+            )
             part_name_domain = self._clean_name(part_name_domain)
             if self._validate_domain(part_name_domain + ".net"):
                 validated_domain = part_name_domain
@@ -167,6 +170,6 @@ class WhoisController(Website):
             result = w.get("raw")[0].replace("\n", "<br/>")
 
         except Exception as Excep:
-            result = ("Error: %s" % Excep)
+            result = "Error: %s" % Excep
 
         return Response(result, content_type="text/html;charset=utf-8")

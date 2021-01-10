@@ -16,19 +16,11 @@
     groups="sales_team.group_sale_manager"
   />
   <menuitem
-    id="menu_sgw_whois_cc_tld"
-    name="Country Codes TLD"
-    parent="sgw_whois.menu_sgw_whois"
-    sequence="14"
-    groups="sales_team.group_sale_manager"
-    action ="action_sgw_cc_tld"
-  />
-  <menuitem
     id="menu_sgw_whois_g_tld"
     name="Generic gTLD"
     parent="sgw_whois.menu_sgw_whois"
     sequence="15"
     groups="sales_team.group_sale_manager"
-    action ="action_sgw_g_tld"
+    action="action_sgw_g_tld"
   />
 </odoo>

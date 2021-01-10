@@ -1,10 +1,9 @@
+import logging
 import re
 import socket
 from codecs import encode
 
 from odoo import fields, models
-
-import logging
 
 _logger = logging.getLogger(__name__)
 
@@ -16,22 +15,9 @@ class SgwWhoisg_Tld(models.Model):
 
     # TODO: Constraint gtld unique
 
-    gtld = fields.Char("gTLD", required=True, )
+    gtld = fields.Char("gTLD", required=True,)
     whois_server = fields.Char("Whois server", required=True)
     notes = fields.Text("Notes")
-
-
-class SgwWhoisCC_Tld(models.Model):
-    _name = "sgw.whoiscc_tld"
-    _order = "cc_tld desc"
-    _description = "Country Codes TLD"
-
-    cc_tld = fields.Char("Country Code TLD", required=True)
-    notes = fields.Text("Notes")
-
-    def get_cc_tld(self):
-        cc_tld = self.env['sgw.whoiscc_tld'].search([])
-        return cc_tld
 
 
 class SgwWhoisQuery(models.Model):
@@ -52,7 +38,7 @@ class SgwWhoisQuery(models.Model):
     is_taken = fields.Boolean("is_taken")
     whois_raw = fields.Text("Whois raw of domain")
 
-    def preprocess_regex(regex):
+    def preprocess_regex(self, regex):
         # prevents a ridiculous amount of varying size permutations.
         regex = re.sub(r"\\s\*\(\?P<([^>]+)>\.\+\)", r"\s*(?P<\1>\S.*)", regex)
         # Experimental fix; removes unnecessary variable-size whitespace
@@ -60,7 +46,7 @@ class SgwWhoisQuery(models.Model):
         regex = re.sub(r"\[ \]\*\(\?P<([^>]+)>\.\*\)", r"(?P<\1>.*)", regex)
         return regex
 
-    def precompile_regexes(source, flags=0):
+    def precompile_regexes(self, source, flags=0):
         return [re.compile(regex, flags) for regex in source]
 
     grammar = {
@@ -71,9 +57,7 @@ class SgwWhoisQuery(models.Model):
                 r"\[Status\]\s*(?P<val>.+)",
                 r"Status:\s?(?P<val>.+)",
                 r"\[State\]\s*(?P<val>.+)",
-
             ],
-
         }
     }
 
@@ -82,14 +66,12 @@ class SgwWhoisQuery(models.Model):
     )
 
     def parse_raw_whois(
-        self,
-        raw_data,
-        name_domain="",
+        self, raw_data, name_domain="",
     ):
 
         data = {}
 
-        raw_data = [segment.replace("\r", "") for segment in raw_data]  
+        raw_data = [segment.replace("\r", "") for segment in raw_data]
 
         for segment in raw_data:
             for rule_key, rule_regexes in grammar["_data"].items():
@@ -116,13 +98,15 @@ class SgwWhoisQuery(models.Model):
 
         return data
 
-    def set_flag_is_taken(data, name_domain):
+    def set_flag_is_taken(self, data, name_domain):
         data["is_taken"] = True
-
-        """    if name_domain == "sugestionweb.cz":
-            a = 1 """
-
-        list_free_domain = ["free", "available", "not found", "no match", "no object found"]
+        list_free_domain = [
+            "free",
+            "available",
+            "not found",
+            "no match",
+            "no object found",
+        ]
 
         if "status" in data:
             data["is_taken"] = not data["status"][0].lower() in list_free_domain
@@ -131,7 +115,7 @@ class SgwWhoisQuery(models.Model):
             list_stop = [
                 r"The registration of this domain is restricted",
                 r"This name is not available for registration",
-                r"Reserved Domain Name"
+                r"Reserved Domain Name",
             ]
 
             for regex in list_stop:
@@ -172,7 +156,9 @@ class SgwWhoisQuery(models.Model):
 
     def whois(self, domain):
 
-        raw_data, server_list = SgwWhoisQuery.get_whois_raw(self, domain, with_server_list=True)
+        raw_data, server_list = SgwWhoisQuery.get_whois_raw(
+            self, domain, with_server_list=True
+        )
         return SgwWhoisQuery.parse_raw_whois(
             self,
             raw_data,
@@ -197,7 +183,9 @@ class SgwWhoisQuery(models.Model):
         # case where no result was found
         try:
             tld = domain.split(".")[-1]
-            result = self.env['sgw.whoisg_tld'].search([('gtld', '=', tld)]).whois_server
+            result = (
+                self.env["sgw.whoisg_tld"].search([("gtld", "=", tld)]).whois_server
+            )
             return result
         except (ValueError, KeyError):
             return server
@@ -253,7 +241,9 @@ class SgwWhoisQuery(models.Model):
             request_domain = domain
 
         # decide on the
-        response = SgwWhoisQuery.whois_request(request_domain, target_server, timeout=whois_timeout)
+        response = SgwWhoisQuery.whois_request(
+            request_domain, target_server, timeout=whois_timeout
+        )
 
         # gives the whole raw data in return
         if never_cut:
@@ -295,7 +285,7 @@ class SgwWhoisQuery(models.Model):
         else:
             return new_list
 
-    def whois_request(domain, server, port=43, timeout=None):
+    def whois_request(self, domain, server, port=43, timeout=None):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(timeout)

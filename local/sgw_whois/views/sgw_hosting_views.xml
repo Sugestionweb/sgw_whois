@@ -23,7 +23,7 @@
       </tree>
     </field>
   </record>
-    <record model="ir.ui.view" id="view_whoisg_tld">
+  <record model="ir.ui.view" id="view_whoisg_tld">
     <field name="name">sgw.whoisg_tld.tree</field>
     <field name="model">sgw.whoisg_tld</field>
     <field name="arch" type="xml">
@@ -34,5 +34,4 @@
       </tree>
     </field>
   </record>
-
 </odoo>
