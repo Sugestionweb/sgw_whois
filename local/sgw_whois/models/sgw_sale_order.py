@@ -72,7 +72,7 @@ class SgwSaleOrder(models.Model):
 
         return lines
 
-    @api.multi
+    @api.multi  # noqa: C901
     def _cart_update(
         self, product_id=None, line_id=None, add_qty=0, set_qty=0, **kwargs
     ):
