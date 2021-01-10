@@ -13,16 +13,6 @@
       </tree>
     </field>
   </record>
-  <record model="ir.ui.view" id="view_whoiscc_tld">
-    <field name="name">sgw.whoiscc_tld.tree</field>
-    <field name="model">sgw.whoiscc_tld</field>
-    <field name="arch" type="xml">
-      <tree string="sgw_whoiscc_tld">
-        <field name="cc_tld" />
-        <field name="notes" />
-      </tree>
-    </field>
-  </record>
   <record model="ir.ui.view" id="view_whoisg_tld">
     <field name="name">sgw.whoisg_tld.tree</field>
     <field name="model">sgw.whoisg_tld</field>

@@ -23,7 +23,9 @@ class WhoisController(Website):
     def _get_all_tlds_ids(self):
         """ Return a  list of records with all products marked as tld"""
         app_obj = request.env["product.template"].sudo()
-        tlds_ids = app_obj.search([("is_tld", "!=", False)])
+        tlds_ids = app_obj.search(
+            [("is_tld", "!=", False), ("website_published", "!=", False)]
+        )
         return tlds_ids
 
     @http.route(["/get_tlds_exts"], auth="public", type="http", website=True, csrf=True)
@@ -80,8 +82,10 @@ class WhoisController(Website):
         Then, it determines if the domain is taken or available to register.
 
         Args:
-            [domain] ([string], optional): [name of domain eg. 'google']. Defaults to None.
-            [tld] ([type], optional): [tld of domain eg. '.com']. Defaults to None.
+            [domain] ([string], optional): [name of domain eg. 'google'].
+            Defaults to None.
+            [tld] ([type], optional): [tld of domain eg. '.com'].
+            Defaults to None.
 
         Returns:
             Literal['Free', 'Taken', 'Error']
@@ -105,12 +109,15 @@ class WhoisController(Website):
 
     @http.route(["/get_status"], auth="public", type="http", website=True, csrf=True)
     def get_status(self, domain, tld):
-        result = '<i class="fa fa-times-circle fa-lg text-danger"></i><span style ="margin-left:10px;" class="text-danger">Not available</span>'
+        result = """<i class="fa fa-times-circle fa-lg text-danger"></i>
+        <span style ="margin-left:10px;" class="text-danger">Not available</span>"""
         status = self._chk_domain_free(domain, tld)
         if status == "Free":
-            result = '<i class="fa fa-check-circle fa-lg text-success"></i><span style ="margin-left:10px;" class="text-success">Available</span> '
+            result = """<i class="fa fa-check-circle fa-lg text-success"></i>
+            <span style ="margin-left:10px;" class="text-success">Available</span>"""
         if status == "Error":
-            result = '<i class="fa exclamation-circle fa-lg text-warning"></i><span style ="margin-left:10px;" class="text-warning">Error</span> '
+            result = """<i class="fa exclamation-circle fa-lg text-warning"></i>
+            <span style ="margin-left:10px;" class="text-warning">Error</span>"""
         return Response(result, content_type="text/html;charset=utf-8")
 
     def _clean_name(self, name_domain):
@@ -148,28 +155,20 @@ class WhoisController(Website):
             if self._validate_domain(part_name_domain + ".net"):
                 validated_domain = part_name_domain
                 tlds_ids = self._get_all_tlds_ids()
-
                 for p in tlds_ids:
                     tlds_exts = p.list_tlds.split(",")
                     for i in tlds_exts:
                         results.update({i: [p, "placeholder1", "placeholder2"]})
-
                 values = {
                     "domain": validated_domain,
                     "results": results,
                 }
-
         return http.request.render("sgw_whois.whois_check", values)
 
     @http.route("/get_whois_raw", auth="public", type="http", website=True, csrf=True)
     def get_whois_raw(self, domain=None, **kwargs):
         result = ""
-        try:
-            name = domain
-            w = http.request.env["sgw.whoisquery"].whois(name)
+        w = self._get_obj_whois(domain)
+        if w is not None:
             result = w.get("raw")[0].replace("\n", "<br/>")
-
-        except Exception as Excep:
-            result = "Error: %s" % Excep
-
         return Response(result, content_type="text/html;charset=utf-8")

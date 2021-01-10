@@ -44,7 +44,7 @@
         </div>
       </section>
       <img
-        class="img-responsive center-block"
+        class="mx-auto d-block"
         style="visibility:hidden;margin: 0 auto;"
         id='loading_table'
         src="/sgw_whois/static/src/img/ajax-loader.gif"

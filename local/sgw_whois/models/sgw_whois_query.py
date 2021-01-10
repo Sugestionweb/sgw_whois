@@ -8,7 +8,7 @@ from odoo import fields, models
 _logger = logging.getLogger(__name__)
 
 
-class SgwWhoisg_Tld(models.Model):
+class SgwWhoisgTld(models.Model):
     _name = "sgw.whoisg_tld"
     _order = "gtld"
     _description = "Country Codes TLD"
@@ -26,6 +26,25 @@ class SgwWhoisQuery(models.Model):
     _description = "Model to save the queries made using the whois module"
 
     global grammar
+
+    grammar = {
+        "_data": {
+            "status": [
+                r"^state:\s*(?P<val>.+)",
+                r"Status\s*:\s?(?P<val>.+)",
+                r"\[Status\]\s*(?P<val>.+)",
+                r"Status:\s?(?P<val>.+)",
+                r"\[State\]\s*(?P<val>.+)",
+            ],
+        }
+    }
+
+    def precompile_regexes(source, flags=0):
+        return [re.compile(regex, flags) for regex in source]
+
+    grammar["_data"]["status"] = precompile_regexes(
+        grammar["_data"]["status"], re.IGNORECASE
+    )
 
     date_query = fields.Datetime(
         "Date Whois Query",
@@ -45,25 +64,6 @@ class SgwWhoisQuery(models.Model):
         # matching, since we're stripping results anyway.
         regex = re.sub(r"\[ \]\*\(\?P<([^>]+)>\.\*\)", r"(?P<\1>.*)", regex)
         return regex
-
-    def precompile_regexes(self, source, flags=0):
-        return [re.compile(regex, flags) for regex in source]
-
-    grammar = {
-        "_data": {
-            "status": [
-                r"^state:\s*(?P<val>.+)",
-                r"Status\s*:\s?(?P<val>.+)",
-                r"\[Status\]\s*(?P<val>.+)",
-                r"Status:\s?(?P<val>.+)",
-                r"\[State\]\s*(?P<val>.+)",
-            ],
-        }
-    }
-
-    grammar["_data"]["status"] = precompile_regexes(
-        grammar["_data"]["status"], re.IGNORECASE
-    )
 
     def parse_raw_whois(
         self, raw_data, name_domain="",
@@ -94,7 +94,7 @@ class SgwWhoisQuery(models.Model):
         data["raw"] = raw_data
 
         # Set a bool value that indicates whether the domain is already registered.
-        SgwWhoisQuery.set_flag_is_taken(data, name_domain)
+        SgwWhoisQuery.set_flag_is_taken(self, data, name_domain)
 
         return data
 
@@ -137,7 +137,7 @@ class SgwWhoisQuery(models.Model):
                     r"no entries found",
                     r"nothing found",
                     r"This domain name has not been registered.",
-                    r"%ERROR:103: Domain is not registered"
+                    r"%ERROR:103: Domain is not registered",
                     r"El dominio no se encuentra registrado",
                     r"Invalid query or domain name not known in Dot CF Domain Registry",
                 ]
@@ -170,7 +170,7 @@ class SgwWhoisQuery(models.Model):
     def get_root_server(self, domain, server="whois.iana.org"):
 
         # get the record first
-        data = SgwWhoisQuery.whois_request(domain, server, timeout=5)
+        data = SgwWhoisQuery.whois_request(self, domain, server, timeout=5)
 
         # try to find it from the record
         for line in [x.strip() for x in data.splitlines()]:
@@ -242,7 +242,7 @@ class SgwWhoisQuery(models.Model):
 
         # decide on the
         response = SgwWhoisQuery.whois_request(
-            request_domain, target_server, timeout=whois_timeout
+            self, request_domain, target_server, timeout=whois_timeout
         )
 
         # gives the whole raw data in return

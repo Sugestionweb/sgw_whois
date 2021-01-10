@@ -1,6 +1,3 @@
-sugestionweb.ar
-sugestionweb.arab
-sugestionweb.clinique
 sugestionweb.creditunion
 sugestionweb.cruise
 sugestionweb.dabur
