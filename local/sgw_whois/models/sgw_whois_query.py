@@ -52,14 +52,6 @@ class SgwWhoisQuery(models.Model):
         re.compile(regex, re.IGNORECASE) for regex in grammar["_data"]["status"]
     ]
 
-    def preprocess_regex(self, regex):
-        # prevents a ridiculous amount of varying size permutations.
-        regex = re.sub(r"\\s\*\(\?P<([^>]+)>\.\+\)", r"\s*(?P<\1>\S.*)", regex)
-        # Experimental fix; removes unnecessary variable-size whitespace
-        # matching, since we're stripping results anyway.
-        regex = re.sub(r"\[ \]\*\(\?P<([^>]+)>\.\*\)", r"(?P<\1>.*)", regex)
-        return regex
-
     def parse_raw_whois(
         self, raw_data, name_domain="",
     ):

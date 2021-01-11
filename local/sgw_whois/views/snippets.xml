@@ -52,7 +52,7 @@
     >
       <t
         t-snippet="sgw_whois.snippet_bigwhois"
-        t-thumbnail="/sgw_whois/static/images/snippets_thumbs/caraclist1box.jpg"
+        t-thumbnail="/sgw_whois/static/src/img/snippets_thumbs/icon_big_whois.png"
       />
     </xpath>
   </template>
