@@ -13,7 +13,7 @@
               t-attf-action="/whois"
               method="post"
             >
-              <div class="form-group d-md-flex">
+              <div class="form-group mt-3 d-md-flex">
                 <input
                   type="text"
                   name="domain"
@@ -22,7 +22,7 @@
                   required="required"
                   autofocus="autofocus"
                   autocapitalize="off"
-                  class="form-control px-4"
+                  class="form-control big-domain px-4"
                   placeholder="Enter your domain name..."
                 />
                 <input

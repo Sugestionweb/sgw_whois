@@ -13,6 +13,7 @@
       </tree>
     </field>
   </record>
+  <!-- Tlds Tree View -->
   <record model="ir.ui.view" id="view_whoisg_tld">
     <field name="name">sgw.whoisg_tld.tree</field>
     <field name="model">sgw.whoisg_tld</field>

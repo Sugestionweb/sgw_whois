@@ -127,6 +127,11 @@ class SgwWhoisQuery(models.Model):
                     r"%ERROR:103: Domain is not registered",
                     r"El dominio no se encuentra registrado en NIC Argentina",
                     r"Invalid query or domain name not known in Dot CF Domain Registry",
+                    r"The domain has not been registered.",
+                    r"No such domain",
+                    r"domain name not known",
+                    r"Object_Not_Found",
+                    r"No found"
                 ]
                 for regex in list_ex:
                     if re.search(regex, data["raw"][0], re.IGNORECASE) is not None:

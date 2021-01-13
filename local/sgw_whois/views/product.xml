@@ -12,6 +12,7 @@
       </field>
     </field>
   </record>
+
   <template
     id="sgw_website_sale_product"
     name="Product modification"
@@ -22,6 +23,7 @@
         <t t-esc="domain" />
       </h4>
     </xpath>
+
     <xpath expr="//div/section/div[2]/div[2]/form" position="inside">
       <input
         type="hidden"
@@ -30,30 +32,33 @@
         t-att-value="domain if domain else ''"
       />
     </xpath>
+    
     <xpath expr="//div/section/div[2]/div[2]/hr" position="replace">
       <hr class="m-t" t-if="product.description_sale" />
     </xpath>
-    <xpath expr="//a[@id='add_to_cart']" position="replace">
+    
+    <!-- <xpath expr="//a[@id='add_to_cart']" position="replace">
       <a
         id="add_to_cart"
         class="btn btn-success btn-sm mt8 js_check_product a-submit"
         href="#"
       >Agregar al pedido</a>
-    </xpath>
-    <xpath
+    </xpath> -->
+    
+    <!-- <xpath
       expr="//div[@id='product_details']/p[@class='text-muted']"
       position="replace"
     >
       <![CDATA[&nbsp;]]>
-    </xpath>
-    <xpath expr="/t[1]/t[4]/div[1]/section[1]/div[2]/div[2]/p[1]" position="replace">
+    </xpath> -->
+    <!-- <xpath expr="/t[1]/t[4]/div[1]/section[1]/div[2]/div[2]/p[1]" position="replace">
       <![CDATA[&nbsp;]]>
-    </xpath>
-    <xpath expr="//div/section" position="attributes">
+    </xpath> -->
+    <!-- <xpath expr="//div/section" position="attributes">
       <attribute name="t-attf-class">container m-t oe_website_sale
         #{(compute_currency(product.lst_price) - product.price) &gt; 0.1 and
         'discount'}" id="product_detail</attribute>
-    </xpath>
+    </xpath> -->
   </template>
   <template id="sgw_product_addtocart" inherit_id="website_sale.product">
     <xpath expr="//a[@id='add_to_cart']" position="replace">

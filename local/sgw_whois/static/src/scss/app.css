@@ -23,13 +23,17 @@ body {
 }
 
 .form-control {
-  height: 52px !important;
+  /* height: 52px !important; */
   background: #fff !important;
   color: #3a4348 !important;
   font-size: 18px;
   border-radius: 0px;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
+}
+
+.big-domain {
+  height: 52px !important;
 }
 
 .px-4 {

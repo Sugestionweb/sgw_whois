@@ -76,35 +76,33 @@ class WhoisController(Website):
             w = None
         return w
 
-    def _chk_domain_free(self, domain=None, tld=None):
+    def _chk_domain_free(self, domain, tld):
         """
         This function get domain + tld and makes a query to whois servers.
-        Then, it determines if the domain is taken or available to register.
+        Then, it determines if the domain is taken or available to register and 
+        returns the literal 'Free', 'Taken' or 'Error'. Its used in other functions to
+        check if the domain is available or not.
 
         Args:
-            [domain] ([string], optional): [name of domain eg. 'google'].
-            Defaults to None.
-            [tld] ([type], optional): [tld of domain eg. '.com'].
-            Defaults to None.
+            domain ([type]): [name of domain]
+            tld ([type]): [tld]
 
         Returns:
             Literal['Free', 'Taken', 'Error']
-        """
 
-        r = None
+        """
+        r = True
         whois_txt = ""
         result = ""
-        full_name = self._get_full_name(domain, tld)
-        w = self._get_obj_whois(full_name)
-
-        if w is not None:
-            whois_txt = w.get("raw")[0]
-            if not w["is_taken"]:
-                result = "Free"
-                r = False
-
-            self._log_whois(full_name, tld, r, whois_txt)
-
+        if domain and tld:
+            full_name = self._get_full_name(domain, tld)
+            w = self._get_obj_whois(full_name)
+            if w is not None:
+                whois_txt = w.get("raw")[0]
+                if not w["is_taken"]:
+                    result = "Free"
+                    r = False
+                self._log_whois(full_name, tld, r, whois_txt)
         return result
 
     @http.route(["/get_status"], auth="public", type="http", website=True, csrf=True)

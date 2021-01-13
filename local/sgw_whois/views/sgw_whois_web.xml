@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+  <!-- This is the main template of the "/Whois" page. It consists of a
+   upper form with a text box that allows you to make a new whois query,
+   a results table and a modal form.
+  -->
   <template id="whois_check" name="Whois Results">
     <t t-call="website.layout">
       <div class="oe_structure oe_empty" />
@@ -14,7 +18,7 @@
                 t-attf-action="/whois"
                 method="post"
               >
-                <div class="form-group d-md-flex">
+                <div class="form-group mt-3 d-md-flex">
                   <input
                     type="text"
                     name="domain"
@@ -23,7 +27,7 @@
                     required="required"
                     autofocus="autofocus"
                     autocapitalize="off"
-                    class="form-control px-4"
+                    class="form-control big-domain px-4"
                     placeholder="Enter your domain name..."
                   />
                   <input
@@ -49,6 +53,7 @@
         id='loading_table'
         src="/sgw_whois/static/src/img/ajax-loader.gif"
       />
+      <!-- Results Table  -->
       <section>
         <div class="container">
           <div class="row justify-content-center">
