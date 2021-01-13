@@ -72,7 +72,6 @@ body {
   height: 80vh;
   overflow-y: auto;
 }
-
 button.close {
   color: #000;
   float: right;
@@ -80,4 +79,19 @@ button.close {
   font-weight: 700;
   line-height: 1;
   opacity: 1;
+}
+
+/* Page product */
+/* we make more space to put the word years in the right, near of + button  */
+.css_quantity {
+  max-width: 165px;
+}
+
+/* Cart Page */
+
+/* we make similar width to quantity boxes  */
+
+.oe_website_sale input.js_quantity {
+  max-width: 65px;
+  text-align: center;
 }
