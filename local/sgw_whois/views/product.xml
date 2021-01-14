@@ -89,9 +89,7 @@
     that quantity is equivalent to years if product is tld -->
   <template id="sgw_products_cart_lines" inherit_id="website_sale.cart_lines">
     <xpath expr="//div[hasclass('input-group-append')]" position="after">
-      <t t-if="line.product_id.is_tld">
-        <span class="mt-2 small align-middle font-weight-bold">Years</span>
-      </t>
+      <span t-if="line.product_id.is_tld" class="mt-2 small align-middle font-weight-bold">Years</span>
     </xpath>
   </template>
 </odoo>
