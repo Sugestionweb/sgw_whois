@@ -23,7 +23,7 @@ grammar = {
 class SgwWhoisgTld(models.Model):
     _name = "sgw.whoisg_tld"
     _order = "gtld"
-    _description = "Country Codes TLD"
+    _description = "TLDs"
 
     # TODO: Constraint gtld unique
 

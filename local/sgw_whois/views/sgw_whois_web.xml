@@ -28,7 +28,7 @@
                     autofocus="autofocus"
                     autocapitalize="off"
                     class="form-control big-domain px-4"
-                    placeholder="Enter your domain name..."
+                    placeholder="Domain name"
                   />
                   <input
                     type="submit"
@@ -68,7 +68,7 @@
                     <th>Name</th>
                     <th>Status</th>
                     <th>Price</th>
-                    <th>Action</th>
+                    <th>Register</th>
                   </tr>
                 </thead>
                 <tbody>

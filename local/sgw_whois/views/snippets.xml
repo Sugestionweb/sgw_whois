@@ -23,7 +23,7 @@
                   autofocus="autofocus"
                   autocapitalize="off"
                   class="form-control big-domain px-4"
-                  placeholder="Enter your domain name..."
+                  placeholder="Domain name"
                 />
                 <input
                   type="submit"

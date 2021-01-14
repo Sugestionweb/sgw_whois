@@ -61,10 +61,11 @@ class WhoisController(Website):
         Returns:
             [None]: This function not returns nothing
         """
-        obj_log = request.env["sgw.whoisquery"].sudo()
-        obj_log.create(
-            {"sld": domain, "tld": tld, "is_taken": is_taken, "whois_raw": whois_raw}
-        )
+        if is_taken is not None:
+            obj_log = request.env["sgw.whoisquery"].sudo()
+            obj_log.create(
+                {"sld": domain, "tld": tld, "is_taken": is_taken, "whois_raw": whois_raw}
+            )
 
         return None
 
