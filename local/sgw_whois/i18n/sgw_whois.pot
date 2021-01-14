@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-14 11:46+0000\n"
-"PO-Revision-Date: 2021-01-14 11:46+0000\n"
+"POT-Creation-Date: 2021-01-14 12:20+0000\n"
+"PO-Revision-Date: 2021-01-14 12:20+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,11 +31,6 @@ msgid "<span>&amp;times;</span>"
 msgstr ""
 
 #. module: sgw_whois
-#: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
-msgid "Action"
-msgstr ""
-
-#. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.sgw_product_addtocart
 msgid "Add to cart"
 msgstr ""
@@ -49,11 +44,6 @@ msgstr ""
 #. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
 msgid "Close"
-msgstr ""
-
-#. module: sgw_whois
-#: model:ir.model,name:sgw_whois.model_sgw_whoisg_tld
-msgid "Country Codes TLD"
 msgstr ""
 
 #. module: sgw_whois
@@ -81,34 +71,16 @@ msgstr ""
 
 #. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sale_order_line__domain_name
-msgid "Domain Name"
-msgstr ""
-
-#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery__sld
+#: model_terms:ir.ui.view,arch_db:sgw_whois.snippet_bigwhois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
 msgid "Domain name"
 msgstr ""
 
 #. module: sgw_whois
-#: model:res.groups,comment:sgw_whois.group_admin_whois
-msgid "El usuario podrá acceder a la configuración del módulo Whois.\n"
-"        "
-msgstr ""
-
-#. module: sgw_whois
-#: model_terms:ir.ui.view,arch_db:sgw_whois.snippet_bigwhois
-#: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
-msgid "Enter your domain name..."
-msgstr ""
-
-#. module: sgw_whois
 #: model_terms:ir.actions.act_window,help:sgw_whois.action_sgw_g_tld
-msgid "Generic TLD"
-msgstr ""
-
-#. module: sgw_whois
 #: model:ir.ui.menu,name:sgw_whois.menu_sgw_whois_g_tld
-msgid "Generic gTLD"
+msgid "Generic TLD"
 msgstr ""
 
 #. module: sgw_whois
@@ -121,12 +93,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:sgw_whois.field_product_product__is_tld
 #: model:ir.model.fields,field_description:sgw_whois.field_product_template__is_tld
 msgid "Is TLD"
-msgstr ""
-
-#. module: sgw_whois
-#: code:addons/sgw_whois/models/sgw_sale_order.py:105
-#, python-format
-msgid "It is forbidden to modify a sales order which                         is not in draft status."
 msgstr ""
 
 #. module: sgw_whois
@@ -173,23 +139,18 @@ msgid "Name"
 msgstr ""
 
 #. module: sgw_whois
-#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery__sld
-msgid "Name of domain"
-msgstr ""
-
-#. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisg_tld__notes
 msgid "Notes"
 msgstr ""
 
 #. module: sgw_whois
-#: code:addons/sgw_whois/models/sgw_sale_order.py:294
+#: code:addons/sgw_whois/models/sgw_sale_order.py:287
 #, python-format
 msgid "Option for:"
 msgstr ""
 
 #. module: sgw_whois
-#: code:addons/sgw_whois/models/sgw_sale_order.py:303
+#: code:addons/sgw_whois/models/sgw_sale_order.py:296
 #, python-format
 msgid "Option:"
 msgstr ""
@@ -202,6 +163,16 @@ msgstr ""
 #. module: sgw_whois
 #: model:ir.model,name:sgw_whois.model_product_template
 msgid "Product Template"
+msgstr ""
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery__whois_raw
+msgid "Raw Whois"
+msgstr ""
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
+msgid "Register"
 msgstr ""
 
 #. module: sgw_whois
@@ -242,31 +213,21 @@ msgid "Status"
 msgstr ""
 
 #. module: sgw_whois
+#: model:ir.model,name:sgw_whois.model_sgw_whoisg_tld
 #: model:ir.model.fields,field_description:sgw_whois.field_product_product__list_tlds
 #: model:ir.model.fields,field_description:sgw_whois.field_product_template__list_tlds
 msgid "TLDs"
 msgstr ""
 
 #. module: sgw_whois
-#: code:addons/sgw_whois/models/sgw_sale_order.py:152
-#, python-format
-msgid "The given combination does not exist therefore                             it cannot be added to cart."
-msgstr ""
-
-#. module: sgw_whois
-#: code:addons/sgw_whois/models/sgw_sale_order.py:124
-#, python-format
-msgid "The given product does not exist therefore it cannot                             be added to cart."
+#: model:res.groups,comment:sgw_whois.group_admin_whois
+msgid "The user will be able to access the Whois module configuration.\n"
+"        "
 msgstr ""
 
 #. module: sgw_whois
 #: model:ir.ui.menu,name:sgw_whois.menu_sgw_whois
 msgid "Whois"
-msgstr ""
-
-#. module: sgw_whois
-#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery__whois_raw
-msgid "Whois raw of domain"
 msgstr ""
 
 #. module: sgw_whois
@@ -286,7 +247,7 @@ msgstr ""
 
 #. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery__is_taken
-msgid "is_taken"
+msgid "is taken?"
 msgstr ""
 
 #. module: sgw_whois

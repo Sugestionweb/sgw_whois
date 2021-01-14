@@ -102,10 +102,7 @@ class SgwSaleOrder(models.Model):
         if self.state != "draft":
             request.session["sale_order_id"] = None
             raise UserError(
-                _(
-                    "It is forbidden to modify a sales order which \
-                        is not in draft status."
-                )
+                ("It is forbidden to modify a sales order which is not in draft.")
             )
         if line_id is not False:
             order_line = self._cart_find_product_line(product_id, line_id, **kwargs)[:1]
@@ -121,10 +118,7 @@ class SgwSaleOrder(models.Model):
 
             if not product:
                 raise UserError(
-                    _(
-                        "The given product does not exist therefore it cannot \
-                            be added to cart."
-                    )
+                    "The given product does not exist and it cannot be added to cart."
                 )
 
             no_variant_attribute_values = (
@@ -149,9 +143,8 @@ class SgwSaleOrder(models.Model):
 
             if not product:
                 raise UserError(
-                    _(
-                        "The given combination does not exist therefore \
-                            it cannot be added to cart."
+                    (
+                        "The combination does not exist and it cannot be added to cart."
                     )
                 )
 

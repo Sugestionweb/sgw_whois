@@ -43,10 +43,10 @@ class SgwWhoisQuery(models.Model):
         readonly=False,
         default=lambda self: fields.datetime.now(),
     )
-    sld = fields.Char("Name of domain", required=True)
+    sld = fields.Char("Domain name", required=True)
     tld = fields.Char("tld", required=True)
-    is_taken = fields.Boolean("is_taken")
-    whois_raw = fields.Text("Whois raw of domain")
+    is_taken = fields.Boolean("is taken?")
+    whois_raw = fields.Text("Raw Whois")
 
     grammar["_data"]["status"] = [
         re.compile(regex, re.IGNORECASE) for regex in grammar["_data"]["status"]
