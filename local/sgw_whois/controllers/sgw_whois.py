@@ -2,7 +2,7 @@ import imp
 import json
 import re
 
-from odoo import conf, http
+from odoo import conf, http, _
 from odoo.http import Response, request
 
 from odoo.addons.website.controllers.main import Website
@@ -64,7 +64,12 @@ class WhoisController(Website):
         if is_taken is not None:
             obj_log = request.env["sgw.whoisquery"].sudo()
             obj_log.create(
-                {"sld": domain, "tld": tld, "is_taken": is_taken, "whois_raw": whois_raw}
+                {
+                    "sld": domain,
+                    "tld": tld,
+                    "is_taken": is_taken,
+                    "whois_raw": whois_raw,
+                }
             )
 
         return None
@@ -80,7 +85,7 @@ class WhoisController(Website):
     def _chk_domain_free(self, domain, tld):
         """
         This function get domain + tld and makes a query to whois servers.
-        Then, it determines if the domain is taken or available to register and 
+        Then, it determines if the domain is taken or available to register and
         returns the literal 'Free', 'Taken' or 'Error'. Its used in other functions to
         check if the domain is available or not.
 
@@ -108,15 +113,31 @@ class WhoisController(Website):
 
     @http.route(["/get_status"], auth="public", type="http", website=True, csrf=True)
     def get_status(self, domain, tld):
-        result = """<i class="fa fa-times-circle fa-lg text-danger"></i>
-        <span style ="margin-left:10px;" class="text-danger">Not available</span>"""
+        txtNotAvailable = _("Not available")
+        txtAvailable = _("Available")
+        txtError = _("Error")
+        textdanger = "text-danger"
+        textsuccess = "text-success"
+        textwarning = "text-warning"
+
+        result = (
+            """<i class="fa fa-times-circle fa-lg %s"></i>
+        <span style ="margin-left:10px;" class="%s">%s</span>"""
+            % (textdanger, textdanger, txtNotAvailable)
+        )
         status = self._chk_domain_free(domain, tld)
         if status == "Free":
-            result = """<i class="fa fa-check-circle fa-lg text-success"></i>
-            <span style ="margin-left:10px;" class="text-success">Available</span>"""
+            result = (
+                """<i class="fa fa-check-circle fa-lg %s"></i>
+            <span style ="margin-left:10px;" class="%s">%s</span>"""
+                % (textsuccess, textsuccess, txtAvailable)
+            )
         if status == "Error":
-            result = """<i class="fa exclamation-circle fa-lg text-warning"></i>
-            <span style ="margin-left:10px;" class="text-warning">Error</span>"""
+            result = (
+                """<i class="fa exclamation-circle fa-lg %s"></i>
+            <span style ="margin-left:10px;" class="%s">%s</span>"""
+                % (textwarning, textwarning, txtError)
+            )
         return Response(result, content_type="text/html;charset=utf-8")
 
     def _clean_name(self, name_domain):

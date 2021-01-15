@@ -34,6 +34,8 @@ body {
 
 .big-domain {
   height: 52px !important;
+  display:table-cell;
+  vertical-align:middle
 }
 
 .px-4 {
@@ -100,3 +102,7 @@ body {
     text-align: center;
   }
   
+  /* Snippet Whois_Big */
+  .whosearch {
+padding-top: 25px;
+  }

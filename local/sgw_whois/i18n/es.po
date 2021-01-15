@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-14 17:44+0000\n"
-"PO-Revision-Date: 2021-01-14 17:44+0000\n"
+"POT-Creation-Date: 2021-01-14 18:15+0000\n"
+"PO-Revision-Date: 2021-01-14 18:15+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
 msgid "...Asking the whois servers..."
-msgstr ""
+msgstr "...Consultando a los servidores WHOIS..."
 
 #. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
@@ -28,47 +28,47 @@ msgstr ""
 #. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.sgw_product_addtocart
 msgid "Add to cart"
-msgstr ""
+msgstr "Agregar al pedido"
 
 #. module: sgw_whois
 #: code:addons/sgw_whois/controllers/sgw_whois.py:117
 #, python-format
 msgid "Available"
-msgstr ""
+msgstr "Disponible"
 
 #. module: sgw_whois
 #: model_terms:ir.actions.act_window,help:sgw_whois.action_sgw_g_tld
 #: model_terms:ir.actions.act_window,help:sgw_whois.action_sgw_whoisquery
 msgid "Click to set a new entry."
-msgstr ""
+msgstr "Agregar un nuevo registro"
 
 #. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisg_tld__create_uid
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisg_tld__create_date
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creado el"
 
 #. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery__date_query
 msgid "Date Whois Query"
-msgstr ""
+msgstr "Fecha de la consulta Whois"
 
 #. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisg_tld__display_name
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nombre mostrado"
 
 #. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sale_order_line__domain_name
@@ -76,7 +76,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sgw_whois.snippet_bigwhois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
 msgid "Domain name"
-msgstr ""
+msgstr "Nombre de dominio"
 
 #. module: sgw_whois
 #: code:addons/sgw_whois/controllers/sgw_whois.py:118
@@ -88,7 +88,7 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:sgw_whois.action_sgw_g_tld
 #: model:ir.ui.menu,name:sgw_whois.menu_sgw_whois_g_tld
 msgid "Generic TLD"
-msgstr ""
+msgstr "TLD Genérico"
 
 #. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisg_tld__id
@@ -106,19 +106,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisg_tld____last_update
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última modificación en"
 
 #. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisg_tld__write_uid
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Última actualización por"
 
 #. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisg_tld__write_date
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Última actualización el"
 
 #. module: sgw_whois
 #: model:ir.ui.menu,name:sgw_whois.menu_sgw_whois_whoisquery
@@ -143,7 +143,7 @@ msgstr ""
 #. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #. module: sgw_whois
 #: code:addons/sgw_whois/controllers/sgw_whois.py:116
@@ -154,7 +154,7 @@ msgstr ""
 #. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisg_tld__notes
 msgid "Notes"
-msgstr ""
+msgstr "Notas"
 
 #. module: sgw_whois
 #: code:addons/sgw_whois/models/sgw_sale_order.py:287
@@ -171,12 +171,12 @@ msgstr ""
 #. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
 msgid "Price"
-msgstr ""
+msgstr "Precio"
 
 #. module: sgw_whois
 #: model:ir.model,name:sgw_whois.model_product_template
 msgid "Product Template"
-msgstr ""
+msgstr "Plantilla de producto"
 
 #. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery__whois_raw
@@ -186,7 +186,7 @@ msgstr ""
 #. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
 msgid "Register"
-msgstr ""
+msgstr "Registrar"
 
 #. module: sgw_whois
 #: model:res.groups,name:sgw_whois.group_admin_whois
@@ -196,17 +196,18 @@ msgstr ""
 #. module: sgw_whois
 #: model:ir.model,name:sgw_whois.model_sale_order
 msgid "Sale Order"
-msgstr ""
+msgstr "Pedido de venta"
 
 #. module: sgw_whois
 #: model:ir.model,name:sgw_whois.model_sale_order_line
 msgid "Sales Order Line"
-msgstr ""
+msgstr "Línea de pedido de venta"
 
 #. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.sgw_product_addtocart
+#: model_terms:ir.ui.view,arch_db:sgw_whois.snippet_bigwhois
 msgid "Search domain"
-msgstr ""
+msgstr "Buscar dominio"
 
 #. module: sgw_whois
 #: model:ir.model.fields,help:sgw_whois.field_product_product__is_tld
@@ -223,7 +224,7 @@ msgstr ""
 #. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #. module: sgw_whois
 #: model:ir.model,name:sgw_whois.model_sgw_whoisg_tld
@@ -251,7 +252,7 @@ msgstr ""
 #. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.sgw_products_cart_lines
 msgid "Years"
-msgstr ""
+msgstr "Años"
 
 #. module: sgw_whois
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisg_tld__gtld
