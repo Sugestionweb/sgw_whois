@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-14 17:44+0000\n"
-"PO-Revision-Date: 2021-01-14 17:44+0000\n"
+"POT-Creation-Date: 2021-01-15 18:57+0000\n"
+"PO-Revision-Date: 2021-01-15 18:57+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,11 @@ msgstr ""
 #. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
 msgid "...Asking the whois servers..."
+msgstr ""
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.snippet_bigwhois
+msgid "<span class=\"search\">Search domain</span>"
 msgstr ""
 
 #. module: sgw_whois
@@ -68,6 +73,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisg_tld__display_name
 #: model:ir.model.fields,field_description:sgw_whois.field_sgw_whoisquery__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.snippet_bigwhois
+msgid "Do something"
 msgstr ""
 
 #. module: sgw_whois

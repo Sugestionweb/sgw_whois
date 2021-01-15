@@ -1,20 +1,14 @@
+
 odoo.define("sgw_whois.tools", function(require) {
   "use strict";
-
-  var core = require('web.core');
-  var _t = core._t;
+  require('web.dom_ready')
 
   const ByID = function(elementId) {
     return document.getElementById(elementId);
   };
 
   ByID("csrf_token").value = odoo.csrf_token;
-  ByID("submit").value = _t('Search domain');
-
-  require("web.dom_ready");
-
-  // Document.getElementById("csrf_token").value = odoo.csrf_token;
-
+  
   function render(datos, tld, domain_name) {
     const domain = domain_name + "." + tld;
     ByID("tabla_result").style.visibility = "visible";

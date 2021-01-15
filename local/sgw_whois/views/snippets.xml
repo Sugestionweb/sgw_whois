@@ -13,7 +13,7 @@
               t-attf-action="/whois"
               method="post"
             >
-              <div class="form-group mt-3 d-md-flex">
+              <div class="input-group mt-3 d-md-flex">
                 <input
                   type="text"
                   name="domain"
@@ -22,16 +22,19 @@
                   required="required"
                   autofocus="autofocus"
                   autocapitalize="off"
-                  class="form-control big-domain px-4"
+                  class="form-control big-domain mr-1"
                   placeholder="Domain name"
                 />
-                <input
+               <input
                   type="submit"
-                  class="btn btn-primary ml-1"
-                  value="Search Domain"
+                  class="d-none"
+                  value="Search domain"
                   id="submit"
                   name="submit"
                 />
+                <div class="text-center input-group-append" data-name="Button">
+                  <a href="javascript:{}" onclick="document.getElementById('submit').click(); return false;" class="btn btn-lg btn-primary"><i class="fa fa-search"></i></a>
+                </div>
               </div>
               <input
                 type="hidden"

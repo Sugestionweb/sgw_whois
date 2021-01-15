@@ -33,13 +33,9 @@ body {
 }
 
 .big-domain {
-  height: 52px !important;
+  height: 44px !important;
   display:table-cell;
   vertical-align:middle
-}
-
-.px-4 {
-  padding-left: 1.5rem !important;
 }
 
 .domain-form .form-group .search-domain {
