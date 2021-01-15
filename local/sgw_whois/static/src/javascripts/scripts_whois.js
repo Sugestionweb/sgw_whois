@@ -1,12 +1,17 @@
 odoo.define("sgw_whois.tools", function(require) {
   "use strict";
-  require("web.dom_ready");
+
+  var core = require('web.core');
+  var _t = core._t;
 
   const ByID = function(elementId) {
     return document.getElementById(elementId);
   };
 
   ByID("csrf_token").value = odoo.csrf_token;
+  ByID("submit").value = _t('Search domain');
+
+  require("web.dom_ready");
 
   // Document.getElementById("csrf_token").value = odoo.csrf_token;
 
@@ -32,7 +37,7 @@ odoo.define("sgw_whois.tools", function(require) {
     Button_Whois.textContent = "Whois";
     Button_Whois.addEventListener("click", function() {
       ByID("modal_domain_title").innerHTML = domain;
-      ByID("whois_raw").innerHTML = "...Consultando...";
+      ByID("whois_raw").innerHTML = _t("...Asking the whois servers...");
       $.ajax({
         type: "POST",
         global: false,

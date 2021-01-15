@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-14 18:15+0000\n"
-"PO-Revision-Date: 2021-01-14 18:15+0000\n"
+"POT-Creation-Date: 2021-01-15 11:54+0000\n"
+"PO-Revision-Date: 2021-01-15 11:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -205,7 +205,6 @@ msgstr "Línea de pedido de venta"
 
 #. module: sgw_whois
 #: model_terms:ir.ui.view,arch_db:sgw_whois.sgw_product_addtocart
-#: model_terms:ir.ui.view,arch_db:sgw_whois.snippet_bigwhois
 msgid "Search domain"
 msgstr "Buscar dominio"
 
