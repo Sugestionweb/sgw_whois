@@ -5,7 +5,6 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-8">
-            <!-- <form role="form" id="form_whois" name="form_whois" t-attf-action="/whois{{ '?debug=assets' if debug else '' }}" method="post" onsubmit="this.action = this.action + location.hash;" class="domain-form"> -->
             <form
               role="form"
               id="form_whois"
