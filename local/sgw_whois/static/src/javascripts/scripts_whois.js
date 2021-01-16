@@ -1,4 +1,3 @@
-
 odoo.define("sgw_whois.tools", function(require) {
   "use strict";
   require('web.dom_ready')
@@ -31,7 +30,7 @@ odoo.define("sgw_whois.tools", function(require) {
     Button_Whois.textContent = "Whois";
     Button_Whois.addEventListener("click", function() {
       ByID("modal_domain_title").innerHTML = domain;
-      ByID("whois_raw").innerHTML = _t("...Asking the whois servers...");
+      ByID("whois_raw").innerHTML = "...Asking the whois servers...";
       $.ajax({
         type: "POST",
         global: false,

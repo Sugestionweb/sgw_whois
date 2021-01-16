@@ -18,7 +18,7 @@
               t-attf-action="/whois"
               method="post"
             >
-              <div class="input-group mt-3 d-md-flex">
+              <div class="input-group mt-5 d-md-flex">
                 <input
                   type="text"
                   name="domain"
