@@ -30,4 +30,20 @@
       </p>
     </field>
   </record>
+  <record model="ir.actions.act_window" id="action_sgw_whoisservers">
+    <field name="name">WhoisServers</field>
+    <field name="res_model">sgw.whoisserver</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+      Click to set a new entry.
+      </p>
+      <p>
+      Whois Servers
+      </p>
+    </field>
+  </record>
+  
+  
 </odoo>

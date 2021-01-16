@@ -21,6 +21,7 @@
         "data/sgw_whois_menu.xml",
         "security/ir.model.access.csv",
         "data/sgw.whoisg_tld.csv",
+        "data/sgw.whoisserver.csv",
         "security/sgw_groups_whois.xml",
         "views/sgw_whois_views.xml",
         "views/sgw_whois_web.xml",

@@ -13,6 +13,7 @@
       </tree>
     </field>
   </record>
+
   <!-- Tlds Tree View -->
   <record model="ir.ui.view" id="view_whoisg_tld">
     <field name="name">sgw.whoisg_tld.tree</field>
@@ -25,4 +26,17 @@
       </tree>
     </field>
   </record>
+
+<!-- Whois Servers Tree View -->
+  <record model="ir.ui.view" id="view_whoisserver">
+    <field name="name">sgw.whoisserver.tree</field>
+    <field name="model">sgw.whoisserver</field>
+    <field name="arch" type="xml">
+      <tree string="sgw_whoisserver">
+        <field name="whois_server" />
+      </tree>
+    </field>
+  </record>
+
+
 </odoo>

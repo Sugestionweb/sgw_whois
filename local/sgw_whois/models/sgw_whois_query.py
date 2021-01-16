@@ -27,8 +27,11 @@ class SgwWhoisgTld(models.Model):
 
     # TODO: Constraint gtld unique
 
-    gtld = fields.Char("gTLD", required=True,)
-    whois_server = fields.Char("Whois server", required=True)
+    gtld = fields.Char(
+        "gTLD",
+        required=True,
+    )
+    whois_server = fields.Many2one("sgw.whoisserver")
     notes = fields.Text("Notes")
 
 
@@ -53,7 +56,9 @@ class SgwWhoisQuery(models.Model):
     ]
 
     def parse_raw_whois(
-        self, raw_data, name_domain="",
+        self,
+        raw_data,
+        name_domain="",
     ):
 
         data = {}
@@ -131,7 +136,7 @@ class SgwWhoisQuery(models.Model):
                     r"No such domain",
                     r"domain name not known",
                     r"Object_Not_Found",
-                    r"No found"
+                    r"No found",
                 ]
                 for regex in list_ex:
                     if re.search(regex, data["raw"][0], re.IGNORECASE) is not None:
@@ -293,3 +298,16 @@ class SgwWhoisQuery(models.Model):
             return buff.decode("latin-1")
         except Exception as e:
             return "Error: (%s) " % e
+
+
+class SgwWhoisServers(models.Model):
+    _name = "sgw.whoisserver"
+    _order = "whois_server asc"
+    _description = "Whois Servers"
+    _rec_name = "whois_server"
+
+    whois_server = fields.Char("Whois server", required=True)
+
+    tld_id = fields.One2many(
+        "sgw.whoisg_tld", "whois_server", string="Tld", ondelete="set null"
+    )

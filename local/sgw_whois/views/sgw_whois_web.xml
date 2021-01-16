@@ -53,7 +53,7 @@
         </div>
       </section>
       <img
-        class="mx-auto d-block"
+        class="mx-auto mt-4 d-block"
         style="visibility:hidden;margin: 0 auto;"
         id='loading_table'
         src="/sgw_whois/static/src/img/ajax-loader.gif"
