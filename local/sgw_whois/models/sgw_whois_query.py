@@ -150,15 +150,13 @@ class SgwWhoisQuery(models.Model):
 
                 # read the specifics indicators for "available" for this whois server
                 whois_server_indicators_available = (
-                    self.env["sgw.whoisserver_free_indicator"]
-                    .search([("whois_server", "=", server), ("available", "=", True)])
-                    .word
+                    self.env["sgw.whoisserver_free_indicator"].search([("whois_server", "=", server), ("available", "=", True)])
                 )
 
                 if whois_server_indicators_available:
                     for indicator in whois_server_indicators_available:
                         if (
-                            re.search(indicator, data["raw"][0], re.IGNORECASE)
+                            re.search(indicator.word, data["raw"][0], re.IGNORECASE)
                             is not None
                         ):
                             data["is_taken"] = False
@@ -166,14 +164,12 @@ class SgwWhoisQuery(models.Model):
 
                 # read the specifics indicators for "unavailable" for this whois server
                 whois_server_indicators_unavailable = (
-                    self.env["sgw.whoisserver_free_indicator"]
-                    .search([("whois_server", "=", server), ("available", "=", False)])
-                    .word
+                    self.env["sgw.whoisserver_free_indicator"].search([("whois_server", "=", server), ("available", "=", False)])
                 )
                 if whois_server_indicators_unavailable:
                     for indicator in whois_server_indicators_unavailable:
                         if (
-                            re.search(indicator, data["raw"][0], re.IGNORECASE)
+                            re.search(indicator.word, data["raw"][0], re.IGNORECASE)
                             is not None
                         ):
                             data["is_taken"] = True
