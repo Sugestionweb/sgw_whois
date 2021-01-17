@@ -55,12 +55,17 @@ class SgwWhoisQuery(models.Model):
         re.compile(regex, re.IGNORECASE) for regex in grammar["_data"]["status"]
     ]
 
-    def parse_raw_whois(
-        self,
-        raw_data,
-        name_domain="",
-    ):
+    def parse_raw_whois(self, raw_data, name_domain="", server=""):
+        """Gets the raw_data and parses it in dictionary data.
 
+        Args:
+            raw_data ([type]): [description]
+            name_domain (str, optional): [description]. Defaults to "".
+            server (str, optional): [description]. Defaults to "".
+
+        Returns:
+            data [type]: [description]
+        """
         data = {}
 
         raw_data = [segment.replace("\r", "") for segment in raw_data]
@@ -86,11 +91,11 @@ class SgwWhoisQuery(models.Model):
         data["raw"] = raw_data
 
         # Set a bool value that indicates whether the domain is already registered.
-        SgwWhoisQuery.set_flag_is_taken(self, data, name_domain)
+        SgwWhoisQuery.set_flag_is_taken(self, data, name_domain, server)
 
         return data
 
-    def set_flag_is_taken(self, data, name_domain):
+    def set_flag_is_taken(self, data, name_domain, server):
         data["is_taken"] = True
         list_free_domain = [
             "free",
@@ -143,12 +148,36 @@ class SgwWhoisQuery(models.Model):
                         data["is_taken"] = False
                         break
 
-                # Domains .bo not indicate nothing in whois if domain
-                # is free and this can lead to error
-                if name_domain.endswith(".bo") & data["is_taken"]:
-                    if re.search("TITULAR:", data["raw"][0], re.IGNORECASE) is None:
-                        data["is_taken"] = False
+                # read the specifics indicators for "available" for this whois server
+                whois_server_indicators_available = (
+                    self.env["sgw.whoisserver_free_indicator"]
+                    .search([("whois_server", "=", server), ("available", "=", True)])
+                    .word
+                )
 
+                if whois_server_indicators_available:
+                    for indicator in whois_server_indicators_available:
+                        if (
+                            re.search(indicator, data["raw"][0], re.IGNORECASE)
+                            is not None
+                        ):
+                            data["is_taken"] = False
+                            break
+
+                # read the specifics indicators for "unavailable" for this whois server
+                whois_server_indicators_unavailable = (
+                    self.env["sgw.whoisserver_free_indicator"]
+                    .search([("whois_server", "=", server), ("available", "=", False)])
+                    .word
+                )
+                if whois_server_indicators_unavailable:
+                    for indicator in whois_server_indicators_unavailable:
+                        if (
+                            re.search(indicator, data["raw"][0], re.IGNORECASE)
+                            is not None
+                        ):
+                            data["is_taken"] = True
+                            break
         return
 
     def whois(self, domain):
@@ -157,14 +186,31 @@ class SgwWhoisQuery(models.Model):
             self, domain, with_server_list=True
         )
         return SgwWhoisQuery.parse_raw_whois(
-            self,
-            raw_data,
-            # never_query_handles=False,
-            # handle_server=server_list[-1],
-            name_domain=domain,
+            self, raw_data, name_domain=domain, server=server_list[0]
         )
 
-    def get_root_server(self, domain, server="whois.iana.org"):
+    def get_root_server_from_db(self, full_name):
+        """Obtains the Whois Server for a tld, querying the database
+
+        Args:
+            full_name ([string]): [Full name of Domain including TLD, for example google.com]
+
+        Returns:
+            [whois_server]: [Whois Server for querying the TLD ]
+        """
+        tld = full_name.split(".")[-1]
+        whois_server = (
+            self.env["sgw.whoisg_tld"]
+            .search([("gtld", "=", tld)], limit=1)
+            .whois_server.whois_server
+        )
+
+        if not whois_server:
+            whois_server = SgwWhoisQuery.get_root_server_from_iana(self, full_name)
+
+        return whois_server
+
+    def get_root_server_from_iana(self, domain, server="whois.iana.org"):
 
         # get the record first
         data = SgwWhoisQuery.whois_request(self, domain, server, timeout=5)
@@ -213,7 +259,7 @@ class SgwWhoisQuery(models.Model):
             domain = encode(domain, "idna").decode("ascii")
 
         if server is None:
-            target_server = SgwWhoisQuery.get_root_server(self, domain)
+            target_server = SgwWhoisQuery.get_root_server_from_db(self, domain)
         # elif "." + domain.split(".")[-1] in cc_tld:
         #     target_server = SgwWhoisQuery.get_root_server(self,domain)
         else:
@@ -284,6 +330,19 @@ class SgwWhoisQuery(models.Model):
             return new_list
 
     def whois_request(self, domain, server, port=43, timeout=None):
+        """Makes the query for domain to WHOIS server and return the result
+        in decoded ascii text, ready to read.
+
+        Args:
+            domain ([string]): [description]
+            server ([string]): [description]
+            port (int, optional): [description]. Defaults to 43.
+            timeout ([type], optional): [description]. Defaults to None.
+
+        Returns:
+            [type]: [description]
+        """
+
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(timeout)
@@ -297,7 +356,7 @@ class SgwWhoisQuery(models.Model):
                 buff += data
             return buff.decode("latin-1")
         except Exception as e:
-            return "Error: (%s) " % e
+            return "Whois Error: (%s) " % e
 
 
 class SgwWhoisServers(models.Model):
@@ -311,3 +370,21 @@ class SgwWhoisServers(models.Model):
     tld_id = fields.One2many(
         "sgw.whoisg_tld", "whois_server", string="Tld", ondelete="set null"
     )
+    word_id = fields.One2many(
+        "sgw.whoisserver_free_indicator",
+        "whois_server",
+        string="Word",
+        ondelete="set null",
+    )
+
+
+class SgwWhoisServersFreeIndicators(models.Model):
+
+    _name = "sgw.whoisserver_free_indicator"
+    _order = "word"
+    _description = "Indicators of availabality of domain"
+    _rec_name = "word"
+
+    word = fields.Char("Word", required=True)
+    whois_server = fields.Many2one("sgw.whoisserver")
+    available = fields.Boolean("Is indicator of availability")

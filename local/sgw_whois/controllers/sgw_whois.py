@@ -75,7 +75,14 @@ class WhoisController(Website):
         return None
 
     def _get_obj_whois(self, full_name):
+        """Makes a object Whois and return it or None if error
 
+        Args:
+            full_name ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
         try:
             w = http.request.env["sgw.whoisquery"].whois(full_name)
         except Exception:
