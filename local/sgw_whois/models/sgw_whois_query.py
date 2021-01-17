@@ -148,7 +148,7 @@ class SgwWhoisQuery(models.Model):
                         data["is_taken"] = False
                         break
 
-                # read the specifics indicators for "available" for this whois server
+                # Read the specifics indicators for "available" for this whois server
                 whois_server_indicators_available = (
                     self.env["sgw.whoisserver_free_indicator"].search([("whois_server", "=", server), ("available", "=", True)])
                 )
@@ -162,7 +162,9 @@ class SgwWhoisQuery(models.Model):
                             data["is_taken"] = False
                             break
 
-                # read the specifics indicators for "unavailable" for this whois server
+                # Read the specifics indicators for "unavailable" for this whois server.
+                # If some rule has put data["is_taken"] = False, this is the last
+                # oportunity to put a True
                 whois_server_indicators_unavailable = (
                     self.env["sgw.whoisserver_free_indicator"].search([("whois_server", "=", server), ("available", "=", False)])
                 )
