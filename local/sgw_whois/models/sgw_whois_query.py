@@ -136,7 +136,12 @@ class SgwWhoisLogQuery(models.Model):
                 # Read the specifics indicators for "available" for this whois server
                 whois_server_indicators_available = self.env[
                     "sgw.whois.serverindicator"
-                ].search([("whois_server", "=", server), ("type_indicator", "=", "Available")])
+                ].search(
+                    [
+                        ("whois_server", "=", server),
+                        ("type_indicator", "=", "Available"),
+                    ]
+                )
 
                 if whois_server_indicators_available:
                     for indicator in whois_server_indicators_available:
@@ -152,7 +157,12 @@ class SgwWhoisLogQuery(models.Model):
                 # oportunity to put a True
                 whois_server_indicators_unavailable = self.env[
                     "sgw.whois.serverindicator"
-                ].search([("whois_server", "=", server), ("type_indicator", "=", "Not available")])
+                ].search(
+                    [
+                        ("whois_server", "=", server),
+                        ("type_indicator", "=", "Not available"),
+                    ]
+                )
                 if whois_server_indicators_unavailable:
                     for indicator in whois_server_indicators_unavailable:
                         if (
@@ -168,16 +178,15 @@ class SgwWhoisLogQuery(models.Model):
         raw_data, server_list = SgwWhoisLogQuery.get_whois_raw(
             self, domain, with_server_list=True
         )
-        
         result = SgwWhoisLogQuery.parse_raw_whois(self, raw_data, domain, server_list)
-        
         return result
 
     def get_root_server_from_db(self, full_name):
         """Obtains the Whois Server for a tld, querying the database
 
         Args:
-            full_name ([string]): [Full name of Domain including TLD, for example google.com]
+            full_name ([string]): [Full name of Domain including TLD,
+            for example google.com]
 
         Returns:
             [whois_server]: [Whois Server for querying the TLD ]
@@ -210,9 +219,7 @@ class SgwWhoisLogQuery(models.Model):
         # case where no result was found
         try:
             tld = domain.split(".")[-1]
-            result = (
-                self.env["sgw.whois.tld"].search([("tld", "=", tld)]).whois_server
-            )
+            result = self.env["sgw.whois.tld"].search([("tld", "=", tld)]).whois_server
             return result
         except (ValueError, KeyError):
             return server
@@ -341,5 +348,3 @@ class SgwWhoisLogQuery(models.Model):
             return buff.decode("latin-1")
         except Exception as e:
             return "Whois Error: (%s) " % e
-
-
