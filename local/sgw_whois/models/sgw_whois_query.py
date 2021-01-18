@@ -31,8 +31,8 @@ class SgwWhoisLogQuery(models.Model):
         readonly=False,
         default=lambda self: fields.datetime.now(),
     )
-    sld = fields.Char("Domain name", required=True)
-    tld = fields.Char("tld", required=True)
+    sld = fields.Char("Second Level Domain", required=True)
+    tld = fields.Char("Top Level Domain", required=True)
     is_taken = fields.Boolean("is taken?")
     whois_raw = fields.Text("Raw Whois")
 
