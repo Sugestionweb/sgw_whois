@@ -62,7 +62,7 @@ class WhoisController(Website):
             [None]: This function not returns nothing
         """
         if is_taken is not None:
-            obj_log = request.env["sgw.whoisquery"].sudo()
+            obj_log = request.env["sgw.whois.logquery"].sudo()
             obj_log.create(
                 {
                     "sld": domain,
@@ -83,10 +83,10 @@ class WhoisController(Website):
         Returns:
             [type]: [description]
         """
-        try:
-            w = http.request.env["sgw.whoisquery"].whois(full_name)
-        except Exception:
-            w = None
+        # try:
+        w = http.request.env["sgw.whois.logquery"].whois(full_name)
+        # except Exception:
+        #    w = None
         return w
 
     def _chk_domain_free(self, domain, tld):
@@ -199,7 +199,7 @@ class WhoisController(Website):
         return http.request.render("sgw_whois.whois_check", values)
 
     @http.route("/get_whois_raw", auth="public", type="http", website=True, csrf=True)
-    def get_whois_raw(self, domain=None, **kwargs):
+    def get_whois_raw(self, domain, **kwargs):
         """Obtains the raw whois text for the domain specified
 
         Args:

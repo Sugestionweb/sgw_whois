@@ -8,11 +8,11 @@
     groups="sales_team.group_sale_manager"
   />
   <menuitem
-    id="menu_sgw_whois_whoisquery"
+    id="menu_sgw_whois_whois_logquery"
     name="Logs"
     parent="sgw_whois.menu_sgw_whois"
     sequence="13"
-    action="action_sgw_whoisquery"
+    action="action_sgw_whois_logquery"
     groups="sales_team.group_sale_manager"
   />
   <menuitem
@@ -21,7 +21,7 @@
     parent="sgw_whois.menu_sgw_whois"
     sequence="15"
     groups="sales_team.group_sale_manager"
-    action="action_sgw_g_tld"
+    action="action_sgw_tld"
   />
   <menuitem
     id="menu_sgw_whoisserver"
@@ -29,6 +29,6 @@
     parent="sgw_whois.menu_sgw_whois"
     sequence="15"
     groups="sales_team.group_sale_manager"
-    action="action_sgw_whoisservers"
+    action="action_sgw_whois_server"
   />
 </odoo>

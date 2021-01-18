@@ -1,11 +1,11 @@
 <?xml version="1.0" ?>
 <odoo>
   <!-- Logs Whois Tree View -->
-  <record model="ir.ui.view" id="view_sgw_whois_query_tree">
-    <field name="name">sgw.whoisquery.tree</field>
-    <field name="model">sgw.whoisquery</field>
+  <record model="ir.ui.view" id="view_sgw_whois_logquery_tree">
+    <field name="name">sgw.whois.logquery.tree</field>
+    <field name="model">sgw.whois.logquery</field>
     <field name="arch" type="xml">
-      <tree string="sgw_whoisquery">
+      <tree string="sgw_whois_logquery">
         <field name="date_query" />
         <field name="sld" />
         <field name="tld" />
@@ -15,12 +15,13 @@
   </record>
 
   <!-- Tlds Tree View -->
-  <record model="ir.ui.view" id="view_whoisg_tld">
-    <field name="name">sgw.whoisg_tld.tree</field>
-    <field name="model">sgw.whoisg_tld</field>
+  <record model="ir.ui.view" id="view_sgw_whois_tld">
+    <field name="name">sgw.whois.tld.tree</field>
+    <field name="model">sgw.whois.tld</field>
     <field name="arch" type="xml">
-      <tree string="sgw_whoisg_tld">
-        <field name="gtld" />
+      <tree string="sgw_whois_tld">
+        <field name="tld" />
+        <field name="type_tld" />
         <field name="whois_server" />
         <field name="notes" />
       </tree>
@@ -28,15 +29,13 @@
   </record>
 
 <!-- Whois Servers Tree View -->
-  <record model="ir.ui.view" id="view_whoisserver">
-    <field name="name">sgw.whoisserver.tree</field>
-    <field name="model">sgw.whoisserver</field>
+  <record model="ir.ui.view" id="view_sgw_whois_server">
+    <field name="name">sgw.whois.server.tree</field>
+    <field name="model">sgw.whois.server</field>
     <field name="arch" type="xml">
-      <tree string="sgw_whoisserver">
+      <tree string="sgw_whois_server">
         <field name="whois_server" />
       </tree>
     </field>
   </record>
-
-
 </odoo>

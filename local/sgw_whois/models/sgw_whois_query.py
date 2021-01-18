@@ -20,23 +20,8 @@ grammar = {
 }
 
 
-class SgwWhoisgTld(models.Model):
-    _name = "sgw.whoisg_tld"
-    _order = "gtld"
-    _description = "TLDs"
-
-    # TODO: Constraint gtld unique
-
-    gtld = fields.Char(
-        "gTLD",
-        required=True,
-    )
-    whois_server = fields.Many2one("sgw.whoisserver")
-    notes = fields.Text("Notes")
-
-
-class SgwWhoisQuery(models.Model):
-    _name = "sgw.whoisquery"
+class SgwWhoisLogQuery(models.Model):
+    _name = "sgw.whois.logquery"
     _order = "date_query desc"
     _description = "Model to save the queries made using the whois module"
 
@@ -55,7 +40,7 @@ class SgwWhoisQuery(models.Model):
         re.compile(regex, re.IGNORECASE) for regex in grammar["_data"]["status"]
     ]
 
-    def parse_raw_whois(self, raw_data, name_domain="", server=""):
+    def parse_raw_whois(self, raw_data, name_domain, server):
         """Gets the raw_data and parses it in dictionary data.
 
         Args:
@@ -91,11 +76,11 @@ class SgwWhoisQuery(models.Model):
         data["raw"] = raw_data
 
         # Set a bool value that indicates whether the domain is already registered.
-        SgwWhoisQuery.set_flag_is_taken(self, data, name_domain, server)
+        SgwWhoisLogQuery.set_flag_is_taken(self, data, server)
 
         return data
 
-    def set_flag_is_taken(self, data, name_domain, server):
+    def set_flag_is_taken(self, data, server):
         data["is_taken"] = True
         list_free_domain = [
             "free",
@@ -149,9 +134,9 @@ class SgwWhoisQuery(models.Model):
                         break
 
                 # Read the specifics indicators for "available" for this whois server
-                whois_server_indicators_available = (
-                    self.env["sgw.whoisserver_free_indicator"].search([("whois_server", "=", server), ("available", "=", True)])
-                )
+                whois_server_indicators_available = self.env[
+                    "sgw.whois.serverindicator"
+                ].search([("whois_server", "=", server), ("type_indicator", "=", "Available")])
 
                 if whois_server_indicators_available:
                     for indicator in whois_server_indicators_available:
@@ -165,9 +150,9 @@ class SgwWhoisQuery(models.Model):
                 # Read the specifics indicators for "unavailable" for this whois server.
                 # If some rule has put data["is_taken"] = False, this is the last
                 # oportunity to put a True
-                whois_server_indicators_unavailable = (
-                    self.env["sgw.whoisserver_free_indicator"].search([("whois_server", "=", server), ("available", "=", False)])
-                )
+                whois_server_indicators_unavailable = self.env[
+                    "sgw.whois.serverindicator"
+                ].search([("whois_server", "=", server), ("type_indicator", "=", "Not available")])
                 if whois_server_indicators_unavailable:
                     for indicator in whois_server_indicators_unavailable:
                         if (
@@ -180,12 +165,13 @@ class SgwWhoisQuery(models.Model):
 
     def whois(self, domain):
 
-        raw_data, server_list = SgwWhoisQuery.get_whois_raw(
+        raw_data, server_list = SgwWhoisLogQuery.get_whois_raw(
             self, domain, with_server_list=True
         )
-        return SgwWhoisQuery.parse_raw_whois(
-            self, raw_data, name_domain=domain, server=server_list[0]
-        )
+        
+        result = SgwWhoisLogQuery.parse_raw_whois(self, raw_data, domain, server_list)
+        
+        return result
 
     def get_root_server_from_db(self, full_name):
         """Obtains the Whois Server for a tld, querying the database
@@ -198,20 +184,20 @@ class SgwWhoisQuery(models.Model):
         """
         tld = full_name.split(".")[-1]
         whois_server = (
-            self.env["sgw.whoisg_tld"]
-            .search([("gtld", "=", tld)], limit=1)
+            self.env["sgw.whois.tld"]
+            .search([("tld", "=", tld)], limit=1)
             .whois_server.whois_server
         )
 
         if not whois_server:
-            whois_server = SgwWhoisQuery.get_root_server_from_iana(self, full_name)
+            whois_server = SgwWhoisLogQuery.get_root_server_from_iana(self, full_name)
 
         return whois_server
 
     def get_root_server_from_iana(self, domain, server="whois.iana.org"):
 
         # get the record first
-        data = SgwWhoisQuery.whois_request(self, domain, server, timeout=5)
+        data = SgwWhoisLogQuery.whois_request(self, domain, server, timeout=5)
 
         # try to find it from the record
         for line in [x.strip() for x in data.splitlines()]:
@@ -225,7 +211,7 @@ class SgwWhoisQuery(models.Model):
         try:
             tld = domain.split(".")[-1]
             result = (
-                self.env["sgw.whoisg_tld"].search([("gtld", "=", tld)]).whois_server
+                self.env["sgw.whois.tld"].search([("tld", "=", tld)]).whois_server
             )
             return result
         except (ValueError, KeyError):
@@ -257,9 +243,9 @@ class SgwWhoisQuery(models.Model):
             domain = encode(domain, "idna").decode("ascii")
 
         if server is None:
-            target_server = SgwWhoisQuery.get_root_server_from_db(self, domain)
+            target_server = SgwWhoisLogQuery.get_root_server_from_db(self, domain)
         # elif "." + domain.split(".")[-1] in cc_tld:
-        #     target_server = SgwWhoisQuery.get_root_server(self,domain)
+        #     target_server = self.get_root_server(self,domain)
         else:
             target_server = server
 
@@ -282,7 +268,7 @@ class SgwWhoisQuery(models.Model):
             request_domain = domain
 
         # decide on the
-        response = SgwWhoisQuery.whois_request(
+        response = SgwWhoisLogQuery.whois_request(
             self, request_domain, target_server, timeout=whois_timeout
         )
 
@@ -314,7 +300,7 @@ class SgwWhoisQuery(models.Model):
                     referal_server != server and "://" not in referal_server
                 ):  # We want to ignore anything non-WHOIS (eg. HTTP) for now.
                     # Referal to another WHOIS server...
-                    return SgwWhoisQuery.get_whois_raw(
+                    return SgwWhoisLogQuery.get_whois_raw(
                         self,
                         domain,
                         referal_server,
@@ -357,32 +343,3 @@ class SgwWhoisQuery(models.Model):
             return "Whois Error: (%s) " % e
 
 
-class SgwWhoisServers(models.Model):
-    _name = "sgw.whoisserver"
-    _order = "whois_server asc"
-    _description = "Whois Servers"
-    _rec_name = "whois_server"
-
-    whois_server = fields.Char("Whois server", required=True)
-
-    tld_id = fields.One2many(
-        "sgw.whoisg_tld", "whois_server", string="Tld", ondelete="set null"
-    )
-    word_id = fields.One2many(
-        "sgw.whoisserver_free_indicator",
-        "whois_server",
-        string="Word",
-        ondelete="set null",
-    )
-
-
-class SgwWhoisServersFreeIndicators(models.Model):
-
-    _name = "sgw.whoisserver_free_indicator"
-    _order = "word"
-    _description = "Indicators of availabality of domain"
-    _rec_name = "word"
-
-    word = fields.Char("Word", required=True)
-    whois_server = fields.Many2one("sgw.whoisserver")
-    available = fields.Boolean("Is indicator of availability")
