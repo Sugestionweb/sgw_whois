@@ -9,4 +9,3 @@ _logger = logging.getLogger(__name__)
 
 class WhoisResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
-    sgwwhois_available_indicators = fields.Char('Available indicators', help=u"Generic List of available indicators separated by ,")

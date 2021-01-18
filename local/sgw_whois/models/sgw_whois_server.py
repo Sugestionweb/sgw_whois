@@ -7,6 +7,8 @@ class SgwWhoisServer(models.Model):
     _description = "Whois Servers"
     _rec_name = "whois_server"
 
+    #TODO: Valores por defecto en los formularios al agregar relacionados
+    
     whois_server = fields.Char("Whois server", required=True, context={})
 
     tld_id = fields.One2many(
