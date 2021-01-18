@@ -117,9 +117,7 @@ class SgwSaleOrder(models.Model):
             )
 
             if not product:
-                raise UserError(
-                    _("The given product does not exist and it cannot be added to cart.")
-                )
+                raise UserError(_("The given product does not exist."))
 
             no_variant_attribute_values = (
                 kwargs.get("no_variant_attribute_values") or []
