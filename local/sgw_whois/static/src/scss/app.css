@@ -34,8 +34,8 @@ body {
 
 .big-domain {
   height: 44px !important;
-  display:table-cell;
-  vertical-align:middle
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .domain-form .form-group .search-domain {
@@ -62,43 +62,42 @@ body {
   margin: 0 0 0 -23px;
 }
 
-  /* modal-dialog */
-  .modal-dialog {
-    overflow-y: initial !important;
-  }
-  .modal-body {
-    height: 80vh;
-    overflow-y: auto;
-  }
-  button.close {
-    color: #000;
-    float: right;
-    font-size: 21px;
-    font-weight: 700;
-    line-height: 1;
-    opacity: 1;
-  }
+/* modal-dialog */
+.modal-dialog {
+  overflow-y: initial !important;
+}
+.modal-body {
+  height: 80vh;
+  overflow-y: auto;
+}
+button.close {
+  color: #000;
+  float: right;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 1;
+}
 
 /* Page product */
-  /* we make more space to put the word years in the right, near of + button  */
-  .css_quantity {
-    max-width: 165px;
-  }
-  /* Min Width to quantity input */
-  .css_quantity input[name="add_qty"] {
-    width: 40px!important;
-  }
-
+/* we make more space to put the word years in the right, near of + button  */
+.css_quantity {
+  max-width: 165px;
+}
+/* Min Width to quantity input */
+.css_quantity input[name="add_qty"] {
+  width: 40px !important;
+}
 
 /* Cart Page */
-  /* we make similar width to quantity boxes  */
+/* we make similar width to quantity boxes  */
 
-  .oe_website_sale input.js_quantity {
-    max-width: 65px;
-    text-align: center;
-  }
-  
-  /* Snippet Whois_Big */
-  .whosearch {
-padding-top: 25px;
-  }
+.oe_website_sale input.js_quantity {
+  max-width: 65px;
+  text-align: center;
+}
+
+/* Snippet Whois_Big */
+.whosearch {
+  padding-top: 25px;
+}

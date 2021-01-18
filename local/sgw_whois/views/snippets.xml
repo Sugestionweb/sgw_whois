@@ -24,7 +24,7 @@
                   class="form-control big-domain mr-1"
                   placeholder="Domain name"
                 />
-               <input
+                <input
                   type="submit"
                   class="d-none"
                   value="Search domain"
@@ -32,7 +32,13 @@
                   name="submit"
                 />
                 <div class="text-center input-group-append" data-name="Button">
-                  <a href="javascript:{}" onclick="document.getElementById('submit').click(); return false;" class="btn btn-lg btn-primary"><i class="fa fa-search"></i></a>
+                  <a
+                    href="javascript:{}"
+                    onclick="document.getElementById('submit').click(); return false;"
+                    class="btn btn-lg btn-primary"
+                  >
+                    <i class="fa fa-search" />
+                  </a>
                 </div>
               </div>
               <input

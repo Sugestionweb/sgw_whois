@@ -1,4 +1,4 @@
-from odoo import fields, models, _
+from odoo import _, fields, models
 
 
 class SgwWhoisServer(models.Model):
@@ -7,7 +7,7 @@ class SgwWhoisServer(models.Model):
     _description = "Whois Servers"
     _rec_name = "whois_server"
     _sql_constraints = [
-        ('whois_server', 'unique (whois_server)', _('Whois Server must be unique.'))
+        ("whois_server", "unique (whois_server)", _("Whois Server must be unique."))
     ]
 
     whois_server = fields.Char("Whois server", required=True)
@@ -16,10 +16,7 @@ class SgwWhoisServer(models.Model):
         "sgw.whois.tld", "whois_server", string="Tld", ondelete="set null"
     )
     word_id = fields.One2many(
-        "sgw.whois.serverindicator",
-        "whois_server",
-        string="Word",
-        ondelete="set null",
+        "sgw.whois.serverindicator", "whois_server", string="Word", ondelete="set null",
     )
 
 

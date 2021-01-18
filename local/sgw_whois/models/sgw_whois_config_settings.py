@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
-
 import logging
 
-from odoo import fields, models
+from odoo import models
 
 _logger = logging.getLogger(__name__)
 
 
 class WhoisResConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"

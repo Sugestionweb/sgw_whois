@@ -11,43 +11,49 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-md-8">
-                          <form
-              role="form"
-              id="form_whois"
-              name="form_whois"
-              t-attf-action="/whois"
-              method="post"
-            >
-              <div class="input-group mt-5 d-md-flex">
-                <input
-                  type="text"
-                  name="domain"
-                  t-att-value="domain"
-                  id="domain"
-                  required="required"
-                  autofocus="autofocus"
-                  autocapitalize="off"
-                  class="form-control big-domain mr-1"
-                  placeholder="Domain name"
-                />
-               <input
-                  type="submit"
-                  class="d-none"
-                  value="Search domain"
-                  id="submit"
-                  name="submit"
-                />
-                <div class="text-center input-group-append" data-name="Button">
-                  <a href="javascript:{}" onclick="document.getElementById('submit').click(); return false;" class="btn btn-lg btn-primary"><i class="fa fa-search"></i></a>
+              <form
+                role="form"
+                id="form_whois"
+                name="form_whois"
+                t-attf-action="/whois"
+                method="post"
+              >
+                <div class="input-group mt-5 d-md-flex">
+                  <input
+                    type="text"
+                    name="domain"
+                    t-att-value="domain"
+                    id="domain"
+                    required="required"
+                    autofocus="autofocus"
+                    autocapitalize="off"
+                    class="form-control big-domain mr-1"
+                    placeholder="Domain name"
+                  />
+                  <input
+                    type="submit"
+                    class="d-none"
+                    value="Search domain"
+                    id="submit"
+                    name="submit"
+                  />
+                  <div class="text-center input-group-append" data-name="Button">
+                    <a
+                      href="javascript:{}"
+                      onclick="document.getElementById('submit').click(); return false;"
+                      class="btn btn-lg btn-primary"
+                    >
+                      <i class="fa fa-search" />
+                    </a>
+                  </div>
                 </div>
-              </div>
-              <input
-                type="hidden"
-                id="csrf_token"
-                name="csrf_token"
-                value="request.csrf_token()"
-              />
-            </form>
+                <input
+                  type="hidden"
+                  id="csrf_token"
+                  name="csrf_token"
+                  value="request.csrf_token()"
+                />
+              </form>
             </div>
           </div>
         </div>

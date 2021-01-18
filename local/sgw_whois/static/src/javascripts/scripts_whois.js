@@ -1,13 +1,13 @@
 odoo.define("sgw_whois.tools", function(require) {
   "use strict";
-  require('web.dom_ready')
+  require("web.dom_ready");
 
   const ByID = function(elementId) {
     return document.getElementById(elementId);
   };
 
   ByID("csrf_token").value = odoo.csrf_token;
-  
+
   function render(datos, tld, domain_name) {
     const domain = domain_name + "." + tld;
     ByID("tabla_result").style.visibility = "visible";

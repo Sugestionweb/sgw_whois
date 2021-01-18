@@ -178,7 +178,9 @@ class SgwWhoisLogQuery(models.Model):
         raw_data, server_list = SgwWhoisLogQuery.get_whois_raw(
             self, domain, with_server_list=True
         )
-        result = SgwWhoisLogQuery.parse_raw_whois(self, raw_data, domain, server_list[0])
+        result = SgwWhoisLogQuery.parse_raw_whois(
+            self, raw_data, domain, server_list[0]
+        )
         return result
 
     def get_root_server_from_db(self, full_name):

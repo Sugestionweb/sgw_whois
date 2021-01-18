@@ -2,7 +2,7 @@ import imp
 import json
 import re
 
-from odoo import conf, http, _
+from odoo import _, conf, http
 from odoo.http import Response, request
 
 from odoo.addons.website.controllers.main import Website
@@ -127,23 +127,26 @@ class WhoisController(Website):
         textsuccess = "text-success"
         textwarning = "text-warning"
 
-        result = (
-            """<i class="fa fa-times-circle fa-lg %s"></i>
-        <span style ="margin-left:10px;" class="%s">%s</span>"""
-            % (textdanger, textdanger, txtNotAvailable)
+        result = """<i class="fa fa-times-circle fa-lg %s"></i>
+        <span style ="margin-left:10px;" class="%s">%s</span>""" % (
+            textdanger,
+            textdanger,
+            txtNotAvailable,
         )
         status = self._chk_domain_free(domain, tld)
         if status == "Free":
-            result = (
-                """<i class="fa fa-check-circle fa-lg %s"></i>
-            <span style ="margin-left:10px;" class="%s">%s</span>"""
-                % (textsuccess, textsuccess, txtAvailable)
+            result = """<i class="fa fa-check-circle fa-lg %s"></i>
+            <span style ="margin-left:10px;" class="%s">%s</span>""" % (
+                textsuccess,
+                textsuccess,
+                txtAvailable,
             )
         if status == "Error":
-            result = (
-                """<i class="fa exclamation-circle fa-lg %s"></i>
-            <span style ="margin-left:10px;" class="%s">%s</span>"""
-                % (textwarning, textwarning, txtError)
+            result = """<i class="fa exclamation-circle fa-lg %s"></i>
+            <span style ="margin-left:10px;" class="%s">%s</span>""" % (
+                textwarning,
+                textwarning,
+                txtError,
             )
         return Response(result, content_type="text/html;charset=utf-8")
 

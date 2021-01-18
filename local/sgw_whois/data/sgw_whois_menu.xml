@@ -23,7 +23,7 @@
     groups="sales_team.group_sale_manager"
     action="action_sgw_whois_server"
   />
-<menuitem
+  <menuitem
     id="menu_sgw_whois_whois_logquery"
     name="Logs"
     parent="sgw_whois.menu_sgw_whois"
