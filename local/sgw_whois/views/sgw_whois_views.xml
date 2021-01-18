@@ -28,14 +28,89 @@
     </field>
   </record>
 
-<!-- Whois Servers Tree View -->
+  <!-- Whois Servers Tree View -->
   <record model="ir.ui.view" id="view_sgw_whois_server">
     <field name="name">sgw.whois.server.tree</field>
     <field name="model">sgw.whois.server</field>
     <field name="arch" type="xml">
       <tree string="sgw_whois_server">
         <field name="whois_server" />
+        <field name="tld_id" widget="many2many_tags" />
       </tree>
+    </field>
+  </record>
+
+  <!-- Whois Servers Form View -->
+  <record model="ir.ui.view" id="view_form_sgw_whois_server">
+    <field name="name">sgw.whois.server.form</field>
+    <field name="model">sgw.whois.server</field>
+    <field name="arch" type="xml">
+      <form string="sgw_whois_server">
+        <field name="id" invisible="True"/>
+        <sheet>
+          <div class="oe_title">
+            <label for="whois_server" class="oe_edit_only"/>
+            <h1>
+              <field name="whois_server" class="oe_inline"/>
+            </h1>
+          </div>
+          <group>
+            <field name="tld_id" context="{'default_whois_server':id}">
+              <tree>
+                <field name="tld"/>
+                <field name="type_tld"/>
+                <field name="whois_server" options="{'no_open ': True}"/>
+                <field name="notes"/>
+              </tree>
+              <form>
+                <group>
+                  <field name="tld"/>
+                  <field name="type_tld"/>
+                  <field name="whois_server" attrs="{'readonly':True}"/>
+                  <field name="notes"/>
+                </group>
+              </form>
+            </field>
+            <field name="word_id" context="{'default_whois_server':id}">
+              <tree>
+                <field name="word"/>
+                <field name="type_indicator"/>
+                <field name="whois_server" options="{'no_open ': True}"/>
+              </tree>
+              <form>
+                <group>
+                  <field name="word"/>
+                  <field name="type_indicator"/>
+                  <field name="whois_server" attrs="{'readonly':True}"/>
+                </group>
+              </form>
+            </field>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <!-- TLDs Form View -->
+  <record model="ir.ui.view" id="view_form_sgw_whois_tld">
+    <field name="name">sgw.whois.tld.form</field>
+    <field name="model">sgw.whois.tld</field>
+    <field name="arch" type="xml">
+      <form string="sgw_whois_tld">
+        <field name="id" invisible="True"/>
+        <sheet>
+          <div class="oe_title">
+            <label for="tld" class="oe_edit_only"/>
+            <h1>
+              <field name="tld" class="oe_inline"/>
+            </h1>
+          </div>
+          <group>
+            <field name="type_tld"/>
+            <field name="whois_server"/>
+            <field name="notes"/>
+          </group>
+        </sheet>
+      </form>
     </field>
   </record>
 </odoo>

@@ -1,13 +1,14 @@
-from odoo import fields, models
-
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 class SgwWhoisTld(models.Model):
     _name = "sgw.whois.tld"
     _order = "tld"
     _description = "TLDs"
     _rec_name = "tld"
-
-    # TODO: Make a Constraint for tld unique
+    _sql_constraints = [
+        ('tld', 'unique (tld)', _('TLD must be unique.'))
+    ]
 
     tld = fields.Char(
         "TLD",
