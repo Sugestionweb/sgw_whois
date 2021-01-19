@@ -136,7 +136,7 @@ class SgwWhoisLogQuery(models.Model):
                 # Read the specifics indicators for "available" for this whois server
                 whois_server_indicators_available = self.env[
                     "sgw.whois.serverindicator"
-                ].search(
+                ].sudo().search(
                     [
                         ("whois_server", "=", server),
                         ("type_indicator", "=", "Available"),
@@ -157,7 +157,7 @@ class SgwWhoisLogQuery(models.Model):
                 # oportunity to put a True
                 whois_server_indicators_unavailable = self.env[
                     "sgw.whois.serverindicator"
-                ].search(
+                ].sudo().search(
                     [
                         ("whois_server", "=", server),
                         ("type_indicator", "=", "Not available"),
@@ -195,7 +195,7 @@ class SgwWhoisLogQuery(models.Model):
         """
         tld = full_name.split(".")[-1]
         whois_server = (
-            self.env["sgw.whois.tld"]
+            self.env["sgw.whois.tld"].sudo()
             .search([("tld", "=", tld)], limit=1)
             .whois_server.whois_server
         )
@@ -221,7 +221,7 @@ class SgwWhoisLogQuery(models.Model):
         # case where no result was found
         try:
             tld = domain.split(".")[-1]
-            result = self.env["sgw.whois.tld"].search([("tld", "=", tld)]).whois_server
+            result = self.env["sgw.whois.tld"].sudo().search([("tld", "=", tld)]).whois_server
             return result
         except (ValueError, KeyError):
             return server
