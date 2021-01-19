@@ -63,7 +63,7 @@
     </xpath>
   </template>
   <!-- Add the "Years string" to product page  -->
-  <template id="sgw_product_page_quantity" inherit_id="website_sale.product">
+  <template id="sgw_product_page_quantity" inherit_id="website_sale.product" customize_show="True" name="'Years' in domains ">
     <xpath expr="//div[hasclass('input-group-append')]" position="after">
       <span
         t-if="((product.is_tld and domain) or (product.is_tld))"
