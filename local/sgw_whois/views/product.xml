@@ -12,14 +12,23 @@
       </field>
     </field>
   </record>
-  <template id="sgw_website_sale_product" name="Product modification" inherit_id="website_sale.product">
+  <template
+    id="sgw_website_sale_product"
+    name="Product modification"
+    inherit_id="website_sale.product"
+  >
     <xpath expr="//div/section/div[2]/div[2]/h1" position="after">
       <h4>
         <t t-esc="domain" />
       </h4>
     </xpath>
     <xpath expr="//div/section/div[2]/div[2]/form" position="inside">
-      <input type="hidden" class="domain" name="domain" t-att-value="domain if domain else ''" />
+      <input
+        type="hidden"
+        class="domain"
+        name="domain"
+        t-att-value="domain if domain else ''"
+      />
     </xpath>
     <xpath expr="//div/section/div[2]/div[2]/hr" position="replace">
       <hr class="m-t" t-if="product.description_sale" />
@@ -31,38 +40,54 @@
    and the add to cart is hidden -->
     <xpath expr="//a[@id='add_to_cart']" position="replace">
       <t t-if="product.is_tld and domain">
-        <a id="add_to_cart" class="btn btn-success btn-lg mt8 js_check_product a-submit" href="#">Add to cart</a>
+        <a
+          id="add_to_cart"
+          class="btn btn-success btn-lg mt8 js_check_product a-submit"
+          href="#"
+        >Add to cart</a>
       </t>
       <t t-if="not product.is_tld">
-        <a id="add_to_cart" class="btn btn-success btn-lg mt8 js_check_product a-submit" href="#">Add to cart</a>
+        <a
+          id="add_to_cart"
+          class="btn btn-success btn-lg mt8 js_check_product a-submit"
+          href="#"
+        >Add to cart</a>
       </t>
       <t t-if="product.is_tld and not domain">
-        <a id="gowhois" class="btn btn-warning btn-lg mt8" href="/whois">Search domain</a>
+        <a
+          id="gowhois"
+          class="btn btn-warning btn-lg mt8"
+          href="/whois"
+        >Search domain</a>
       </t>
     </xpath>
   </template>
-
- <!-- Add the "Years string" to product page  -->
+  <!-- Add the "Years string" to product page  -->
   <template id="sgw_product_page_quantity" inherit_id="website_sale.product">
     <xpath expr="//div[hasclass('input-group-append')]" position="after">
-        <span t-if="((product.is_tld and domain) or (product.is_tld))" class="ml-2 mt-2 align-middle font-weight-bold">Years</span>
-      </xpath>
-    </template>
-
-    <template id="sgw_products_item" inherit_id="website_sale.cart_summary">
-      <xpath expr="//td[hasclass('td-product_name')]" position="replace">
-        <td class='td-product_name' t-if="line.product_id.product_tmpl_id">
-          <div>
-            <strong t-field="line.name" />
-          </div>
-        </td>
-      </xpath>
-    </template>
-    <!-- In "My Cart" page (1st step of the purchase) Show "Years" next to quantity to indicate
+      <span
+        t-if="((product.is_tld and domain) or (product.is_tld))"
+        class="ml-2 mt-2 align-middle font-weight-bold"
+      >Years</span>
+    </xpath>
+  </template>
+  <template id="sgw_products_item" inherit_id="website_sale.cart_summary">
+    <xpath expr="//td[hasclass('td-product_name')]" position="replace">
+      <td class='td-product_name' t-if="line.product_id.product_tmpl_id">
+        <div>
+          <strong t-field="line.name" />
+        </div>
+      </td>
+    </xpath>
+  </template>
+  <!-- In "My Cart" page (1st step of the purchase) Show "Years" next to quantity to indicate
     that quantity is equivalent to years if product is tld -->
-    <template id="sgw_products_cart_lines" inherit_id="website_sale.cart_lines">
-      <xpath expr="//div[hasclass('input-group-append')]" position="after">
-        <span t-if="line.product_id.is_tld" class="mt-2 small align-middle font-weight-bold">Years</span>
-      </xpath>
-    </template>
-  </odoo>
+  <template id="sgw_products_cart_lines" inherit_id="website_sale.cart_lines">
+    <xpath expr="//div[hasclass('input-group-append')]" position="after">
+      <span
+        t-if="line.product_id.is_tld"
+        class="mt-2 small align-middle font-weight-bold"
+      >Years</span>
+    </xpath>
+  </template>
+</odoo>

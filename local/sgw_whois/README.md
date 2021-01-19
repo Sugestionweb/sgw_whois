@@ -18,4 +18,3 @@ register the domain manually in some domain registrar.
 ## Configuration
 
 ### Use
-
