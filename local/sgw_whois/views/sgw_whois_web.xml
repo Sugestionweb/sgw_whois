@@ -112,7 +112,7 @@
                           t-attf-href="/shop/product/#{ slug(product)}?domain=#{ full_domain}"
                           style="display: block"
                         >
-                          <span t-field='product.name' style="display: block" />
+                          <span style="display: block"><i class="fa fa-shopping-cart"/><![CDATA[&nbsp;]]><span t-field='product.name'/></span>
                         </a>
                       </td>
                       <td t-att-id='"button_whois_" + str(result)' />
