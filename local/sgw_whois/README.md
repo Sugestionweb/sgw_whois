@@ -11,10 +11,7 @@ it can be purchased.
 
 Note that the domain purchase operation through this module only places the order in
 Odoo, the domain is not really registered, only the order is generated It's up to you to
-register the domain in domain registrars.
-
-Later, over time, the module may connect with one or more domain registrar APIs to
-really register the domain, but this still is in road map.
+register the domain manually in some domain registrar.
 
 ## Installation
 
@@ -22,6 +19,3 @@ really register the domain, but this still is in road map.
 
 ### Use
 
-### Road Map
-
-- Connect with openprovider api
