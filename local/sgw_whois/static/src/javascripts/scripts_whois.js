@@ -16,7 +16,7 @@ odoo.define("sgw_whois.tools", function(require) {
     ByID("img_resultado_whois_" + tld).innerHTML = datos;
 
     if (datos.indexOf("text-danger") !== -1) {
-      ByID("link_buy_" + tld).innerHTML = "Not available";
+      ByID("link_buy_" + tld).innerHTML = "";
       const to_stroke = document.getElementById("price_" + tld).innerHTML;
       const stroked = "<s>" + to_stroke + "</s>";
       ByID("price_" + tld).innerHTML = stroked;

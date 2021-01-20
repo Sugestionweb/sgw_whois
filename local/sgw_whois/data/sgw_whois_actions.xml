@@ -31,7 +31,7 @@
     </field>
   </record>
   <record model="ir.actions.act_window" id="action_sgw_whois_server">
-    <field name="name">WhoisServers</field>
+    <field name="name">Servers</field>
     <field name="res_model">sgw.whois.server</field>
     <field name="view_type">form</field>
     <field name="view_mode">tree,form</field>
