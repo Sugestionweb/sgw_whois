@@ -10,6 +10,7 @@ bin/odoo
 /filestore/
 /logs/
 /src/
+sgw_whois.cfg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
