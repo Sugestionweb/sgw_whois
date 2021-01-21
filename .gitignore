@@ -10,7 +10,6 @@ bin/odoo
 /filestore/
 /logs/
 /src/
-/setup/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
