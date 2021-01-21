@@ -4,12 +4,13 @@
 
 # Folders development
 bin/odoo
-/bd
-/bin
-/docs
+/bd/
+/bin/
+/docs/
 /filestore/
 /logs/
 /src/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
