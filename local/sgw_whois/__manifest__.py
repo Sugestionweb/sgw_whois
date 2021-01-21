@@ -1,20 +1,23 @@
 # Created on 2020-12-27
 # author: Javier https://www.sugestionweb.com
 # email: javier@sugestionweb.com
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License: Odoo Proprietary License v1.0 (see LICENSE file)
+
 
 {
     "name": "SGW Whois",
     "version": "12.0.0.0.1",
     "author": "Sugestionweb.com",
-    "category": "Productivity",
+    "support": "sugestionweb@gmail.com",
+    "category": "website",
     "website": "https://www.sugestionweb.com",
-    "license": "AGPL-3",
-    "sequence": 2,
+    "license": "OPL-1",
+    "price": 100.00,
+    "currency": "EUR",
     "summary": """
     With this module you can make domain name queries to Whois databases.
     """,
-    "images": ["static/description/banner.jpg"],
+    "images": ["static/description/main_screenshot.png"],
     "depends": ["website_sale"],
     "data": [
         "data/sgw_whois_actions.xml",
