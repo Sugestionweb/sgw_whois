@@ -1,0 +1,406 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sgw_whois
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-20 09:40+0000\n"
+"PO-Revision-Date: 2021-01-20 09:40+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
+msgid "...Asking the whois servers..."
+msgstr "...Consultando a los servidores Whois..."
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
+msgid "<i class=\"fa fa-shopping-cart\"/>&amp;nbsp;"
+msgstr ""
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
+msgid "<span>&amp;times;</span>"
+msgstr ""
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.sgw_product_addtocart
+msgid "Add to cart"
+msgstr "Agregar al pedido"
+
+#. module: sgw_whois
+#: code:addons/sgw_whois/controllers/sgw_whois.py:124
+#: selection:sgw.whois.serverindicator,type_indicator:0
+#, python-format
+msgid "Available"
+msgstr "Disponible"
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
+msgid "Buy"
+msgstr "Comprar"
+
+#. module: sgw_whois
+#: model_terms:ir.actions.act_window,help:sgw_whois.action_sgw_tld
+#: model_terms:ir.actions.act_window,help:sgw_whois.action_sgw_whois_logquery
+#: model_terms:ir.actions.act_window,help:sgw_whois.action_sgw_whois_server
+msgid "Click to set a new entry."
+msgstr "Click para agregar una nueva entrada"
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: sgw_whois
+#: model:ir.model,name:sgw_whois.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de Configuración"
+
+#. module: sgw_whois
+#: selection:sgw.whois.tld,type_tld:0
+msgid "Country Code"
+msgstr "Código País"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_logquery__create_uid
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_server__create_uid
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_serverindicator__create_uid
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_tld__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_logquery__create_date
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_server__create_date
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_serverindicator__create_date
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_tld__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_logquery__date_query
+msgid "Date Whois Query"
+msgstr "Fecha consulta Whois"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_logquery__display_name
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_server__display_name
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_serverindicator__display_name
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_tld__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sale_order_line__domain_name
+#: model_terms:ir.ui.view,arch_db:sgw_whois.snippet_bigwhois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
+msgid "Domain name"
+msgstr "Nombre de dominio"
+
+#. module: sgw_whois
+#: code:addons/sgw_whois/controllers/sgw_whois.py:125
+#: selection:sgw.whois.serverindicator,type_indicator:0
+#, python-format
+msgid "Error"
+msgstr ""
+
+#. module: sgw_whois
+#: selection:sgw.whois.tld,type_tld:0
+msgid "Generic TLD"
+msgstr "TLD Genérico"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_logquery__id
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_server__id
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_serverindicator__id
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_tld__id
+msgid "ID"
+msgstr ""
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_serverindicator__type_indicator
+msgid "Indicator Type"
+msgstr "Tipo de indicador"
+
+#. module: sgw_whois
+#: model:ir.model,name:sgw_whois.model_sgw_whois_serverindicator
+msgid "Indicators of availabality of domain"
+msgstr "Indicadores de disponibilidad de dominio"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_product_product__is_tld
+#: model:ir.model.fields,field_description:sgw_whois.field_product_template__is_tld
+msgid "Is TLD"
+msgstr "Es TLD"
+
+#. module: sgw_whois
+#: code:addons/sgw_whois/models/sgw_sale_order.py:105
+#, python-format
+msgid "It is forbidden to modify a sales order which is not in draft."
+msgstr "No se puede modificar una orden de venta que no esté en borrador	"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_logquery____last_update
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_server____last_update
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_serverindicator____last_update
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_tld____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_logquery__write_uid
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_server__write_uid
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_serverindicator__write_uid
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_tld__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_logquery__write_date
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_server__write_date
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_serverindicator__write_date
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_tld__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: sgw_whois
+#: model:ir.ui.menu,name:sgw_whois.menu_sgw_whois_whois_logquery
+msgid "Logs"
+msgstr "Registros"
+
+#. module: sgw_whois
+#: model:ir.actions.act_window,name:sgw_whois.action_sgw_whois_logquery
+msgid "Logs Whois"
+msgstr "Registros Whois"
+
+#. module: sgw_whois
+#: model_terms:ir.actions.act_window,help:sgw_whois.action_sgw_whois_logquery
+msgid "Logs are created automatically"
+msgstr "Los registros se crean automáticamente"
+
+#. module: sgw_whois
+#: model:ir.model,name:sgw_whois.model_sgw_whois_logquery
+msgid "Model to save the queries made using the whois module"
+msgstr "Modelo para guardar registros de las consultas realizadas por el módulo WHOIS"
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
+msgid "Name"
+msgstr "Nombre"
+
+#. module: sgw_whois
+#: code:addons/sgw_whois/controllers/sgw_whois.py:123
+#: selection:sgw.whois.serverindicator,type_indicator:0
+#, python-format
+msgid "Not available"
+msgstr "No disponible"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_tld__notes
+msgid "Notes"
+msgstr "Notas"
+
+#. module: sgw_whois
+#: code:addons/sgw_whois/models/sgw_sale_order.py:283
+#, python-format
+msgid "Option for:"
+msgstr "Opción para:"
+
+#. module: sgw_whois
+#: code:addons/sgw_whois/models/sgw_sale_order.py:292
+#, python-format
+msgid "Option:"
+msgstr "Opción:"
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
+msgid "Price"
+msgstr "Precio"
+
+#. module: sgw_whois
+#: model:ir.model,name:sgw_whois.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_logquery__whois_raw
+msgid "Raw Whois"
+msgstr "Whois en crudo"
+
+#. module: sgw_whois
+#: model:res.groups,name:sgw_whois.group_admin_whois
+msgid "SGW Whois: Administrators"
+msgstr "SGW Whois: Administradores"
+
+#. module: sgw_whois
+#: model:ir.model,name:sgw_whois.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: sgw_whois
+#: model:ir.model,name:sgw_whois.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.sgw_product_addtocart
+msgid "Search domain"
+msgstr "Buscar dominio"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_logquery__sld
+msgid "Second Level Domain"
+msgstr "Dominio de segundo nivel"
+
+#. module: sgw_whois
+#: model:ir.model.fields,help:sgw_whois.field_product_product__is_tld
+#: model:ir.model.fields,help:sgw_whois.field_product_template__is_tld
+msgid "Select this option if this product is a domain TLD or TLD Group."
+msgstr "Seleccione esta opción si el producto es una extensión de dominio TLD o un grupo de TLDs"
+
+#. module: sgw_whois
+#: model:ir.actions.act_window,name:sgw_whois.action_sgw_whois_server
+msgid "Servers"
+msgstr ""
+
+#. module: sgw_whois
+#: model:ir.model.fields,help:sgw_whois.field_product_product__list_tlds
+#: model:ir.model.fields,help:sgw_whois.field_product_template__list_tlds
+msgid "Specify the TLDs to which this product refers separated by ',' "
+msgstr "Especifique las TLDs a las que se refiere este producto separadas por comas (,)"
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.whois_check
+msgid "Status"
+msgstr "Estado"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_tld__tld
+msgid "TLD"
+msgstr ""
+
+#. module: sgw_whois
+#: code:addons/sgw_whois/models/sgw_whois_tld.py:9
+#: sql_constraint:sgw.whois.tld:0
+#, python-format
+msgid "TLD must be unique."
+msgstr "Servidor de Whois ha de ser único"
+
+#. module: sgw_whois
+#: model_terms:ir.actions.act_window,help:sgw_whois.action_sgw_tld
+msgid "TLDS"
+msgstr ""
+
+#. module: sgw_whois
+#: model:ir.actions.act_window,name:sgw_whois.action_sgw_tld
+#: model:ir.model,name:sgw_whois.model_sgw_whois_tld
+#: model:ir.model.fields,field_description:sgw_whois.field_product_product__list_tlds
+#: model:ir.model.fields,field_description:sgw_whois.field_product_template__list_tlds
+#: model:ir.ui.menu,name:sgw_whois.menu_sgw_whois_g_tld
+msgid "TLDs"
+msgstr ""
+
+#. module: sgw_whois
+#: code:addons/sgw_whois/models/sgw_sale_order.py:144
+#, python-format
+msgid "The combination does not exist and it cannot be added to cart."
+msgstr "La combinación no existe por lo que no se puede agregar al pedido"
+
+#. module: sgw_whois
+#: code:addons/sgw_whois/models/sgw_sale_order.py:120
+#, python-format
+msgid "The given product does not exist."
+msgstr "El producto no existe"
+
+#. module: sgw_whois
+#: model:res.groups,comment:sgw_whois.group_admin_whois
+msgid "The user will be able to access the Whois module configuration.\n"
+"        "
+msgstr "El usuario podra acceder a la configuración del módulo Whois"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_server__tld_id
+msgid "Tld"
+msgstr ""
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_logquery__tld
+msgid "Top Level Domain"
+msgstr "Dominio de nivel superior"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_tld__type_tld
+msgid "Type TLD"
+msgstr "Tipo TLD"
+
+#. module: sgw_whois
+#: model:ir.ui.menu,name:sgw_whois.menu_sgw_whois
+msgid "Whois"
+msgstr ""
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_serverindicator__whois_server
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_tld__whois_server
+msgid "Whois Server"
+msgstr "Servidor Whois"
+
+#. module: sgw_whois
+#: code:addons/sgw_whois/models/sgw_whois_server.py:10
+#: sql_constraint:sgw.whois.server:0
+#, python-format
+msgid "Whois Server must be unique."
+msgstr "Servidor de Whois ha de ser único"
+
+#. module: sgw_whois
+#: model_terms:ir.actions.act_window,help:sgw_whois.action_sgw_whois_server
+#: model:ir.model,name:sgw_whois.model_sgw_whois_server
+#: model:ir.ui.menu,name:sgw_whois.menu_sgw_whoisserver
+msgid "Whois Servers"
+msgstr "Servidores Whois"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_server__whois_server
+msgid "Whois server"
+msgstr "Servidor whois"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_server__word_id
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_serverindicator__word
+msgid "Word"
+msgstr "Palabra"
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.sgw_products_cart_lines
+msgid "Years"
+msgstr "Años"
+
+#. module: sgw_whois
+#: model:ir.model.fields,field_description:sgw_whois.field_sgw_whois_logquery__is_taken
+msgid "is taken?"
+msgstr "Está ocupado?"
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.view_sgw_whois_logquery_tree
+msgid "sgw_whois_logquery"
+msgstr "Registro"
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.view_form_sgw_whois_server
+#: model_terms:ir.ui.view,arch_db:sgw_whois.view_sgw_whois_server
+msgid "sgw_whois_server"
+msgstr "Servidor"
+
+#. module: sgw_whois
+#: model_terms:ir.ui.view,arch_db:sgw_whois.view_form_sgw_whois_tld
+#: model_terms:ir.ui.view,arch_db:sgw_whois.view_sgw_whois_tld
+msgid "sgw_whois_tld"
+msgstr "TLD"
+

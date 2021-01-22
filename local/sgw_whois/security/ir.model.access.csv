@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sgw_whois_logquery,access_sgw_whois_logquery_system,model_sgw_whois_logquery,sales_team.group_sale_manager,1,1,1,1
+access_sgw_whois_tld_user,access_sgw_whois_tld,model_sgw_whois_tld,base.group_user,1,0,0,0
+access_sgw_tld_sale_manager,access_sgw_whois_tld_salemanager,model_sgw_whois_tld,sales_team.group_sale_manager,1,1,1,1
+access_sgw_whois_server_user,access_sgw_whois_server_user,model_sgw_whois_server,base.group_public,1,0,0,0
+access_sgw_whois_server_sale_manager,access_whois_serveruser,model_sgw_whois_server,sales_team.group_sale_manager,1,1,1,1
+access_whois_serverindicator_sale_manager,access_whois_server_indicator_sale_manager,model_sgw_whois_serverindicator,sales_team.group_sale_manager,1,1,1,1

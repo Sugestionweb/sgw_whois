@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template id="snippet_bigwhois" name="Big Whois">
+    <section class="s_references">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <form
+              role="form"
+              id="form_whois"
+              name="form_whois"
+              t-attf-action="/whois"
+              method="post"
+            >
+              <div class="input-group mt-3 d-md-flex">
+                <input
+                  type="text"
+                  name="domain"
+                  t-att-value="domain"
+                  id="domain"
+                  required="required"
+                  autofocus="autofocus"
+                  autocapitalize="off"
+                  class="form-control big-domain mr-1"
+                  placeholder="Domain name"
+                />
+                <input
+                  type="submit"
+                  class="d-none"
+                  value="Search domain"
+                  id="submit"
+                  name="submit"
+                />
+                <div class="text-center input-group-append" data-name="Button">
+                  <a
+                    href="javascript:{}"
+                    onclick="document.getElementById('submit').click(); return false;"
+                    class="btn btn-lg btn-primary"
+                  >
+                    <i class="fa fa-search" />
+                  </a>
+                </div>
+              </div>
+              <input
+                type="hidden"
+                id="csrf_token"
+                name="csrf_token"
+                value="request.csrf_token()"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+  <template id="place_into_bar" inherit_id="website.snippets" name="Place into bar">
+    <xpath
+      expr="//div[@id='snippet_content']/div[hasclass('o_panel_body')]"
+      position="inside"
+    >
+      <t
+        t-snippet="sgw_whois.snippet_bigwhois"
+        t-thumbnail="/sgw_whois/static/src/img/snippets_thumbs/icon_big_whois.png"
+      />
+    </xpath>
+  </template>
+</odoo>

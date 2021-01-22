@@ -1,0 +1,103 @@
+.o_user_menu .dropdown-menu img,
+.o_user_menu_mobile .dropdown-item img {
+  height: 20px;
+  margin: 2px;
+}
+
+.oe_form_configuration .o_settings_container span {
+  display: inline-block;
+}
+/*# sourceMappingURL=app.css.map */
+
+.padding {
+  padding: 10rem !important;
+}
+
+body {
+  background-color: #f8fafe;
+}
+
+.domain-form .form-group {
+  border: 1px solid #9ff0c8;
+  padding: 20px;
+}
+
+.form-control {
+  /* height: 52px !important; */
+  background: #fff !important;
+  color: #3a4348 !important;
+  font-size: 18px;
+  border-radius: 0px;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.big-domain {
+  height: 44px !important;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.domain-form .form-group .search-domain {
+  /* background: #22d47b; */
+  /* border: 2px solid #22d47b; */
+  color: #fff;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0;
+}
+
+.searchbar {
+  background: #4f4f4f;
+  padding: 0.55em;
+  height: auto;
+  margin: 15px auto;
+}
+
+#search-start,
+.searchbox-start {
+  font-size: 18px;
+  width: 120px;
+  margin: 0 0 0 -23px;
+}
+
+/* modal-dialog */
+.modal-dialog {
+  overflow-y: initial !important;
+}
+.modal-body {
+  height: 80vh;
+  overflow-y: auto;
+}
+button.close {
+  color: #000;
+  float: right;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 1;
+}
+
+/* Page product */
+/* we make more space to put the word years in the right, near of + button  */
+.css_quantity {
+  max-width: 165px;
+}
+/* Min Width to quantity input */
+.css_quantity input[name="add_qty"] {
+  width: 40px !important;
+}
+
+/* Cart Page */
+/* we make similar width to quantity boxes  */
+
+.oe_website_sale input.js_quantity {
+  max-width: 65px;
+  text-align: center;
+}
+
+/* Snippet Whois_Big */
+.whosearch {
+  padding-top: 25px;
+}
