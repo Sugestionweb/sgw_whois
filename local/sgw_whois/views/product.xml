@@ -6,10 +6,12 @@
     <field name="model">product.template</field>
     <field name="inherit_id" ref="product.product_template_form_view" />
     <field name="arch" type="xml">
-      <field name="list_price" position="after">
-        <field name="is_tld" />
-        <field name="list_tlds" />
-      </field>
+      <group name="group_standard_price" position="after">
+        <group name="group_domain">
+          <field name="is_tld" />
+          <field name="list_tlds" />
+        </group>
+      </group>
     </field>
   </record>
   <template

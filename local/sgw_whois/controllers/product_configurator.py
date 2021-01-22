@@ -3,12 +3,10 @@ import json
 from odoo import http
 from odoo.http import request
 
-from odoo.addons.sale.controllers.product_configurator import (
-    ProductConfiguratorController,
-)
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
-class WebSiteSale(ProductConfiguratorController):
+class WebSiteSale(WebsiteSale):
     @http.route(
         ['/shop/product/<model("product.template"):product>'],
         type="http",
