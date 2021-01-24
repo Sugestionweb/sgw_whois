@@ -18,7 +18,7 @@ class WebSiteSale(WebsiteSale):
         response = super(WebSiteSale, self).product(
             product, category="", search="", **kwargs
         )
-        response.qcontext["domain"] = request.httprequest.args.get("domain") or ""
+        response.qcontext["full_domain_name"] = request.httprequest.args.get("domain") or ""
         return response
 
     @http.route(
