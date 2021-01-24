@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <!-- Windows actions -->
+  <!-- whois_query action -->
+  <record model="ir.actions.act_window" id="action_sgw_whois_logquery">
+    <field name="name">Logs Whois</field>
+    <field name="res_model">sgw.whois.logquery</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+      Click to set a new entry.
+      </p>
+      <p>
+      Logs are created automatically
+      </p>
+    </field>
+  </record>
+  <record model="ir.actions.act_window" id="action_sgw_tld">
+    <field name="name">TLDs</field>
+    <field name="res_model">sgw.whois.tld</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+      Click to set a new entry.
+      </p>
+      <p>
+      TLDS
+      </p>
+    </field>
+  </record>
+  <record model="ir.actions.act_window" id="action_sgw_whois_server">
+    <field name="name">Servers</field>
+    <field name="res_model">sgw.whois.server</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+      Click to set a new entry.
+      </p>
+      <p>
+      Whois Servers
+      </p>
+    </field>
+  </record>
+</odoo>

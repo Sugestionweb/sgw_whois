@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <!-- This is the main template of the "/Whois" page. It consists of a
+   upper form with a text box that allows you to make a new whois query,
+   a results table and a modal form.
+  -->
+  <template id="whois_check" name="Whois Results">
+    <t t-call="website.layout">
+      <div class="oe_structure oe_empty" />
+      <section>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              <form
+                role="form"
+                id="form_whois"
+                name="form_whois"
+                t-attf-action="/whois"
+                method="post"
+              >
+                <div class="input-group mt-5 d-md-flex">
+                  <input
+                    type="text"
+                    name="domain"
+                    t-att-value="domain"
+                    id="domain"
+                    required="required"
+                    autofocus="autofocus"
+                    autocapitalize="off"
+                    class="form-control big-domain mr-1"
+                    placeholder="Domain name"
+                  />
+                  <input
+                    type="submit"
+                    class="d-none"
+                    value="Search domain"
+                    id="submit"
+                    name="submit"
+                  />
+                  <div class="text-center input-group-append" data-name="Button">
+                    <a
+                      href="javascript:{}"
+                      onclick="document.getElementById('submit').click(); return false;"
+                      class="btn btn-lg btn-primary"
+                    >
+                      <i class="fa fa-search" />
+                    </a>
+                  </div>
+                </div>
+                <input
+                  type="hidden"
+                  id="csrf_token"
+                  name="csrf_token"
+                  value="request.csrf_token()"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+      <img
+        class="mx-auto mt-4 d-block"
+        style="visibility:hidden;margin: 0 auto;"
+        id='loading_table'
+        src="/sgw_whois/static/src/img/ajax-loader.gif"
+      />
+      <!-- Results Table  -->
+      <section>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-10">
+              <table
+                id="tabla_result"
+                style="visibility:hidden;"
+                class="table table-hover table-sm "
+              >
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Price</th>
+                    <th>Buy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <t t-foreach="results" t-as="result">
+                    <tr>
+                      <t t-set="full_domain" t-value='domain + "." + result ' />
+                      <t t-set="product" t-value="results.get(result)[0]" />
+                      <td>
+                        <t t-esc="full_domain" />
+                      </td>
+                      <td t-att-id='"img_resultado_whois_" + str(result)'>
+                        <img
+                          t-att-id='"loading_" + str(result)'
+                          style="float:left;"
+                          src="/sgw_whois/static/src/img/ajax-loader.gif"
+                        />
+                      </td>
+                      <t t-set="product" t-value='results.get(result)[0]' />
+                      <td t-att-id='"price_" + str(result)'>
+                        <span t-field="product.list_price" />
+                        <span
+                          itemprop="priceCurrency"
+                          t-esc="user_id.partner_id.property_product_pricelist.currency_id.name"
+                          class='decimal_precision'
+                          t-att-data-precision="website.pricelist_id.currency_id.rounding"
+                        />
+                      </td>
+                      <td t-att-id='"link_buy_" + str(result)'>
+                        <a
+                          t-attf-href="/shop/product/#{ slug(product)}?domain=#{ full_domain}"
+                          style="display: block"
+                        >
+                          <span style="display: block"><i
+                              class="fa fa-shopping-cart"
+                            /><![CDATA[&nbsp;]]><span t-field='product.name' /></span>
+                        </a>
+                      </td>
+                      <td t-att-id='"button_whois_" + str(result)' />
+                    </tr>
+                  </t>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div style="margin-left:40px;" class="oe_structure oe_empty" />
+      <!-- Modal -->
+      <div id="myModal" tabindex="-1" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 id="modal_domain_title" class="modal-title">Domain name</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span><![CDATA[&times;]]></span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p id="whois_raw">...Asking the whois servers...</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+              >Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </t>
+  </template>
+</odoo>

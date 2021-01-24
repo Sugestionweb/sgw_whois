@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<odoo>
+  <!-- Menu system -->
+  <menuitem
+    id="menu_sgw_whois"
+    name="Whois"
+    parent="website.menu_website_configuration"
+    groups="sales_team.group_sale_manager"
+  />
+  <menuitem
+    id="menu_sgw_whois_g_tld"
+    name="TLDs"
+    parent="sgw_whois.menu_sgw_whois"
+    sequence="15"
+    groups="sales_team.group_sale_manager"
+    action="action_sgw_tld"
+  />
+  <menuitem
+    id="menu_sgw_whoisserver"
+    name="Whois Servers"
+    parent="sgw_whois.menu_sgw_whois"
+    sequence="16"
+    groups="sales_team.group_sale_manager"
+    action="action_sgw_whois_server"
+  />
+  <menuitem
+    id="menu_sgw_whois_whois_logquery"
+    name="Logs"
+    parent="sgw_whois.menu_sgw_whois"
+    sequence="17"
+    action="action_sgw_whois_logquery"
+    groups="sales_team.group_sale_manager"
+  />
+</odoo>
