@@ -8,10 +8,11 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 class WebSiteSale(WebsiteSale):
     @http.route(
-        ['/shop/product/<model("product.template"):product>'],
+        ['/shop/<model("product.template"):product>'],
         type="http",
         auth="public",
         website=True,
+        sitemap=True,
     )
     def product(self, product, category="", search="", **kwargs):
         response = super(WebSiteSale, self).product(
@@ -32,9 +33,9 @@ class WebSiteSale(WebsiteSale):
         form = http.request.httprequest.form
         context = request.context.copy()
 
-        if "domain" in form:
-            if form["domain"] != "":
-                context.update(domain=form["domain"])
+        if "full_domain_name" in form:
+            if form["full_domain_name"] != "":
+                context.update(full_domain_name=form["full_domain_name"])
 
         # This route is called when adding a product to cart (no options).
         sale_order = request.website.sale_get_order(force_create=True)

@@ -1,4 +1,3 @@
-import imp
 import json
 import re
 
@@ -68,7 +67,6 @@ class WhoisController(Website):
                     "whois_raw": whois_raw,
                 }
             )
-
         return None
 
     def _get_obj_whois(self, full_name):

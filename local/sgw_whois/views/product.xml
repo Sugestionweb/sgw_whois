@@ -14,29 +14,34 @@
       </group>
     </field>
   </record>
-  
   <!-- Product Page -->
-  <template id="sgw_product_addtocart" inherit_id="website_sale.product">
-     <xpath expr="//div/section/div[2]/div[2]/h1" position="after">
+  <template
+    id="sgw_website_sale_product"
+    name="Product modification"
+    inherit_id="website_sale.product"
+  >
+    <xpath expr="//div/section/div[2]/div[2]/h1" position="after">
       <h4>
-        <t t-esc="domain" />
+        <t t-esc="full_domain_name" />
       </h4>
     </xpath>
+
     <xpath expr="//div/section/div[2]/div[2]/form" position="inside">
       <input
-        type="hidden"
         class="domain"
-        name="domain"
-        t-att-value="domain if domain else ''"
+        name="full_domain_name"
+        id="full_domain_name"
+        t-att-value="full_domain_name if full_domain_name else ''"
+        
       />
     </xpath>
     <xpath expr="//div/section/div[2]/div[2]/hr" position="replace">
       <hr class="m-t" t-if="product.description_sale" />
     </xpath>
-    <!-- If there is no domain selected, the button to do a whois is displayed
+  <!-- If there is no domain selected, the button to do a whois is displayed
    and the add to cart is hidden -->
     <xpath expr="//a[@id='add_to_cart']" position="replace">
-      <t t-if="product.is_tld and domain">
+      <t t-if="product.is_tld and full_domain_name">
         <a
           id="add_to_cart"
           class="btn btn-success btn-lg mt8 js_check_product a-submit"
@@ -50,7 +55,7 @@
           href="#"
         >Add to cart</a>
       </t>
-      <t t-if="product.is_tld and not domain">
+      <t t-if="product.is_tld and not full_domain_name">
         <a
           id="gowhois"
           class="btn btn-warning btn-lg mt8"
@@ -58,6 +63,11 @@
         >Search domain</a>
       </t>
     </xpath>
+  
+  </template>
+  
+  <template id="sgw_product_addtocart" inherit_id="website_sale.product">
+    
   </template>
   <!-- Product page, quantities: We just add the word years to the right
   of the + symbol, but since it is an inheriting view, it is preferable
@@ -112,15 +122,9 @@
       </t>
     </xpath>
   </template>
-  <template id="sgw_products_item" inherit_id="website_sale.cart_summary">
-    <xpath expr="//td[hasclass('td-product_name')]" position="replace">
-      <td class='td-product_name' t-if="line.product_id.product_tmpl_id">
-        <div>
-          <strong t-field="line.name" />
-        </div>
-      </td>
-    </xpath>
-  </template>
+  
+  <!-- /SHOP/CART PAGES -->
+  
   <!-- In "My Cart" page (1st step of the purchase) Show "Years" next to quantity to indicate
     that quantity is equivalent to years if product is tld -->
   <template id="sgw_products_cart_lines" inherit_id="website_sale.cart_lines">
@@ -129,6 +133,18 @@
         t-if="line.product_id.is_tld"
         class="mt-2 small align-middle font-weight-bold"
       >Years</span>
+    </xpath>
+  </template>
+
+<!-- Second step (Proccess checkout) -->
+  <template id="sgw_products_item" inherit_id="website_sale.cart_summary">
+    <xpath expr="//td[hasclass('td-product_name')]" position="replace">
+      <td class='td-product_name' t-if="line.product_id.product_tmpl_id">
+        <div>
+          <strong t-field="line.name" /><br/>
+          <strong t-field="line.domain_name" />
+        </div>
+      </td>
     </xpath>
   </template>
 </odoo>
