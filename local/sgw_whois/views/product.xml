@@ -28,12 +28,15 @@
 
     <xpath expr="//div/section/div[2]/div[2]/form" position="inside">
       <input
-        class="domain"
+        class="form-control s_website_form_input"
         name="full_domain_name"
         id="full_domain_name"
         t-att-value="full_domain_name if full_domain_name else ''"
         
       />
+
+      <input id="contact5" type="text" class="form-control s_website_form_input" name="subject" required=""/>
+                                        
     </xpath>
     <xpath expr="//div/section/div[2]/div[2]/hr" position="replace">
       <hr class="m-t" t-if="product.description_sale" />
@@ -133,6 +136,9 @@
         t-if="line.product_id.is_tld"
         class="mt-2 small align-middle font-weight-bold"
       >Years</span>
+    </xpath>
+    <xpath expr="//td[hasclass('td-product_name')]" position="inside">
+          <strong t-field="line.domain_name" />
     </xpath>
   </template>
 

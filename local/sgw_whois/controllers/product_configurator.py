@@ -30,12 +30,13 @@ class WebSiteSale(WebsiteSale):
         csrf=False,
     )
     def cart_update(self, product_id, add_qty=1, set_qty=0, **kw):
-        form = http.request.httprequest.form
+        referrer = http.request.httprequest.referrer
         context = request.context.copy()
 
-        if "full_domain_name" in form:
-            if form["full_domain_name"] != "":
-                context.update(full_domain_name=form["full_domain_name"])
+        if "domain=" in referrer:
+            if referrer.split("domain=")[1] != "":
+                full_domain_name = referrer.split("domain=")[1]
+                context.update(full_domain_name=full_domain_name)
 
         # This route is called when adding a product to cart (no options).
         sale_order = request.website.sale_get_order(force_create=True)

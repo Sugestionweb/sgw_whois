@@ -18,7 +18,7 @@
     With this module you can make domain name queries to Whois databases.
     """,
     "images": ["static/description/main_screenshot.png"],
-    "depends": ["website_sale"],
+    "depends": ["website_sale","sale_product_configurator"],
     "data": [
         "data/sgw_whois_actions.xml",
         "data/sgw_whois_menu.xml",
