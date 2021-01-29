@@ -6,4 +6,6 @@
 /src/
 /filestore/
 /logs/
-
+/bin
+/bin/
+sgw_whois_14.cfg
