@@ -26,18 +26,6 @@
       </h4>
     </xpath>
 
-    <xpath expr="//div/section/div[2]/div[2]/form" position="inside">
-      <input
-        class="form-control s_website_form_input"
-        name="full_domain_name"
-        id="full_domain_name"
-        t-att-value="full_domain_name if full_domain_name else ''"
-        
-      />
-
-      <input id="contact5" type="text" class="form-control s_website_form_input" name="subject" required=""/>
-                                        
-    </xpath>
     <xpath expr="//div/section/div[2]/div[2]/hr" position="replace">
       <hr class="m-t" t-if="product.description_sale" />
     </xpath>
@@ -69,10 +57,7 @@
   
   </template>
   
-  <template id="sgw_product_addtocart" inherit_id="website_sale.product">
-    
-  </template>
-  <!-- Product page, quantities: We just add the word years to the right
+    <!-- Product page, quantities: We just add the word years to the right
   of the + symbol, but since it is an inheriting view, it is preferable
   to replace it completely, that's why its name is website_sale.product_quantity,
   because it overwrites that one.
@@ -148,7 +133,6 @@
       <td class='td-product_name' t-if="line.product_id.product_tmpl_id">
         <div>
           <strong t-field="line.name" /><br/>
-          <strong t-field="line.domain_name" />
         </div>
       </td>
     </xpath>
